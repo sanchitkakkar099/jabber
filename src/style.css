@@ -170,7 +170,7 @@ ul { list-style: none; }
     align-items: center;
 }
 .nav-logo-img {
-    height: 44px;
+    height: 64px;
     width: auto;
     display: block;
     object-fit: contain;
@@ -1273,7 +1273,7 @@ ul { list-style: none; }
     .lp-3, .lp-4, .lp-5, .lp-6, .lp-9, .lp-10,
     .lp-11, .lp-13, .lp-14, .lp-15 { display: none; }
 
-    .nav-logo-img { height: 36px; }
+    .nav-logo-img { height: 52px; }
 
     .features-grid { grid-template-columns: 1fr; gap: 14px; }
 
