@@ -160,7 +160,7 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
       </nav>
 
       <div className="adm-sidebar-footer">
-        <a href="https://jabber.live" target="_blank" rel="noreferrer" className="adm-nav-item" style={{ textDecoration:'none' }}>
+        <a href="https://jabber-production.up.railway.app" target="_blank" rel="noreferrer" className="adm-nav-item" style={{ textDecoration:'none' }}>
           <span className="adm-nav-icon">{Icon.overview}</span>
           <span>View Site</span>
         </a>
