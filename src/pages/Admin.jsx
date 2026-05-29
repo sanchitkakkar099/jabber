@@ -12,33 +12,6 @@ import AdminBlogEditor from '../components/AdminBlogEditor'
 const ADMIN_PASS  = 'jabber@2026'
 const SESSION_KEY = 'jabber_admin_auth'
 
-// ── Static mock data (page views / blog performance — replace with PostHog) ───
-const WEEKLY_VIEWS = [
-  { day:'Mon', views:234 }, { day:'Tue', views:312 }, { day:'Wed', views:287 },
-  { day:'Thu', views:401 }, { day:'Fri', views:356 }, { day:'Sat', views:189 }, { day:'Sun', views:145 }
-]
-const TOP_PAGES = [
-  { page:'/', title:'Home',          views:1847, conv:'4.8%' },
-  { page:'/pricing',    title:'Pricing',      views:623,  conv:'7.2%' },
-  { page:'/features',   title:'Features',     views:512,  conv:'3.1%' },
-  { page:'/how-it-works',title:'How It Works',views:401,  conv:'3.9%' },
-  { page:'/blog',       title:'Blog',         views:298,  conv:'2.4%' },
-  { page:'/use-cases',  title:'Use Cases',    views:234,  conv:'1.8%' },
-]
-const BLOG_POSTS = [
-  { title:'The Hidden Cost of Live Interpretation',               views:412, leads:18, conv:'4.4%' },
-  { title:'How to Add Translation to Any OBS Stream',             views:381, leads:24, conv:'6.3%' },
-  { title:'Why Sub-2-Second Latency Matters',                     views:267, leads:9,  conv:'3.4%' },
-  { title:'5 Events That Went Global with Multilingual Streaming',views:231, leads:11, conv:'4.8%' },
-  { title:'Jabber vs. Traditional Interpretation',                views:198, leads:14, conv:'7.1%' },
-  { title:'The Future of Live Events Is Multilingual',            views:176, leads:7,  conv:'4.0%' },
-]
-const FUNNEL = [
-  { stage:'Website Visitors', n:1924, pct:100 },
-  { stage:'CTA Interactions', n:487,  pct:25  },
-  { stage:'Email Captured',   n:203,  pct:11  },
-  { stage:'Signed Up',        n:89,   pct:5   },
-]
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 function fmtDate(iso) {
@@ -257,23 +230,29 @@ function Overview({ leads, signups, tickets }) {
         </div>
       )}
 
-      {/* Funnel */}
+      {/* Real conversion funnel */}
       <div className="adm-card" style={{ marginBottom:24 }}>
-        <h3 className="adm-card-title">Conversion Funnel <span className="adm-card-note">last 30 days · estimated</span></h3>
+        <h3 className="adm-card-title">Conversion Funnel <span className="adm-card-note">real data · all time</span></h3>
         <div className="adm-funnel">
-          {FUNNEL.map((f, i) => (
+          {[
+            { stage:'Emails Captured', n: leads.length,   pct: 100 },
+            { stage:'Signed Up',       n: signups.length, pct: leads.length ? Math.round((signups.length / leads.length) * 100) : 0 },
+          ].map((f, i) => (
             <div key={f.stage} className="adm-funnel-row">
               <div className="adm-funnel-label">
                 <span>{f.stage}</span>
                 <span className="adm-funnel-n">{f.n.toLocaleString()}</span>
               </div>
               <div className="adm-funnel-bar-bg">
-                <div className="adm-funnel-bar" style={{ width:`${f.pct}%`, opacity: 1 - i*0.15 }} />
+                <div className="adm-funnel-bar" style={{ width: leads.length === 0 ? '0%' : `${f.pct}%`, opacity: 1 - i * 0.2 }} />
               </div>
-              <span className="adm-funnel-pct">{f.pct}%</span>
+              <span className="adm-funnel-pct">{leads.length === 0 ? '—' : `${f.pct}%`}</span>
             </div>
           ))}
         </div>
+        <p style={{ fontSize:'0.78rem', color:'#94a3b8', marginTop:12, marginBottom:0 }}>
+          Connect PostHog to track website visitors and CTA interactions above the lead stage.
+        </p>
       </div>
 
       {/* Recent activity */}
@@ -533,8 +512,6 @@ function PostHogCard() {
 
 // ── Analytics ─────────────────────────────────────────────────────────────────
 function AnalyticsSection({ leads, signups }) {
-  const maxViews = Math.max(...WEEKLY_VIEWS.map(d => d.views))
-  const totalViews = WEEKLY_VIEWS.reduce((s,d) => s+d.views, 0)
   const utmRows = buildUTMAttribution(leads, signups)
 
   return (
@@ -542,7 +519,7 @@ function AnalyticsSection({ leads, signups }) {
       <div className="adm-section-header">
         <div>
           <h1 className="adm-page-title">Analytics</h1>
-          <p className="adm-page-sub">UTM attribution from real leads + estimated site performance</p>
+          <p className="adm-page-sub">UTM attribution from real leads · connect PostHog for pageviews & funnels</p>
         </div>
       </div>
 
@@ -550,18 +527,13 @@ function AnalyticsSection({ leads, signups }) {
       <PostHogCard />
 
       <div className="adm-two-col" style={{ marginTop:24 }}>
-        {/* Page views bar chart (mock) */}
-        <div className="adm-card">
-          <h3 className="adm-card-title">Page Views — This Week <span className="adm-card-note">{totalViews.toLocaleString()} total · estimated</span></h3>
-          <div className="adm-bar-chart">
-            {WEEKLY_VIEWS.map(d => (
-              <div key={d.day} className="adm-bar-col">
-                <span className="adm-bar-val">{d.views}</span>
-                <div className="adm-bar" style={{ height:`${(d.views/maxViews)*140}px` }} />
-                <span className="adm-bar-label">{d.day}</span>
-              </div>
-            ))}
-          </div>
+        {/* PostHog pageviews prompt */}
+        <div className="adm-card" style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', minHeight:220, gap:12 }}>
+          <div style={{ fontSize:'2.2rem' }}>📊</div>
+          <h3 style={{ margin:0, fontSize:'1rem', fontWeight:700, color:'#1e293b' }}>Page Views &amp; Sessions</h3>
+          <p style={{ margin:0, fontSize:'0.85rem', color:'#64748b', maxWidth:260 }}>
+            Real-time pageview data lives in PostHog. Enter your Project ID above to get direct links.
+          </p>
         </div>
 
         {/* Real UTM attribution */}
@@ -591,24 +563,13 @@ function AnalyticsSection({ leads, signups }) {
         </div>
       </div>
 
-      {/* Top pages */}
-      <div className="adm-card">
-        <h3 className="adm-card-title">Top Pages <span className="adm-card-note">estimated · connect PostHog for live data</span></h3>
-        <table className="adm-table">
-          <thead><tr><th>Page</th><th>Views</th><th>Conversion</th></tr></thead>
-          <tbody>
-            {TOP_PAGES.map(p => (
-              <tr key={p.page}>
-                <td>
-                  <span style={{ fontWeight:600 }}>{p.title}</span>
-                  <span className="adm-td-muted" style={{ marginLeft:8, fontFamily:'monospace', fontSize:'0.78rem' }}>{p.page}</span>
-                </td>
-                <td style={{ fontWeight:600 }}>{p.views.toLocaleString()}</td>
-                <td><span style={{ color:'#22c55e', fontWeight:700 }}>{p.conv}</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Top pages — PostHog prompt */}
+      <div className="adm-card" style={{ display:'flex', alignItems:'center', gap:20 }}>
+        <div style={{ fontSize:'2rem', flexShrink:0 }}>🔍</div>
+        <div style={{ flex:1 }}>
+          <h3 style={{ margin:'0 0 4px', fontSize:'1rem', fontWeight:700, color:'#1e293b' }}>Top Pages &amp; Conversion Rates</h3>
+          <p style={{ margin:0, fontSize:'0.85rem', color:'#64748b' }}>Per-page view counts and conversion rates are tracked by PostHog. Add your Project ID above to access these insights.</p>
+        </div>
       </div>
     </div>
   )
