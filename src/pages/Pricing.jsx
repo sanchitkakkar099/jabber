@@ -55,6 +55,9 @@ export default function Pricing() {
                   <span className="price-amount">{p.priceDisplay}</span>
                   {p.priceSuffix && <span className="price-period">&nbsp;{p.priceSuffix}</span>}
                 </div>
+                {p.priceNote && (
+                  <div className="pricing-price-note">{p.priceNote}</div>
+                )}
                 <div className="pricing-desc">{p.desc}</div>
                 <hr className="pricing-divider" />
                 <ul className="pricing-features">

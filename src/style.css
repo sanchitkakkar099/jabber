@@ -1409,6 +1409,20 @@ ul { list-style: none; }
 .price-currency { font-size: 1.3rem; font-weight: 700; color: var(--slate-500); vertical-align: top; margin-top: 8px; display: inline-block; }
 .price-amount { font-size: 3rem; font-weight: 900; color: var(--slate-900); letter-spacing: -0.04em; }
 .price-period { font-size: 0.875rem; color: var(--slate-500); font-weight: 500; }
+.pricing-price-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(99,102,241,0.08);
+    color: var(--indigo-600);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
+}
+.pricing-price-note::before { content: '🎁'; font-size: 0.75rem; }
 .pricing-desc { font-size: 0.875rem; color: var(--slate-500); margin-bottom: 20px; line-height: 1.6; }
 .pricing-divider { border: none; border-top: 1px solid var(--slate-100); margin-bottom: 20px; }
 .pricing-features { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
