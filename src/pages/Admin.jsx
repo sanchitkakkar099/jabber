@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getLeads, getSignups, updateLeadStatus, updateSignupStatus, exportCSV, seedDemoData } from '../utils/leads'
 import { getTickets, updateTicket, addTicketNote, seedTickets } from '../utils/tickets'
 import { utmLabel } from '../utils/utm'
+import { isConnected } from '../utils/supabase'
 import AdminSupport from '../components/AdminSupport'
 import { getPlans, savePlan, resetPlans, DEFAULT_PLANS } from '../utils/plans'
 import { getBlogPosts, saveBlogPost, deleteBlogPost, seedBlogPosts } from '../utils/blogStorage'
@@ -144,6 +145,19 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
       <div className="adm-sidebar-logo">
         <img src="/logo.png" alt="Jabber" style={{ height:36, filter:'invert(1)', mixBlendMode:'screen' }} />
         <span className="adm-sidebar-badge">Admin</span>
+      </div>
+      <div style={{ padding:'6px 16px 12px', borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+        <span style={{
+          display:'inline-flex', alignItems:'center', gap:5,
+          fontSize:'0.68rem', fontWeight:700, letterSpacing:'0.03em',
+          color: isConnected() ? '#4ade80' : '#fbbf24',
+          background: isConnected() ? 'rgba(74,222,128,0.12)' : 'rgba(251,191,36,0.12)',
+          border: `1px solid ${isConnected() ? 'rgba(74,222,128,0.25)' : 'rgba(251,191,36,0.25)'}`,
+          borderRadius:999, padding:'3px 9px',
+        }}>
+          <span style={{ width:6, height:6, borderRadius:'50%', background: isConnected() ? '#4ade80' : '#fbbf24', display:'inline-block', flexShrink:0 }} />
+          {isConnected() ? 'PostgreSQL' : 'Demo mode'}
+        </span>
       </div>
 
       <nav className="adm-nav">
@@ -366,7 +380,7 @@ function LeadsSection({ leads, onStatusChange, onRefresh }) {
                 <td>
                   <select
                     value={l.status}
-                    onChange={e => { onStatusChange(l.id, e.target.value); onRefresh() }}
+                    onChange={e => onStatusChange(l.id, e.target.value)}
                     className="adm-status-select"
                     style={{ background: STATUS_COLORS[l.status]?.bg, color: STATUS_COLORS[l.status]?.color }}
                   >
@@ -431,7 +445,7 @@ function SignupsSection({ signups, onStatusChange, onRefresh }) {
                 <td>
                   <select
                     value={s.status}
-                    onChange={e => { onStatusChange(s.id, e.target.value); onRefresh() }}
+                    onChange={e => onStatusChange(s.id, e.target.value)}
                     className="adm-status-select"
                     style={{ background: STATUS_COLORS[s.status]?.bg, color: STATUS_COLORS[s.status]?.color }}
                   >
@@ -770,7 +784,7 @@ function PlansSection({ signups }) {
 
       <div className="adm-card">
         <h3 className="adm-card-title">Plans Editor</h3>
-        <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:16 }}>Click a plan to expand and edit. Changes save to localStorage and reflect on /pricing immediately.</p>
+        <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:16 }}>Click a plan to expand and edit. Changes save to this browser's local storage and reflect on /pricing immediately.</p>
         {plans.map(p => (
           <PlanEditorPanel key={p.id} plan={p} onSaved={reload} />
         ))}
@@ -799,24 +813,57 @@ export default function Admin() {
   const [leads,   setLeads]   = useState([])
   const [signups, setSignups] = useState([])
   const [tickets, setTickets] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    seedDemoData()
-    seedTickets()
-    seedBlogPosts()
-    refresh()
-  }, [])
+    if (!auth) return
+    setLoading(true)
+    ;(async () => {
+      await Promise.all([seedDemoData(), seedTickets()])
+      seedBlogPosts()
+      await refresh()
+      setLoading(false)
+    })()
+  }, [auth])
 
-  function refresh() {
-    setLeads(getLeads())
-    setSignups(getSignups())
-    setTickets(getTickets())
+  async function refresh() {
+    const [l, s, t] = await Promise.all([getLeads(), getSignups(), getTickets()])
+    setLeads(l)
+    setSignups(s)
+    setTickets(t)
+  }
+
+  // Optimistic UI + async DB write
+  async function handleLeadStatus(id, status) {
+    setLeads(prev => prev.map(l => l.id === id ? { ...l, status } : l))
+    await updateLeadStatus(id, status)
+  }
+  async function handleSignupStatus(id, status) {
+    setSignups(prev => prev.map(s => s.id === id ? { ...s, status } : s))
+    await updateSignupStatus(id, status)
+  }
+  async function handleTicketUpdate(id, patch) {
+    setTickets(prev => prev.map(t => t.id === id ? { ...t, ...patch } : t))
+    await updateTicket(id, patch)
+  }
+  async function handleAddNote(id, text) {
+    await addTicketNote(id, text)
+    await refresh()
   }
 
   function handleAuth()    { sessionStorage.setItem(SESSION_KEY, '1'); setAuth(true) }
   function handleSignOut() { sessionStorage.removeItem(SESSION_KEY);   setAuth(false) }
 
   if (!auth) return <LoginScreen onAuth={handleAuth} />
+
+  if (loading) return (
+    <div className="adm-loading">
+      <div className="adm-loading-inner">
+        <div className="adm-loading-spinner" />
+        <p>{isConnected() ? 'Connecting to PostgreSQL…' : 'Loading dashboard…'}</p>
+      </div>
+    </div>
+  )
 
   const newLeads    = leads.filter(l => l.status === 'new').length
   const newSignups  = signups.length
@@ -832,12 +879,12 @@ export default function Admin() {
       />
       <main className="adm-main">
         {section === 'overview'  && <Overview  leads={leads} signups={signups} tickets={tickets} />}
-        {section === 'leads'     && <LeadsSection leads={leads} onStatusChange={updateLeadStatus} onRefresh={refresh} />}
-        {section === 'signups'   && <SignupsSection signups={signups} onStatusChange={updateSignupStatus} onRefresh={refresh} />}
+        {section === 'leads'     && <LeadsSection leads={leads} onStatusChange={handleLeadStatus} onRefresh={refresh} />}
+        {section === 'signups'   && <SignupsSection signups={signups} onStatusChange={handleSignupStatus} onRefresh={refresh} />}
         {section === 'analytics' && <AnalyticsSection leads={leads} signups={signups} />}
         {section === 'blog'      && <BlogSection onRefresh={refresh} />}
         {section === 'plans'     && <PlansSection signups={signups} />}
-        {section === 'support'   && <AdminSupport tickets={tickets} onUpdate={updateTicket} onAddNote={addTicketNote} onRefresh={refresh} />}
+        {section === 'support'   && <AdminSupport tickets={tickets} onUpdate={handleTicketUpdate} onAddNote={handleAddNote} onRefresh={refresh} />}
       </main>
     </div>
   )

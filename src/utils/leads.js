@@ -1,52 +1,146 @@
 import { getUTM } from './utm'
+import { supabase } from './supabase'
 
-const LEADS_KEY    = 'jabber_leads'
-const SIGNUPS_KEY  = 'jabber_signups'
-const SEEDED_KEY   = 'jabber_seeded'
+// ── localStorage fallback keys ─────────────────────────────────────────────────
+const LEADS_KEY   = 'jabber_leads'
+const SIGNUPS_KEY = 'jabber_signups'
+const SEEDED_KEY  = 'jabber_seeded'
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-function read(key) {
+function lsRead(key) {
   try { return JSON.parse(localStorage.getItem(key) || '[]') } catch { return [] }
 }
-function write(key, data) {
+function lsWrite(key, data) {
   localStorage.setItem(key, JSON.stringify(data))
 }
 
-// ── Leads (CTA email captures) ───────────────────────────────────────────────
-export function saveLead({ email, source = 'CTA', page = '/' }) {
-  const leads = read(LEADS_KEY)
-  if (leads.find(l => l.email === email)) return   // no duplicates
-  leads.unshift({ id: Date.now(), email, source, page, utm: getUTM(), date: new Date().toISOString(), status: 'new' })
-  write(LEADS_KEY, leads)
+// ── Row → UI shape mappers ─────────────────────────────────────────────────────
+function rowToLead(row) {
+  return {
+    id:     row.id,
+    email:  row.email,
+    source: row.source  || 'CTA',
+    page:   row.page    || '/',
+    utm: {
+      utm_source:   row.utm_source   || '',
+      utm_medium:   row.utm_medium   || '',
+      utm_campaign: row.utm_campaign || '',
+      utm_content:  row.utm_content  || '',
+      utm_term:     row.utm_term     || '',
+    },
+    date:   row.created_at,
+    status: row.status  || 'new',
+  }
 }
 
-export function getLeads() { return read(LEADS_KEY) }
-
-export function updateLeadStatus(id, status) {
-  write(LEADS_KEY, read(LEADS_KEY).map(l => l.id === id ? { ...l, status } : l))
+function rowToSignup(row) {
+  return {
+    id:        row.id,
+    firstName: row.first_name || '',
+    lastName:  row.last_name  || '',
+    email:     row.email,
+    company:   row.company    || '—',
+    role:      row.role       || '—',
+    plan:      row.plan       || 'Starter (Free Credits)',
+    utm: {
+      utm_source:   row.utm_source   || '',
+      utm_medium:   row.utm_medium   || '',
+      utm_campaign: row.utm_campaign || '',
+      utm_content:  row.utm_content  || '',
+      utm_term:     row.utm_term     || '',
+    },
+    date:   row.created_at,
+    status: row.status || 'waitlist',
+  }
 }
 
-// ── Signups (full form submissions) ──────────────────────────────────────────
-export function saveSignup({ firstName, lastName, email, company, role }) {
-  const signups = read(SIGNUPS_KEY)
-  if (signups.find(s => s.email === email)) return
-  signups.unshift({
-    id: Date.now(),
-    firstName, lastName, email,
-    company: company || '—',
-    role: role || '—',
-    plan: 'Starter (Free Credits)',
-    utm: getUTM(),
-    date: new Date().toISOString(),
-    status: 'waitlist'
-  })
-  write(SIGNUPS_KEY, signups)
+// ── Leads ─────────────────────────────────────────────────────────────────────
+export async function saveLead({ email, source = 'CTA', page = '/' }) {
+  const utm = getUTM()
+  if (supabase) {
+    const { error } = await supabase.from('leads').insert({
+      email, source, page,
+      utm_source:   utm.utm_source   || null,
+      utm_medium:   utm.utm_medium   || null,
+      utm_campaign: utm.utm_campaign || null,
+      utm_content:  utm.utm_content  || null,
+      utm_term:     utm.utm_term     || null,
+    })
+    if (error) console.error('saveLead:', error.message)
+  } else {
+    const leads = lsRead(LEADS_KEY)
+    if (leads.find(l => l.email === email)) return
+    leads.unshift({ id: Date.now(), email, source, page, utm, date: new Date().toISOString(), status: 'new' })
+    lsWrite(LEADS_KEY, leads)
+  }
 }
 
-export function getSignups() { return read(SIGNUPS_KEY) }
+export async function getLeads() {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('leads').select('*').order('created_at', { ascending: false })
+    if (error) { console.error('getLeads:', error.message); return [] }
+    return (data || []).map(rowToLead)
+  }
+  return lsRead(LEADS_KEY)
+}
 
-export function updateSignupStatus(id, status) {
-  write(SIGNUPS_KEY, read(SIGNUPS_KEY).map(s => s.id === id ? { ...s, status } : s))
+export async function updateLeadStatus(id, status) {
+  if (supabase) {
+    const { error } = await supabase.from('leads').update({ status }).eq('id', id)
+    if (error) console.error('updateLeadStatus:', error.message)
+  } else {
+    lsWrite(LEADS_KEY, lsRead(LEADS_KEY).map(l => l.id === id ? { ...l, status } : l))
+  }
+}
+
+// ── Signups ───────────────────────────────────────────────────────────────────
+export async function saveSignup({ firstName, lastName, email, company, role }) {
+  const utm = getUTM()
+  if (supabase) {
+    const { error } = await supabase.from('signups').insert({
+      first_name: firstName,
+      last_name:  lastName,
+      email,
+      company:    company || null,
+      role:       role    || null,
+      plan:       'Starter (Free Credits)',
+      utm_source:   utm.utm_source   || null,
+      utm_medium:   utm.utm_medium   || null,
+      utm_campaign: utm.utm_campaign || null,
+      utm_content:  utm.utm_content  || null,
+      utm_term:     utm.utm_term     || null,
+    })
+    if (error) console.error('saveSignup:', error.message)
+  } else {
+    const signups = lsRead(SIGNUPS_KEY)
+    if (signups.find(s => s.email === email)) return
+    signups.unshift({
+      id: Date.now(), firstName, lastName, email,
+      company: company || '—', role: role || '—',
+      plan: 'Starter (Free Credits)',
+      utm, date: new Date().toISOString(), status: 'waitlist'
+    })
+    lsWrite(SIGNUPS_KEY, signups)
+  }
+}
+
+export async function getSignups() {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('signups').select('*').order('created_at', { ascending: false })
+    if (error) { console.error('getSignups:', error.message); return [] }
+    return (data || []).map(rowToSignup)
+  }
+  return lsRead(SIGNUPS_KEY)
+}
+
+export async function updateSignupStatus(id, status) {
+  if (supabase) {
+    const { error } = await supabase.from('signups').update({ status }).eq('id', id)
+    if (error) console.error('updateSignupStatus:', error.message)
+  } else {
+    lsWrite(SIGNUPS_KEY, lsRead(SIGNUPS_KEY).map(s => s.id === id ? { ...s, status } : s))
+  }
 }
 
 // ── CSV Export ────────────────────────────────────────────────────────────────
@@ -60,42 +154,77 @@ export function exportCSV(data, filename) {
   a.click(); URL.revokeObjectURL(url)
 }
 
-// ── Seed demo data (runs once on first admin visit) ───────────────────────────
-export function seedDemoData() {
-  if (localStorage.getItem(SEEDED_KEY)) return
+// ── Seed demo data ────────────────────────────────────────────────────────────
+export async function seedDemoData() {
   const now = Date.now()
   const day = 86400000
 
-  const demoLeads = [
-    { id: now-1,  email:'sarah.chen@globalconf.io',  source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-1*day).toISOString(),  status:'contacted'  },
-    { id: now-2,  email:'marco.b@euromedia.eu',      source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-2*day).toISOString(),  status:'new'        },
-    { id: now-3,  email:'priya.nair@techsummit.in',  source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-2*day).toISOString(),  status:'new'        },
-    { id: now-4,  email:'james.o@broadcastuk.co.uk', source:'Features CTA', page:'/features',     utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-3*day).toISOString(),  status:'interested' },
-    { id: now-5,  email:'anika.s@worshiptech.org',   source:'Hero CTA',     page:'/',             utm:{},                                                                              date:new Date(now-4*day).toISOString(),  status:'contacted'  },
-    { id: now-6,  email:'luca.m@sportsmedia.it',     source:'How It Works', page:'/how-it-works', utm:{ utm_source:'google',   utm_medium:'organic', utm_campaign:''               }, date:new Date(now-5*day).toISOString(),  status:'new'        },
-    { id: now-7,  email:'fatima.z@confhub.ae',       source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-6*day).toISOString(),  status:'new'        },
-    { id: now-8,  email:'alex.r@unibroadcast.edu',   source:'Blog CTA',     page:'/blog',         utm:{},                                                                              date:new Date(now-7*day).toISOString(),  status:'interested' },
-    { id: now-9,  email:'nina.k@events.de',          source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'competitor'      }, date:new Date(now-9*day).toISOString(),  status:'new'        },
-    { id: now-10, email:'carlos.v@latinconf.mx',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-11*day).toISOString(), status:'contacted'  },
-    { id: now-11, email:'yuki.t@eventstech.jp',      source:'Features CTA', page:'/features',     utm:{},                                                                              date:new Date(now-13*day).toISOString(), status:'new'        },
-    { id: now-12, email:'helen.f@ngoconnect.org',    source:'Use Cases',    page:'/use-cases',    utm:{ utm_source:'referral', utm_medium:'referral', utm_campaign:''               }, date:new Date(now-15*day).toISOString(), status:'interested' },
-    { id: now-13, email:'david.p@mediapro.fr',       source:'Blog CTA',     page:'/blog',         utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'content'         }, date:new Date(now-18*day).toISOString(), status:'new'        },
-    { id: now-14, email:'riya.g@startupconf.co',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-20*day).toISOString(), status:'contacted'  },
-    { id: now-15, email:'tom.w@hybridevents.io',     source:'Pricing CTA',  page:'/pricing',      utm:{},                                                                              date:new Date(now-23*day).toISOString(), status:'new'        },
-  ]
+  if (supabase) {
+    // Only seed if DB is empty
+    const { count, error } = await supabase
+      .from('leads').select('*', { count: 'exact', head: true })
+    if (error || count > 0) return
 
-  const demoSignups = [
-    { id: now-101, firstName:'Sofia',   lastName:'Martinez',  email:'sofia.m@euromedia.eu',     company:'EuroMedia Group',      role:'event-organiser', plan:'Starter (Free Credits)', date: new Date(now - 1*day).toISOString(),  status:'waitlist'  },
-    { id: now-102, firstName:'Arjun',   lastName:'Kumar',     email:'arjun.k@techconfasia.com', company:'TechConf Asia',         role:'av-tech',         plan:'Starter (Free Credits)', date: new Date(now - 3*day).toISOString(),  status:'waitlist'  },
-    { id: now-103, firstName:'Mei',     lastName:'Zhang',     email:'mei.z@globalevents.cn',    company:'Global Events Co.',     role:'broadcast',       plan:'Starter (Free Credits)', date: new Date(now - 5*day).toISOString(),  status:'interested'},
-    { id: now-104, firstName:'Ben',     lastName:'Harper',    email:'ben.h@streamdev.io',       company:'StreamDev',             role:'developer',       plan:'Starter (Free Credits)', date: new Date(now - 7*day).toISOString(),  status:'waitlist'  },
-    { id: now-105, firstName:'Lena',    lastName:'Bauer',     email:'lena.b@conftech.de',       company:'ConfTech GmbH',         role:'event-organiser', plan:'Starter (Free Credits)', date: new Date(now - 9*day).toISOString(),  status:'interested'},
-    { id: now-106, firstName:'Oluwaseun',lastName:'Adeyemi',  email:'seun.a@africaconf.ng',     company:'Africa Conf',           role:'other',           plan:'Starter (Free Credits)', date: new Date(now-12*day).toISOString(),  status:'waitlist'  },
-    { id: now-107, firstName:'Isabel',  lastName:'Costa',     email:'isabel.c@mediacorp.br',    company:'MediaCorp Brasil',      role:'broadcast',       plan:'Starter (Free Credits)', date: new Date(now-16*day).toISOString(),  status:'waitlist'  },
-    { id: now-108, firstName:'James',   lastName:'O\'Brien',  email:'james.ob@churchtech.ie',   company:'ChurchTech Ireland',    role:'other',           plan:'Starter (Free Credits)', date: new Date(now-21*day).toISOString(),  status:'interested'},
-  ]
+    await supabase.from('leads').insert([
+      { email:'sarah.chen@globalconf.io',  source:'Hero CTA',     page:'/',             utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search',     status:'contacted', created_at: new Date(now-1*day).toISOString()  },
+      { email:'marco.b@euromedia.eu',      source:'Hero CTA',     page:'/',             utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers', status:'new',       created_at: new Date(now-2*day).toISOString()  },
+      { email:'priya.nair@techsummit.in',  source:'Pricing CTA',  page:'/pricing',      utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search',     status:'new',       created_at: new Date(now-2*day).toISOString()  },
+      { email:'james.o@broadcastuk.co.uk', source:'Features CTA', page:'/features',     utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch',   status:'interested',created_at: new Date(now-3*day).toISOString()  },
+      { email:'anika.s@worshiptech.org',   source:'Hero CTA',     page:'/',             utm_source:null,       utm_medium:null,      utm_campaign:null,               status:'contacted', created_at: new Date(now-4*day).toISOString()  },
+      { email:'luca.m@sportsmedia.it',     source:'How It Works', page:'/how-it-works', utm_source:'google',   utm_medium:'organic', utm_campaign:null,               status:'new',       created_at: new Date(now-5*day).toISOString()  },
+      { email:'fatima.z@confhub.ae',       source:'Hero CTA',     page:'/',             utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers', status:'new',       created_at: new Date(now-6*day).toISOString()  },
+      { email:'alex.r@unibroadcast.edu',   source:'Blog CTA',     page:'/blog',         utm_source:null,       utm_medium:null,      utm_campaign:null,               status:'interested',created_at: new Date(now-7*day).toISOString()  },
+      { email:'nina.k@events.de',          source:'Pricing CTA',  page:'/pricing',      utm_source:'google',   utm_medium:'cpc',     utm_campaign:'competitor',       status:'new',       created_at: new Date(now-9*day).toISOString()  },
+      { email:'carlos.v@latinconf.mx',     source:'Hero CTA',     page:'/',             utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch',   status:'contacted', created_at: new Date(now-11*day).toISOString() },
+      { email:'yuki.t@eventstech.jp',      source:'Features CTA', page:'/features',     utm_source:null,       utm_medium:null,      utm_campaign:null,               status:'new',       created_at: new Date(now-13*day).toISOString() },
+      { email:'helen.f@ngoconnect.org',    source:'Use Cases',    page:'/use-cases',    utm_source:'referral', utm_medium:'referral',utm_campaign:null,               status:'interested',created_at: new Date(now-15*day).toISOString() },
+      { email:'david.p@mediapro.fr',       source:'Blog CTA',     page:'/blog',         utm_source:'linkedin', utm_medium:'social',  utm_campaign:'content',          status:'new',       created_at: new Date(now-18*day).toISOString() },
+      { email:'riya.g@startupconf.co',     source:'Hero CTA',     page:'/',             utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search',     status:'contacted', created_at: new Date(now-20*day).toISOString() },
+      { email:'tom.w@hybridevents.io',     source:'Pricing CTA',  page:'/pricing',      utm_source:null,       utm_medium:null,      utm_campaign:null,               status:'new',       created_at: new Date(now-23*day).toISOString() },
+    ])
 
-  write(LEADS_KEY,   demoLeads)
-  write(SIGNUPS_KEY, demoSignups)
-  localStorage.setItem(SEEDED_KEY, '1')
+    await supabase.from('signups').insert([
+      { first_name:'Sofia',     last_name:'Martinez', email:'sofia.m@euromedia.eu',     company:'EuroMedia Group',   role:'event-organiser', plan:'Starter (Free Credits)', utm_source:'linkedin', utm_medium:'social', utm_campaign:'event-organizers', status:'waitlist',  created_at: new Date(now-1*day).toISOString()  },
+      { first_name:'Arjun',     last_name:'Kumar',    email:'arjun.k@techconfasia.com', company:'TechConf Asia',     role:'av-tech',         plan:'Starter (Free Credits)', utm_source:'google',   utm_medium:'cpc',   utm_campaign:'brand-search',     status:'waitlist',  created_at: new Date(now-3*day).toISOString()  },
+      { first_name:'Mei',       last_name:'Zhang',    email:'mei.z@globalevents.cn',    company:'Global Events Co.', role:'broadcast',       plan:'Starter (Free Credits)', utm_source:null,       utm_medium:null,    utm_campaign:null,               status:'interested',created_at: new Date(now-5*day).toISOString()  },
+      { first_name:'Ben',       last_name:'Harper',   email:'ben.h@streamdev.io',       company:'StreamDev',         role:'developer',       plan:'Starter (Free Credits)', utm_source:null,       utm_medium:null,    utm_campaign:null,               status:'waitlist',  created_at: new Date(now-7*day).toISOString()  },
+      { first_name:'Lena',      last_name:'Bauer',    email:'lena.b@conftech.de',       company:'ConfTech GmbH',     role:'event-organiser', plan:'Starter (Free Credits)', utm_source:'google',   utm_medium:'cpc',   utm_campaign:'competitor',       status:'interested',created_at: new Date(now-9*day).toISOString()  },
+      { first_name:'Oluwaseun', last_name:'Adeyemi',  email:'seun.a@africaconf.ng',     company:'Africa Conf',       role:'other',           plan:'Starter (Free Credits)', utm_source:null,       utm_medium:null,    utm_campaign:null,               status:'waitlist',  created_at: new Date(now-12*day).toISOString() },
+      { first_name:'Isabel',    last_name:'Costa',    email:'isabel.c@mediacorp.br',    company:'MediaCorp Brasil',  role:'broadcast',       plan:'Starter (Free Credits)', utm_source:null,       utm_medium:null,    utm_campaign:null,               status:'waitlist',  created_at: new Date(now-16*day).toISOString() },
+      { first_name:'James',     last_name:'OBrien',   email:'james.ob@churchtech.ie',   company:'ChurchTech Ireland',role:'other',           plan:'Starter (Free Credits)', utm_source:null,       utm_medium:null,    utm_campaign:null,               status:'interested',created_at: new Date(now-21*day).toISOString() },
+    ])
+  } else {
+    // localStorage fallback
+    if (localStorage.getItem(SEEDED_KEY)) return
+    const demoLeads = [
+      { id: now-1,  email:'sarah.chen@globalconf.io',  source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-1*day).toISOString(),  status:'contacted'  },
+      { id: now-2,  email:'marco.b@euromedia.eu',      source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-2*day).toISOString(),  status:'new'        },
+      { id: now-3,  email:'priya.nair@techsummit.in',  source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-2*day).toISOString(),  status:'new'        },
+      { id: now-4,  email:'james.o@broadcastuk.co.uk', source:'Features CTA', page:'/features',     utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-3*day).toISOString(),  status:'interested' },
+      { id: now-5,  email:'anika.s@worshiptech.org',   source:'Hero CTA',     page:'/',             utm:{},                                                                              date:new Date(now-4*day).toISOString(),  status:'contacted'  },
+      { id: now-6,  email:'luca.m@sportsmedia.it',     source:'How It Works', page:'/how-it-works', utm:{ utm_source:'google',   utm_medium:'organic', utm_campaign:''               }, date:new Date(now-5*day).toISOString(),  status:'new'        },
+      { id: now-7,  email:'fatima.z@confhub.ae',       source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-6*day).toISOString(),  status:'new'        },
+      { id: now-8,  email:'alex.r@unibroadcast.edu',   source:'Blog CTA',     page:'/blog',         utm:{},                                                                              date:new Date(now-7*day).toISOString(),  status:'interested' },
+      { id: now-9,  email:'nina.k@events.de',          source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'competitor'      }, date:new Date(now-9*day).toISOString(),  status:'new'        },
+      { id: now-10, email:'carlos.v@latinconf.mx',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-11*day).toISOString(), status:'contacted'  },
+      { id: now-11, email:'yuki.t@eventstech.jp',      source:'Features CTA', page:'/features',     utm:{},                                                                              date:new Date(now-13*day).toISOString(), status:'new'        },
+      { id: now-12, email:'helen.f@ngoconnect.org',    source:'Use Cases',    page:'/use-cases',    utm:{ utm_source:'referral', utm_medium:'referral', utm_campaign:''               }, date:new Date(now-15*day).toISOString(), status:'interested' },
+      { id: now-13, email:'david.p@mediapro.fr',       source:'Blog CTA',     page:'/blog',         utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'content'         }, date:new Date(now-18*day).toISOString(), status:'new'        },
+      { id: now-14, email:'riya.g@startupconf.co',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-20*day).toISOString(), status:'contacted'  },
+      { id: now-15, email:'tom.w@hybridevents.io',     source:'Pricing CTA',  page:'/pricing',      utm:{},                                                                              date:new Date(now-23*day).toISOString(), status:'new'        },
+    ]
+    const demoSignups = [
+      { id: now-101, firstName:'Sofia',     lastName:'Martinez', email:'sofia.m@euromedia.eu',     company:'EuroMedia Group',      role:'event-organiser', plan:'Starter (Free Credits)', utm:{ utm_source:'linkedin', utm_medium:'social', utm_campaign:'event-organizers' }, date: new Date(now-1*day).toISOString(),  status:'waitlist'   },
+      { id: now-102, firstName:'Arjun',     lastName:'Kumar',    email:'arjun.k@techconfasia.com', company:'TechConf Asia',         role:'av-tech',         plan:'Starter (Free Credits)', utm:{ utm_source:'google',   utm_medium:'cpc',   utm_campaign:'brand-search'     }, date: new Date(now-3*day).toISOString(),  status:'waitlist'   },
+      { id: now-103, firstName:'Mei',       lastName:'Zhang',    email:'mei.z@globalevents.cn',    company:'Global Events Co.',     role:'broadcast',       plan:'Starter (Free Credits)', utm:{},                                                                              date: new Date(now-5*day).toISOString(),  status:'interested' },
+      { id: now-104, firstName:'Ben',       lastName:'Harper',   email:'ben.h@streamdev.io',       company:'StreamDev',             role:'developer',       plan:'Starter (Free Credits)', utm:{},                                                                              date: new Date(now-7*day).toISOString(),  status:'waitlist'   },
+      { id: now-105, firstName:'Lena',      lastName:'Bauer',    email:'lena.b@conftech.de',       company:'ConfTech GmbH',         role:'event-organiser', plan:'Starter (Free Credits)', utm:{ utm_source:'google',   utm_medium:'cpc',   utm_campaign:'competitor'       }, date: new Date(now-9*day).toISOString(),  status:'interested' },
+      { id: now-106, firstName:'Oluwaseun', lastName:'Adeyemi',  email:'seun.a@africaconf.ng',     company:'Africa Conf',           role:'other',           plan:'Starter (Free Credits)', utm:{},                                                                              date: new Date(now-12*day).toISOString(), status:'waitlist'   },
+      { id: now-107, firstName:'Isabel',    lastName:'Costa',    email:'isabel.c@mediacorp.br',    company:'MediaCorp Brasil',      role:'broadcast',       plan:'Starter (Free Credits)', utm:{},                                                                              date: new Date(now-16*day).toISOString(), status:'waitlist'   },
+      { id: now-108, firstName:'James',     lastName:'OBrien',   email:'james.ob@churchtech.ie',   company:'ChurchTech Ireland',    role:'other',           plan:'Starter (Free Credits)', utm:{},                                                                              date: new Date(now-21*day).toISOString(), status:'interested' },
+    ]
+    lsWrite(LEADS_KEY,   demoLeads)
+    lsWrite(SIGNUPS_KEY, demoSignups)
+    localStorage.setItem(SEEDED_KEY, '1')
+  }
 }
