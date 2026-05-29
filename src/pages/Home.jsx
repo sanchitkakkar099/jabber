@@ -25,7 +25,7 @@ const HOME_SCHEMA = {
     {
       '@type': 'Question',
       name: 'How much does Jabber cost?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Jabber has a free Starter plan (100 viewers, 3 languages, 5 hours/month — no credit card required), a Pro plan at $299/month (5,000 viewers, 10+ languages, unlimited hours), and Enterprise plans with custom pricing for unlimited scale.' }
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required. Paid plans unlock more hours, languages, and scale.' }
     },
     {
       '@type': 'Question',
@@ -40,7 +40,7 @@ const HOME_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Is there a free plan?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber\'s Starter plan is completely free with no credit card required. It includes up to 100 concurrent viewers, 3 languages per event, and 5 hours of streaming per month.' }
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' }
     },
     {
       '@type': 'Question',
@@ -423,7 +423,7 @@ export default function Home() {
               { q:'What is Jabber?', a:'Jabber is a real-time AI translation platform for live events. It connects to any RTMP stream and delivers simultaneous translation in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' },
               { q:'Does it work with OBS?', a:'Yes. Jabber works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Jabber stream key. Setup takes under 10 minutes.' },
               { q:'What languages are supported?', a:'10+ languages at launch: English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More are added continuously.' },
-              { q:'Is there a free plan?', a:'Yes. The Starter plan is free with no credit card required — up to 100 concurrent viewers, 3 languages, and 5 hours of streaming per month.' },
+              { q:'Is there a free plan?', a:'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' },
               { q:'How low is the latency?', a:'Under 2 seconds end-to-end — from speech input to translated captions and audio reaching your viewers. AI transcription alone is under 500ms.' },
               { q:'How does billing work?', a:'Jabber uses a pay-as-you-go model billed per minute of active streaming. Your idle cost is literally $0 — containers spin up when you go live and shut down the moment you stop.' },
             ].map(({ q, a }) => (

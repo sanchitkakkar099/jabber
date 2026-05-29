@@ -28,7 +28,7 @@ Jabber is fully serverless: it scales automatically, costs $0 when not live, and
 
 ## Pricing
 
-- **Starter (Free)**: $0/month — 100 concurrent viewers, 3 languages, 5 hours/month. No credit card required.
+- **Starter (Free Credits)**: $100 in free credits on sign-up — covers 1 event, 1 hour, up to 100 concurrent viewers, 2 languages. No credit card required.
 - **Pro**: $299/month — 5,000 concurrent viewers, 10+ languages, unlimited streaming, custom branding, full API access.
 - **Enterprise**: Custom pricing — unlimited viewers, unlimited languages, dedicated SLA, custom voice models, on-premise option, 24/7 support.
 

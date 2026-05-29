@@ -17,7 +17,7 @@ export default function Pricing() {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: [
-            { '@type': 'Question', name: 'Does Jabber have a free plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Starter plan is completely free with no credit card required. It includes up to 100 concurrent viewers, 3 languages per event, and 5 hours of streaming per month.' } },
+            { '@type': 'Question', name: 'Does Jabber have a free plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' } },
             { '@type': 'Question', name: 'How much does the Pro plan cost?', acceptedAnswer: { '@type': 'Answer', text: 'The Pro plan costs $299 per month and includes up to 5,000 concurrent viewers, 10+ languages per event, unlimited streaming hours, custom branding, and full API access.' } },
             { '@type': 'Question', name: 'How does Jabber billing work?', acceptedAnswer: { '@type': 'Answer', text: 'Jabber charges per minute of active streaming. There is $0 idle cost — you only pay when your event is live. No reserved capacity, no wasted spend.' } },
             { '@type': 'Question', name: 'Is there an Enterprise plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber Enterprise offers unlimited concurrent viewers, unlimited languages, a dedicated SLA, custom voice models, on-premise deployment options, and 24/7 priority support. Contact Jabber for custom pricing.' } }
@@ -38,19 +38,19 @@ export default function Pricing() {
             {/* STARTER */}
             <div className="pricing-card reveal">
               <div className="pricing-tier">Starter</div>
-              <div className="pricing-price"><span className="price-amount">$0</span></div>
-              <div className="pricing-desc">Perfect for testing and small events. Get started in minutes with no commitment.</div>
+              <div className="pricing-price"><span className="price-amount">$100</span><span className="price-period">&nbsp;free credits</span></div>
+              <div className="pricing-desc">$100 in free credits on sign-up — no credit card required. Enough to run your first multilingual event today.</div>
               <hr className="pricing-divider" />
               <ul className="pricing-features">
                 <li className="pf-item"><CheckYes />Up to 100 concurrent viewers</li>
-                <li className="pf-item"><CheckYes />3 languages per event</li>
+                <li className="pf-item"><CheckYes />2 languages per event</li>
                 <li className="pf-item"><CheckYes />Captions &amp; audio translation</li>
-                <li className="pf-item"><CheckYes />5 hours streaming / month</li>
+                <li className="pf-item"><CheckYes />1 hr event · covers ~1 event</li>
                 <li className="pf-item muted"><CheckNo />Custom branding</li>
                 <li className="pf-item muted"><CheckNo />API access</li>
                 <li className="pf-item muted"><CheckNo />Priority support</li>
               </ul>
-              <Link to="/signup" className="pricing-cta pricing-cta-ghost">Start for free</Link>
+              <Link to="/signup" className="pricing-cta pricing-cta-ghost">Claim free credits</Link>
             </div>
 
             {/* PRO */}
@@ -133,7 +133,7 @@ export default function Pricing() {
           <h2 className="section-title">Pricing questions</h2>
           <div className="faq-grid">
             {[
-              ['How exactly is usage billed?','Pro plans include unlimited streaming. Overages on Starter (beyond 5 hours) are billed at $0.04 per minute. Enterprise pricing is negotiated based on volume.'],
+              ['How exactly is usage billed?','New accounts get $100 in free credits — enough for 1 event, 1 hour, 100 viewers, 2 languages. Once credits are used, Pro plans unlock unlimited streaming. Enterprise pricing is negotiated based on volume.'],
               ['Is there really zero idle cost?','Yes. Your plan includes a monthly allotment of streaming hours. When you\'re not live, nothing is running and nothing is billed. You pay for active translation, not capacity.'],
               ['Can I switch plans mid-event?','Plans can be upgraded at any time and take effect immediately. Downgrading takes effect at the start of your next billing cycle.'],
               ['What happens if I exceed my viewer limit?','New viewers above your plan limit will see a waiting state. You can upgrade instantly from the dashboard to accommodate additional viewers without interrupting existing ones.'],

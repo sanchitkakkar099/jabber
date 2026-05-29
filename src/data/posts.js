@@ -37,7 +37,7 @@ export const posts = [
 <p>Real-time AI translation has crossed a threshold. Latency is now under two seconds end-to-end. Translation quality for common language pairs is indistinguishable from competent human interpretation for most conference content. And the cost model is completely different.</p>
 <p>With Jabber, the maths looks like this:</p>
 <ul>
-  <li><strong>Starter (free):</strong> $0/month — 100 viewers, 3 languages, 5 hours/month.</li>
+  <li><strong>Starter (free credits):</strong> $100 in free credits on sign-up — covers 1 event, 1 hour, up to 100 viewers, 2 languages. No credit card required.</li>
   <li><strong>Pro:</strong> $299/month — 5,000 viewers, 10+ languages, unlimited hours.</li>
   <li><strong>Enterprise:</strong> Custom — unlimited everything.</li>
 </ul>
