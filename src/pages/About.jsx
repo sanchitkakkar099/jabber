@@ -1,10 +1,31 @@
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 export default function About() {
   useScrollReveal()
   return (
     <>
+      <SEO
+        title="About — Language Shouldn't Be a Barrier to Connection"
+        description="Jabber was built to make every live event accessible in any language. Learn about our mission, team values, and why we believe real-time AI translation changes global communication."
+        canonical="/about"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'AboutPage',
+          name: 'About Jabber',
+          description: 'Jabber is building infrastructure to make every live event accessible to everyone, everywhere, in their own language — instantly.',
+          url: 'https://jabber.live/about',
+          mainEntity: {
+            '@type': 'Organization',
+            name: 'Jabber',
+            description: 'Real-time AI translation SaaS for live events',
+            url: 'https://jabber.live',
+            foundingDate: '2025',
+            mission: 'Make language a non-issue for live events, so organisers can focus on the content and viewers can focus on the experience.'
+          }
+        }}
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">About Jabber</span></div>

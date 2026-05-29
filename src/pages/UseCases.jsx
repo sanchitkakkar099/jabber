@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 const cases = [
   { emoji:'🌐', title:'International Conferences', featured:true, tag:'Most Popular',
@@ -34,6 +35,25 @@ export default function UseCases() {
 
   return (
     <>
+      <SEO
+        title="Use Cases — Conferences, Town Halls, Sports, Worship & More"
+        description="Jabber powers multilingual live events across conferences, corporate town halls, live sports, religious ceremonies, webinars, and press launches. Any live stream, every language."
+        canonical="/use-cases"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Jabber Use Cases',
+          description: 'Industries and event types that benefit from real-time live translation',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'International Conferences', description: 'Give every delegate their native language in real time — no interpreter booths or equipment' },
+            { '@type': 'ListItem', position: 2, name: 'Live Sports Broadcasts', description: 'Commentary in every market language, live, for global fanbases' },
+            { '@type': 'ListItem', position: 3, name: 'Corporate Town Halls', description: 'Connect your global workforce — every employee hears leadership in their own language' },
+            { '@type': 'ListItem', position: 4, name: 'Religious & Cultural Events', description: 'Broadcast ceremonies to diaspora communities worldwide without language barriers' },
+            { '@type': 'ListItem', position: 5, name: 'Online Education & Webinars', description: 'Every lecture in the learner\'s first language — expand reach without re-recording' },
+            { '@type': 'ListItem', position: 6, name: 'Product Launches & Press Events', description: 'Live-translate announcements to global press and customers from day one' }
+          ]
+        }}
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Use Cases</span></div>

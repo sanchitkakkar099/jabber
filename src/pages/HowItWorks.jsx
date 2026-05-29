@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 export default function HowItWorks() {
   useScrollReveal()
@@ -13,6 +14,23 @@ export default function HowItWorks() {
 
   return (
     <>
+      <SEO
+        title="How It Works — Live Translation in 3 Steps"
+        description="Connect your OBS stream, Jabber transcribes and translates in real time, viewers pick their language. From encoder to global audience in under 2 seconds. Setup in 10 minutes."
+        canonical="/how-it-works"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: 'How to set up real-time live translation with Jabber',
+          description: 'Three steps to make your live event multilingual using Jabber',
+          step: [
+            { '@type': 'HowToStep', position: 1, name: 'Connect your stream', text: 'Point your OBS or encoder RTMP output at your Jabber stream key. No plugins or additional software required.' },
+            { '@type': 'HowToStep', position: 2, name: 'Jabber processes it', text: 'AI transcribes speech in real time, fans out translations to all enabled languages simultaneously using neural models.' },
+            { '@type': 'HowToStep', position: 3, name: 'Viewers choose their language', text: 'Share a single viewer link. Each attendee picks their preferred language and receives synchronised captions and audio.' }
+          ],
+          totalTime: 'PT10M'
+        }}
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">How It Works</span></div>

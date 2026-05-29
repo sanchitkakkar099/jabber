@@ -1,0 +1,78 @@
+# Jabber — Real-Time Live Translation for Events
+
+> Jabber is a real-time AI translation SaaS that makes any live event multilingual in minutes. No interpreters, no hardware. Just connect your stream and reach a global audience instantly.
+
+## What is Jabber?
+
+Jabber is a cloud-based real-time translation platform for live events. It takes a live audio/video stream (via RTMP from OBS or any encoder), transcribes the speech using AI, translates it into 10+ languages simultaneously, and delivers synchronised captions and translated audio to every viewer — each in the language they choose — with under 2 seconds of end-to-end latency.
+
+Jabber is fully serverless: it scales automatically, costs $0 when not live, and requires no dedicated hardware or interpreter teams.
+
+## Core Features
+
+- **Real-Time Transcription**: AI speech-to-text with automatic language detection, <500ms delay, PII redaction option
+- **Parallel Translation**: Simultaneous translation into 10+ languages using neural models tuned for live speech
+- **Voice Synthesis (TTS)**: Natural-sounding audio in every target language via neural voice models
+- **Edge WebSocket Delivery**: Captions and audio pushed to millions of viewers via global edge network
+- **Auto Scale to Zero**: Containers spin up on LIVE, shut down when finished — $0 idle cost
+- **Viewer Language Control**: Each viewer picks their language; can change mid-session
+- **Organiser Dashboard**: Real-time analytics, viewer counts per language, latency monitoring, billing
+- **Enterprise Security**: End-to-end encrypted streams, SOC 2 Type II infrastructure, GDPR-ready
+- **Developer API**: REST and WebSocket APIs, webhooks, SDKs for Web, iOS, Android
+
+## How It Works
+
+1. **Connect your stream** — Point your OBS or encoder RTMP output at Jabber. Setup takes under 10 minutes.
+2. **Jabber processes it** — AI transcribes speech in real time, fans out translations to all enabled languages simultaneously.
+3. **Viewers choose their language** — Share a single viewer link. Each attendee picks their language and receives synchronised captions and audio.
+
+## Pricing
+
+- **Starter (Free)**: $0/month — 100 concurrent viewers, 3 languages, 5 hours/month. No credit card required.
+- **Pro**: $299/month — 5,000 concurrent viewers, 10+ languages, unlimited streaming, custom branding, full API access.
+- **Enterprise**: Custom pricing — unlimited viewers, unlimited languages, dedicated SLA, custom voice models, on-premise option, 24/7 support.
+
+## Use Cases
+
+- International conferences and summits
+- Corporate town halls for global workforces
+- Live sports broadcasts with multilingual commentary
+- Religious ceremonies and cultural events for diaspora communities
+- Online education, webinars, and virtual courses
+- Product launches and press events
+
+## Languages Supported (at launch)
+
+English, Spanish, French, German, Portuguese, Japanese, Chinese (Simplified), Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, Swedish — with more being added.
+
+## Latency
+
+Jabber delivers end-to-end translation (speech in → translated audio/captions out) in under 2 seconds. Transcription alone is under 500ms.
+
+## Technical Integration
+
+- **Input**: Any RTMP stream (OBS, vMix, Wirecast, hardware encoders)
+- **Output**: WebSocket captions, HLS/WebRTC audio, embeddable viewer widget
+- **APIs**: REST API for event management, WebSocket API for real-time data
+- **SDKs**: Web (JavaScript), iOS (Swift), Android (Kotlin)
+
+## Company
+
+Jabber is an early-stage SaaS company building real-time multilingual infrastructure for live events. The product is currently in early access.
+
+- Website: https://jabber.live
+- Contact: https://jabber.live/contact
+- Pricing: https://jabber.live/pricing
+- Features: https://jabber.live/features
+- How it works: https://jabber.live/how-it-works
+
+## Key Differentiators vs. Traditional Interpretation
+
+| | Traditional Interpretation | Jabber |
+|---|---|---|
+| Cost | $500–$5,000+ per event | From $0, pay per minute |
+| Setup time | Days/weeks | Under 10 minutes |
+| Languages | 1–2 typically | 10+ simultaneously |
+| Scalability | Limited by interpreter count | Unlimited concurrent viewers |
+| Hardware | Booths, receivers, headsets | None required |
+| Remote viewers | Not supported | Native support |

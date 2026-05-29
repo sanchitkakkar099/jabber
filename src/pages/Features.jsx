@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 const features = [
   { color:'fi-blue', title:'Real-Time Transcription', desc:'AI-powered speech-to-text with automatic language detection and optional PII redaction. Interim and final transcripts delivered in real time with <500ms delay. Supports accents and technical vocabulary out of the box.' },
@@ -28,6 +29,25 @@ export default function Features() {
 
   return (
     <>
+      <SEO
+        title="Features — Real-Time Transcription, Translation & Voice Synthesis"
+        description="Jabber's full feature set: AI speech transcription (<500ms), parallel translation into 10+ languages, neural voice synthesis, edge WebSocket delivery, auto scale to zero, and a full developer API."
+        canonical="/features"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Jabber Features',
+          description: 'Complete list of Jabber real-time translation platform features',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Real-Time Transcription', description: 'AI speech-to-text with automatic language detection and <500ms delay' },
+            { '@type': 'ListItem', position: 2, name: 'Parallel Translation', description: 'Simultaneous translation into 10+ languages with zero sequential delay' },
+            { '@type': 'ListItem', position: 3, name: 'Voice Synthesis', description: 'Natural-sounding neural audio in every target language' },
+            { '@type': 'ListItem', position: 4, name: 'Edge WebSocket Delivery', description: 'Captions and audio pushed globally with zero polling' },
+            { '@type': 'ListItem', position: 5, name: 'Auto Scale to Zero', description: 'Serverless containers — $0 idle cost, billed per minute' },
+            { '@type': 'ListItem', position: 6, name: 'Developer API', description: 'REST and WebSocket APIs, SDKs for Web, iOS, and Android' }
+          ]
+        }}
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Features</span></div>

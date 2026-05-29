@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 const CheckYes = () => <svg className="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const CheckNo = () => <svg className="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
@@ -8,6 +9,21 @@ export default function Pricing() {
   useScrollReveal()
   return (
     <>
+      <SEO
+        title="Pricing — Free Starter, Pro & Enterprise Plans"
+        description="Jabber pricing: free Starter plan (no credit card), Pro at $299/month, and Enterprise with custom pricing. Pay only when you're live — $0 idle cost."
+        canonical="/pricing"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            { '@type': 'Question', name: 'Does Jabber have a free plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Starter plan is completely free with no credit card required. It includes up to 100 concurrent viewers, 3 languages per event, and 5 hours of streaming per month.' } },
+            { '@type': 'Question', name: 'How much does the Pro plan cost?', acceptedAnswer: { '@type': 'Answer', text: 'The Pro plan costs $299 per month and includes up to 5,000 concurrent viewers, 10+ languages per event, unlimited streaming hours, custom branding, and full API access.' } },
+            { '@type': 'Question', name: 'How does Jabber billing work?', acceptedAnswer: { '@type': 'Answer', text: 'Jabber charges per minute of active streaming. There is $0 idle cost — you only pay when your event is live. No reserved capacity, no wasted spend.' } },
+            { '@type': 'Question', name: 'Is there an Enterprise plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber Enterprise offers unlimited concurrent viewers, unlimited languages, a dedicated SLA, custom voice models, on-premise deployment options, and 24/7 priority support. Contact Jabber for custom pricing.' } }
+          ]
+        }}
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Pricing</span></div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -13,6 +14,8 @@ export default function Login() {
   }
 
   return (
+    <>
+    <SEO title="Sign In" canonical="/login" noindex={true} />
     <div className="auth-split">
 
       {/* LEFT: Event showcase — trimmed */}
@@ -91,5 +94,6 @@ export default function Login() {
       </div>
 
     </div>
+    </>
   )
 }

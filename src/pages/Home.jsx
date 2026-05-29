@@ -1,6 +1,54 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
+
+const HOME_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is Jabber?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Jabber is a real-time AI translation platform for live events. It connects to any RTMP stream (such as OBS) and delivers simultaneous transcription, translation, and voice synthesis in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'How does Jabber work?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Point your OBS or encoder RTMP stream at Jabber. Jabber\'s AI transcribes the speech in real time, fans out translations to all enabled languages simultaneously, and pushes synchronised captions and audio to every viewer via WebSocket. Each viewer chooses their own language. Setup takes under 10 minutes.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'What languages does Jabber support?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Jabber supports 10+ languages at launch including English, Spanish, French, German, Portuguese, Japanese, Chinese (Simplified), Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More languages are being added continuously.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does Jabber cost?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Jabber has a free Starter plan (100 viewers, 3 languages, 5 hours/month — no credit card required), a Pro plan at $299/month (5,000 viewers, 10+ languages, unlimited hours), and Enterprise plans with custom pricing for unlimited scale.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the translation latency?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Jabber delivers end-to-end translation — from speech input to translated captions and audio reaching viewers — in under 2 seconds. AI transcription alone has under 500ms delay.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'Does Jabber work with OBS?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber works with any RTMP-compatible software or hardware encoder, including OBS Studio, vMix, Wirecast, and dedicated hardware encoders. You simply point your RTMP output at your Jabber stream key — no plugins or additional software required.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'Is there a free plan?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber\'s Starter plan is completely free with no credit card required. It includes up to 100 concurrent viewers, 3 languages per event, and 5 hours of streaming per month.' }
+    },
+    {
+      '@type': 'Question',
+      name: 'What events is Jabber best suited for?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Jabber is ideal for international conferences, corporate town halls, live sports broadcasts, religious ceremonies, online education and webinars, and product launches. Any live event where the audience speaks more than one language benefits from Jabber.' }
+    }
+  ]
+}
 
 const translations = {
   en: [
@@ -146,6 +194,11 @@ export default function Home() {
 
   return (
     <>
+      <SEO
+        canonical="/"
+        description="No interpreters. No hardware. Jabber translates your live stream into 10+ languages simultaneously with under 2-second latency. Free plan available — no credit card required."
+        schema={HOME_SCHEMA}
+      />
       {/* HERO */}
       <section className="hero" id="home">
         <canvas id="heroCanvas" ref={canvasRef} aria-hidden="true" />
@@ -356,6 +409,29 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="faq-section">
+        <div className="container">
+          <div className="section-tag-wrap"><span className="section-tag">FAQ</span></div>
+          <h2 className="section-title">Common questions</h2>
+          <div className="faq-grid">
+            {[
+              { q:'What is Jabber?', a:'Jabber is a real-time AI translation platform for live events. It connects to any RTMP stream and delivers simultaneous translation in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' },
+              { q:'Does it work with OBS?', a:'Yes. Jabber works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Jabber stream key. Setup takes under 10 minutes.' },
+              { q:'What languages are supported?', a:'10+ languages at launch: English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More are added continuously.' },
+              { q:'Is there a free plan?', a:'Yes. The Starter plan is free with no credit card required — up to 100 concurrent viewers, 3 languages, and 5 hours of streaming per month.' },
+              { q:'How low is the latency?', a:'Under 2 seconds end-to-end — from speech input to translated captions and audio reaching your viewers. AI transcription alone is under 500ms.' },
+              { q:'How does billing work?', a:'Jabber uses a pay-as-you-go model billed per minute of active streaming. Your idle cost is literally $0 — containers spin up when you go live and shut down the moment you stop.' },
+            ].map(({ q, a }) => (
+              <div key={q} className="faq-item reveal">
+                <h3>{q}</h3>
+                <p>{a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

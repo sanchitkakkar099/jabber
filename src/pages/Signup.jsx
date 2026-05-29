@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function Signup() {
   const [submitted, setSubmitted] = useState(false)
@@ -9,6 +10,8 @@ export default function Signup() {
   function handleSubmit(e) { e.preventDefault(); setSubmitted(true) }
 
   return (
+    <>
+    <SEO title="Get Early Access" canonical="/signup" noindex={true} />
     <div className="auth-split">
 
       {/* LEFT: Showcase — trimmed */}
@@ -95,5 +98,6 @@ export default function Signup() {
       </div>
 
     </div>
+    </>
   )
 }

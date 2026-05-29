@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
+import SEO from '../components/SEO'
 
 export default function Contact() {
   useScrollReveal()
@@ -10,6 +11,11 @@ export default function Contact() {
 
   return (
     <>
+      <SEO
+        title="Contact — Get Support, Enterprise Pricing & Partnerships"
+        description="Get in touch with the Jabber team for support, enterprise pricing, API partnerships, or press enquiries. We reply within one business day."
+        canonical="/contact"
+      />
       <section className="page-hero">
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Contact</span></div>
