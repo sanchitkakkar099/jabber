@@ -3,6 +3,7 @@ import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 import { saveLead } from '../utils/leads'
+import { track } from '../utils/posthog'
 
 const features = [
   { color:'fi-blue', title:'Real-Time Transcription', desc:'AI-powered speech-to-text with automatic language detection and optional PII redaction. Interim and final transcripts delivered in real time with <500ms delay. Supports accents and technical vocabulary out of the box.' },
@@ -26,6 +27,7 @@ export default function Features() {
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ctaEmail.trim())
     if (!valid) { setCtaError(true); setTimeout(() => setCtaError(false), 1800); return }
     saveLead({ email: ctaEmail.trim(), source: 'Features CTA', page: '/features' })
+    track('lead_captured', { source: 'Features CTA', page: '/features' })
     setCtaSubmitted(true)
   }
 

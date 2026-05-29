@@ -1,12 +1,18 @@
+import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 import { posts, getRelatedPosts } from '../data/posts'
+import { track } from '../utils/posthog'
 
 export default function BlogPost() {
   useScrollReveal()
   const { slug } = useParams()
   const post = posts.find(p => p.slug === slug)
+
+  useEffect(() => {
+    if (post) track('blog_post_viewed', { slug: post.slug, title: post.title, category: post.category })
+  }, [post?.slug])
 
   if (!post) {
     return (

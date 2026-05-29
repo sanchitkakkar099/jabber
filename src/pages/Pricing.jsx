@@ -1,12 +1,15 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
+import { track } from '../utils/posthog'
 
 const CheckYes = () => <svg className="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const CheckNo = () => <svg className="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
 
 export default function Pricing() {
   useScrollReveal()
+  useEffect(() => { track('pricing_page_viewed') }, [])
   return (
     <>
       <SEO

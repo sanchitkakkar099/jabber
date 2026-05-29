@@ -2,3 +2,5 @@ node_modules
 dist
 *.html.bak
 *.css.bak
+.env
+.env.local

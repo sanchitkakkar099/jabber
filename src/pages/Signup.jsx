@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { saveSignup } from '../utils/leads'
+import { track } from '../utils/posthog'
 
 export default function Signup() {
   const [submitted, setSubmitted] = useState(false)
@@ -11,6 +12,7 @@ export default function Signup() {
   function handleSubmit(e) {
     e.preventDefault()
     saveSignup({ firstName: form.firstName, lastName: form.lastName, email: form.email, company: form.company, role: form.role })
+    track('signup_completed', { company: form.company, role: form.role })
     setSubmitted(true)
   }
 

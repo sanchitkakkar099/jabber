@@ -1,42 +1,39 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getLeads, getSignups, updateLeadStatus, updateSignupStatus, exportCSV, seedDemoData } from '../utils/leads'
+import { getTickets, updateTicket, addTicketNote, seedTickets } from '../utils/tickets'
+import { utmLabel } from '../utils/utm'
+import AdminSupport from '../components/AdminSupport'
 
 const ADMIN_PASS  = 'jabber@2026'
 const SESSION_KEY = 'jabber_admin_auth'
 
-// ── Mock analytics (static — replace with real analytics SDK later) ───────────
+// ── Static mock data (page views / blog performance — replace with PostHog) ───
 const WEEKLY_VIEWS = [
   { day:'Mon', views:234 }, { day:'Tue', views:312 }, { day:'Wed', views:287 },
   { day:'Thu', views:401 }, { day:'Fri', views:356 }, { day:'Sat', views:189 }, { day:'Sun', views:145 }
 ]
-const SOURCES = [
-  { label:'Organic Search', pct:42, color:'#6366f1' },
-  { label:'Direct',         pct:28, color:'#8b5cf6' },
-  { label:'Social',         pct:18, color:'#06b6d4' },
-  { label:'Referral',       pct:12, color:'#22c55e' },
-]
 const TOP_PAGES = [
-  { page:'/', title:'Home',         views:1847, conv:'4.8%' },
-  { page:'/pricing',   title:'Pricing',      views:623,  conv:'7.2%' },
-  { page:'/features',  title:'Features',     views:512,  conv:'3.1%' },
-  { page:'/how-it-works', title:'How It Works', views:401, conv:'3.9%' },
-  { page:'/blog',      title:'Blog',         views:298,  conv:'2.4%' },
-  { page:'/use-cases', title:'Use Cases',    views:234,  conv:'1.8%' },
+  { page:'/', title:'Home',          views:1847, conv:'4.8%' },
+  { page:'/pricing',    title:'Pricing',      views:623,  conv:'7.2%' },
+  { page:'/features',   title:'Features',     views:512,  conv:'3.1%' },
+  { page:'/how-it-works',title:'How It Works',views:401,  conv:'3.9%' },
+  { page:'/blog',       title:'Blog',         views:298,  conv:'2.4%' },
+  { page:'/use-cases',  title:'Use Cases',    views:234,  conv:'1.8%' },
 ]
 const BLOG_POSTS = [
-  { title:'The Hidden Cost of Live Interpretation',          views:412, leads:18, conv:'4.4%' },
-  { title:'How to Add Translation to Any OBS Stream',        views:381, leads:24, conv:'6.3%' },
-  { title:'Why Sub-2-Second Latency Matters',                views:267, leads:9,  conv:'3.4%' },
-  { title:'5 Events That Went Global with Multilingual Streaming', views:231, leads:11, conv:'4.8%' },
-  { title:'Jabber vs. Traditional Interpretation',           views:198, leads:14, conv:'7.1%' },
-  { title:'The Future of Live Events Is Multilingual',       views:176, leads:7,  conv:'4.0%' },
+  { title:'The Hidden Cost of Live Interpretation',               views:412, leads:18, conv:'4.4%' },
+  { title:'How to Add Translation to Any OBS Stream',             views:381, leads:24, conv:'6.3%' },
+  { title:'Why Sub-2-Second Latency Matters',                     views:267, leads:9,  conv:'3.4%' },
+  { title:'5 Events That Went Global with Multilingual Streaming',views:231, leads:11, conv:'4.8%' },
+  { title:'Jabber vs. Traditional Interpretation',                views:198, leads:14, conv:'7.1%' },
+  { title:'The Future of Live Events Is Multilingual',            views:176, leads:7,  conv:'4.0%' },
 ]
 const FUNNEL = [
   { stage:'Website Visitors', n:1924, pct:100 },
-  { stage:'CTA Interactions',  n:487,  pct:25  },
-  { stage:'Email Captured',    n:203,  pct:11  },
-  { stage:'Signed Up',         n:89,   pct:5   },
+  { stage:'CTA Interactions', n:487,  pct:25  },
+  { stage:'Email Captured',   n:203,  pct:11  },
+  { stage:'Signed Up',        n:89,   pct:5   },
 ]
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
@@ -74,6 +71,7 @@ const Icon = {
   analytics: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
   blog:      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
   plans:     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
+  support:   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
   email:     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 2.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 10.1a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>,
   signout:   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
 }
@@ -124,17 +122,17 @@ function LoginScreen({ onAuth }) {
 
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 const NAV_ITEMS = [
-  { key:'overview',  label:'Overview',   icon:'overview'  },
-  { key:'leads',     label:'Leads',      icon:'leads'     },
-  { key:'signups',   label:'Signups',    icon:'signups'   },
-  { key:'analytics', label:'Analytics',  icon:'analytics' },
-  { key:'blog',      label:'Blog',       icon:'blog'      },
-  { key:'plans',     label:'Plans',      icon:'plans'     },
+  { key:'overview',  label:'Overview',        icon:'overview'  },
+  { key:'leads',     label:'Leads',           icon:'leads'     },
+  { key:'signups',   label:'Signups',         icon:'signups'   },
+  { key:'analytics', label:'Analytics',       icon:'analytics' },
+  { key:'blog',      label:'Blog',            icon:'blog'      },
+  { key:'plans',     label:'Plans',           icon:'plans'     },
+  { key:'support',   label:'Support Tickets', icon:'support'   },
 ]
 const COMING_SOON = [
   { label:'Email Sequences', icon:'email'  },
   { label:'Payments / MRR',  icon:'plans'  },
-  { label:'Support Tickets', icon:'signups'},
 ]
 
 function Sidebar({ active, setActive, onSignOut, counts }) {
@@ -157,6 +155,7 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
             <span>{item.label}</span>
             {item.key === 'leads'   && counts.leads   > 0 && <span className="adm-nav-count">{counts.leads}</span>}
             {item.key === 'signups' && counts.signups > 0 && <span className="adm-nav-count">{counts.signups}</span>}
+            {item.key === 'support' && counts.openTickets > 0 && <span className="adm-nav-count">{counts.openTickets}</span>}
           </button>
         ))}
 
@@ -199,10 +198,11 @@ function KPI({ label, value, sub, color = '#6366f1', icon }) {
 }
 
 // ── Overview ─────────────────────────────────────────────────────────────────
-function Overview({ leads, signups }) {
+function Overview({ leads, signups, tickets }) {
   const newLeads    = leads.filter(l => l.status === 'new').length
   const thisWeek    = leads.filter(l => (Date.now() - new Date(l.date)) < 7*86400000).length
   const convRate    = leads.length ? ((signups.length / leads.length) * 100).toFixed(1) : '0.0'
+  const openTickets = tickets.filter(t => t.status === 'open').length
   const recent      = [...leads, ...signups.map(s => ({ ...s, email: s.email, source: 'Signup Form', isSignup: true }))]
     .sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 8)
 
@@ -231,6 +231,14 @@ function Overview({ leads, signups }) {
           icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>}
         />
       </div>
+
+      {/* Open tickets alert */}
+      {openTickets > 0 && (
+        <div className="adm-alert-banner">
+          <span className="adm-alert-icon">🎫</span>
+          <span><strong>{openTickets} open support ticket{openTickets > 1 ? 's' : ''}</strong> waiting for response.</span>
+        </div>
+      )}
 
       {/* Funnel */}
       <div className="adm-card" style={{ marginBottom:24 }}>
@@ -331,6 +339,7 @@ function LeadsSection({ leads, onStatusChange, onRefresh }) {
             <tr>
               <th>Email</th>
               <th>Source</th>
+              <th>UTM Attribution</th>
               <th>Page</th>
               <th style={{cursor:'pointer'}} onClick={()=>setSortDir(d=>d==='desc'?'asc':'desc')}>
                 Date {sortDir==='desc'?'↓':'↑'}
@@ -340,12 +349,15 @@ function LeadsSection({ leads, onStatusChange, onRefresh }) {
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan={5} style={{ textAlign:'center', padding:'32px', color:'#94a3b8' }}>No leads found</td></tr>
+              <tr><td colSpan={6} style={{ textAlign:'center', padding:'32px', color:'#94a3b8' }}>No leads found</td></tr>
             )}
             {filtered.map(l => (
               <tr key={l.id}>
                 <td className="adm-td-email">{l.email}</td>
                 <td className="adm-td-muted">{l.source}</td>
+                <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.78rem', color:'#6366f1' }}>
+                  {l.utm && Object.keys(l.utm).length ? utmLabel(l.utm) : <span style={{color:'#cbd5e1'}}>—</span>}
+                </td>
                 <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.8rem' }}>{l.page}</td>
                 <td className="adm-td-muted">{fmtDate(l.date)}</td>
                 <td>
@@ -396,11 +408,11 @@ function SignupsSection({ signups, onStatusChange, onRefresh }) {
         </div>
         <table className="adm-table">
           <thead>
-            <tr><th>Name</th><th>Email</th><th>Company</th><th>Role</th><th>Plan</th><th>Signed Up</th><th>Status</th></tr>
+            <tr><th>Name</th><th>Email</th><th>Company</th><th>Role</th><th>UTM</th><th>Plan</th><th>Signed Up</th><th>Status</th></tr>
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan={7} style={{ textAlign:'center', padding:'32px', color:'#94a3b8' }}>No signups yet</td></tr>
+              <tr><td colSpan={8} style={{ textAlign:'center', padding:'32px', color:'#94a3b8' }}>No signups yet</td></tr>
             )}
             {filtered.map(s => (
               <tr key={s.id}>
@@ -408,6 +420,9 @@ function SignupsSection({ signups, onStatusChange, onRefresh }) {
                 <td className="adm-td-email">{s.email}</td>
                 <td className="adm-td-muted">{s.company}</td>
                 <td className="adm-td-muted">{ROLE_LABELS[s.role] || s.role}</td>
+                <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.78rem', color:'#6366f1' }}>
+                  {s.utm && Object.keys(s.utm).length ? utmLabel(s.utm) : <span style={{color:'#cbd5e1'}}>—</span>}
+                </td>
                 <td><span style={{ background:'#f0fdf4', color:'#16a34a', padding:'2px 9px', borderRadius:999, fontSize:'0.72rem', fontWeight:700 }}>{s.plan}</span></td>
                 <td className="adm-td-muted">{fmtDate(s.date)}</td>
                 <td>
@@ -429,25 +444,98 @@ function SignupsSection({ signups, onStatusChange, onRefresh }) {
   )
 }
 
+// ── UTM Attribution helpers ───────────────────────────────────────────────────
+function buildUTMAttribution(leads, signups) {
+  const map = {}
+  const all = [
+    ...leads.filter(r => r.utm && r.utm.utm_source),
+    ...signups.filter(r => r.utm && r.utm.utm_source),
+  ]
+  all.forEach(r => {
+    const key = [r.utm.utm_source, r.utm.utm_medium, r.utm.utm_campaign].filter(Boolean).join(' › ')
+    if (!map[key]) map[key] = { source: r.utm.utm_source, medium: r.utm.utm_medium || '—', campaign: r.utm.utm_campaign || '—', leads:0, signups:0 }
+    if (r.firstName !== undefined) map[key].signups++; else map[key].leads++
+  })
+  return Object.values(map).sort((a,b) => (b.leads+b.signups) - (a.leads+a.signups))
+}
+
+// ── PostHog Config Card ───────────────────────────────────────────────────────
+const PH_KEY = 'jabber_posthog_project_id'
+function PostHogCard() {
+  const [projectId, setProjectId] = useState(localStorage.getItem(PH_KEY) || '')
+  const [saved,     setSaved]     = useState(false)
+
+  function handleSave(e) {
+    e.preventDefault()
+    localStorage.setItem(PH_KEY, projectId.trim())
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+  const dashboardUrl = projectId ? `https://us.posthog.com/project/${projectId}/dashboard` : null
+
+  return (
+    <div className="adm-card" style={{ borderLeft:'3px solid #6366f1' }}>
+      <h3 className="adm-card-title">
+        <span style={{marginRight:8}}>📊</span> PostHog Live Analytics
+      </h3>
+      <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:16 }}>
+        Connect your PostHog project to jump directly to your live dashboards — pageviews, funnels, session recordings, and event breakdowns.
+      </p>
+      <form onSubmit={handleSave} style={{ display:'flex', gap:10, alignItems:'center', flexWrap:'wrap' }}>
+        <input
+          className="adm-search"
+          style={{ flex:1, minWidth:200 }}
+          placeholder="PostHog Project ID (e.g. 12345)"
+          value={projectId}
+          onChange={e => setProjectId(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary" style={{ padding:'8px 18px', fontSize:'0.82rem', flexShrink:0 }}>
+          {saved ? '✓ Saved!' : 'Save'}
+        </button>
+        {dashboardUrl && (
+          <a href={dashboardUrl} target="_blank" rel="noreferrer" className="adm-btn-outline" style={{ flexShrink:0 }}>
+            Open PostHog →
+          </a>
+        )}
+      </form>
+      {dashboardUrl && (
+        <div style={{ marginTop:14, display:'flex', gap:10, flexWrap:'wrap' }}>
+          {[
+            ['Pageviews', `https://us.posthog.com/project/${projectId}/insights/new?insight=TRENDS&events=[{"id":"$pageview"}]`],
+            ['Lead Events', `https://us.posthog.com/project/${projectId}/insights/new?insight=TRENDS&events=[{"id":"lead_captured"}]`],
+            ['Signup Funnel', `https://us.posthog.com/project/${projectId}/insights/new?insight=FUNNELS`],
+            ['Session Recordings', `https://us.posthog.com/project/${projectId}/recordings`],
+          ].map(([label, url]) => (
+            <a key={label} href={url} target="_blank" rel="noreferrer" className="adm-ph-link">{label} →</a>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── Analytics ─────────────────────────────────────────────────────────────────
-function AnalyticsSection() {
+function AnalyticsSection({ leads, signups }) {
   const maxViews = Math.max(...WEEKLY_VIEWS.map(d => d.views))
   const totalViews = WEEKLY_VIEWS.reduce((s,d) => s+d.views, 0)
+  const utmRows = buildUTMAttribution(leads, signups)
 
   return (
     <div className="adm-section">
       <div className="adm-section-header">
         <div>
           <h1 className="adm-page-title">Analytics</h1>
-          <p className="adm-page-sub">Site performance overview · estimated figures</p>
+          <p className="adm-page-sub">UTM attribution from real leads + estimated site performance</p>
         </div>
-        <span className="adm-badge-note">Connect Google Analytics or Plausible for live data →</span>
       </div>
 
-      <div className="adm-two-col">
-        {/* Page views bar chart */}
+      {/* PostHog config */}
+      <PostHogCard />
+
+      <div className="adm-two-col" style={{ marginTop:24 }}>
+        {/* Page views bar chart (mock) */}
         <div className="adm-card">
-          <h3 className="adm-card-title">Page Views — This Week <span className="adm-card-note">{totalViews.toLocaleString()} total</span></h3>
+          <h3 className="adm-card-title">Page Views — This Week <span className="adm-card-note">{totalViews.toLocaleString()} total · estimated</span></h3>
           <div className="adm-bar-chart">
             {WEEKLY_VIEWS.map(d => (
               <div key={d.day} className="adm-bar-col">
@@ -459,29 +547,36 @@ function AnalyticsSection() {
           </div>
         </div>
 
-        {/* Traffic sources */}
+        {/* Real UTM attribution */}
         <div className="adm-card">
-          <h3 className="adm-card-title">Traffic Sources</h3>
-          <div className="adm-sources">
-            {SOURCES.map(s => (
-              <div key={s.label} className="adm-source-row">
-                <div className="adm-source-meta">
-                  <span className="adm-source-dot" style={{ background:s.color }} />
-                  <span className="adm-source-label">{s.label}</span>
-                  <span className="adm-source-pct">{s.pct}%</span>
-                </div>
-                <div className="adm-source-bar-bg">
-                  <div className="adm-source-bar" style={{ width:`${s.pct}%`, background:s.color }} />
-                </div>
-              </div>
-            ))}
-          </div>
+          <h3 className="adm-card-title">Campaign Attribution <span className="adm-card-note">from real leads & signups</span></h3>
+          {utmRows.length === 0 ? (
+            <div style={{ padding:'24px 0', textAlign:'center', color:'#94a3b8', fontSize:'0.85rem' }}>
+              <div style={{ fontSize:'2rem', marginBottom:8 }}>📡</div>
+              No UTM data yet. Add <code style={{fontSize:'0.78rem',background:'#f1f5f9',padding:'1px 5px',borderRadius:4}}>?utm_source=</code> to your campaign links.
+            </div>
+          ) : (
+            <table className="adm-table" style={{ marginTop:8 }}>
+              <thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th>Leads</th><th>Signups</th></tr></thead>
+              <tbody>
+                {utmRows.map((r,i) => (
+                  <tr key={i}>
+                    <td style={{ fontWeight:600 }}>{r.source}</td>
+                    <td className="adm-td-muted">{r.medium}</td>
+                    <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.78rem' }}>{r.campaign}</td>
+                    <td style={{ fontWeight:700, color:'#6366f1' }}>{r.leads}</td>
+                    <td style={{ fontWeight:700, color:'#06b6d4' }}>{r.signups}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
       {/* Top pages */}
       <div className="adm-card">
-        <h3 className="adm-card-title">Top Pages</h3>
+        <h3 className="adm-card-title">Top Pages <span className="adm-card-note">estimated · connect PostHog for live data</span></h3>
         <table className="adm-table">
           <thead><tr><th>Page</th><th>Views</th><th>Conversion</th></tr></thead>
           <tbody>
@@ -492,9 +587,7 @@ function AnalyticsSection() {
                   <span className="adm-td-muted" style={{ marginLeft:8, fontFamily:'monospace', fontSize:'0.78rem' }}>{p.page}</span>
                 </td>
                 <td style={{ fontWeight:600 }}>{p.views.toLocaleString()}</td>
-                <td>
-                  <span style={{ color:'#22c55e', fontWeight:700 }}>{p.conv}</span>
-                </td>
+                <td><span style={{ color:'#22c55e', fontWeight:700 }}>{p.conv}</span></td>
               </tr>
             ))}
           </tbody>
@@ -615,15 +708,18 @@ export default function Admin() {
   const [section, setSection] = useState('overview')
   const [leads,   setLeads]   = useState([])
   const [signups, setSignups] = useState([])
+  const [tickets, setTickets] = useState([])
 
   useEffect(() => {
     seedDemoData()
+    seedTickets()
     refresh()
   }, [])
 
   function refresh() {
     setLeads(getLeads())
     setSignups(getSignups())
+    setTickets(getTickets())
   }
 
   function handleAuth()    { sessionStorage.setItem(SESSION_KEY, '1'); setAuth(true) }
@@ -631,8 +727,9 @@ export default function Admin() {
 
   if (!auth) return <LoginScreen onAuth={handleAuth} />
 
-  const newLeads   = leads.filter(l => l.status === 'new').length
-  const newSignups = signups.length
+  const newLeads    = leads.filter(l => l.status === 'new').length
+  const newSignups  = signups.length
+  const openTickets = tickets.filter(t => t.status === 'open').length
 
   return (
     <div className="adm-layout">
@@ -640,15 +737,16 @@ export default function Admin() {
         active={section}
         setActive={setSection}
         onSignOut={handleSignOut}
-        counts={{ leads: newLeads, signups: newSignups }}
+        counts={{ leads: newLeads, signups: newSignups, openTickets }}
       />
       <main className="adm-main">
-        {section === 'overview'  && <Overview  leads={leads}   signups={signups} />}
+        {section === 'overview'  && <Overview  leads={leads} signups={signups} tickets={tickets} />}
         {section === 'leads'     && <LeadsSection leads={leads} onStatusChange={updateLeadStatus} onRefresh={refresh} />}
         {section === 'signups'   && <SignupsSection signups={signups} onStatusChange={updateSignupStatus} onRefresh={refresh} />}
-        {section === 'analytics' && <AnalyticsSection />}
+        {section === 'analytics' && <AnalyticsSection leads={leads} signups={signups} />}
         {section === 'blog'      && <BlogSection />}
         {section === 'plans'     && <PlansSection signups={signups} />}
+        {section === 'support'   && <AdminSupport tickets={tickets} onUpdate={updateTicket} onAddNote={addTicketNote} onRefresh={refresh} />}
       </main>
     </div>
   )

@@ -1,3 +1,5 @@
+import { getUTM } from './utm'
+
 const LEADS_KEY    = 'jabber_leads'
 const SIGNUPS_KEY  = 'jabber_signups'
 const SEEDED_KEY   = 'jabber_seeded'
@@ -14,7 +16,7 @@ function write(key, data) {
 export function saveLead({ email, source = 'CTA', page = '/' }) {
   const leads = read(LEADS_KEY)
   if (leads.find(l => l.email === email)) return   // no duplicates
-  leads.unshift({ id: Date.now(), email, source, page, date: new Date().toISOString(), status: 'new' })
+  leads.unshift({ id: Date.now(), email, source, page, utm: getUTM(), date: new Date().toISOString(), status: 'new' })
   write(LEADS_KEY, leads)
 }
 
@@ -34,6 +36,7 @@ export function saveSignup({ firstName, lastName, email, company, role }) {
     company: company || '—',
     role: role || '—',
     plan: 'Starter (Free Credits)',
+    utm: getUTM(),
     date: new Date().toISOString(),
     status: 'waitlist'
   })
@@ -64,21 +67,21 @@ export function seedDemoData() {
   const day = 86400000
 
   const demoLeads = [
-    { id: now-1,    email: 'sarah.chen@globalconf.io',   source: 'Hero CTA',    page: '/',            date: new Date(now - 1*day).toISOString(),   status: 'contacted' },
-    { id: now-2,    email: 'marco.b@euromedia.eu',       source: 'Hero CTA',    page: '/',            date: new Date(now - 2*day).toISOString(),   status: 'new' },
-    { id: now-3,    email: 'priya.nair@techsummit.in',   source: 'Pricing CTA', page: '/pricing',     date: new Date(now - 2*day).toISOString(),   status: 'new' },
-    { id: now-4,    email: 'james.o@broadcastuk.co.uk',  source: 'Features CTA',page: '/features',    date: new Date(now - 3*day).toISOString(),   status: 'interested' },
-    { id: now-5,    email: 'anika.s@worshiptech.org',    source: 'Hero CTA',    page: '/',            date: new Date(now - 4*day).toISOString(),   status: 'contacted' },
-    { id: now-6,    email: 'luca.m@sportsmedia.it',      source: 'How It Works',page: '/how-it-works',date: new Date(now - 5*day).toISOString(),   status: 'new' },
-    { id: now-7,    email: 'fatima.z@confhub.ae',        source: 'Hero CTA',    page: '/',            date: new Date(now - 6*day).toISOString(),   status: 'new' },
-    { id: now-8,    email: 'alex.r@unibroadcast.edu',    source: 'Blog CTA',    page: '/blog',        date: new Date(now - 7*day).toISOString(),   status: 'interested' },
-    { id: now-9,    email: 'nina.k@events.de',           source: 'Pricing CTA', page: '/pricing',     date: new Date(now - 9*day).toISOString(),   status: 'new' },
-    { id: now-10,   email: 'carlos.v@latinconf.mx',      source: 'Hero CTA',    page: '/',            date: new Date(now-11*day).toISOString(),   status: 'contacted' },
-    { id: now-11,   email: 'yuki.t@eventstech.jp',       source: 'Features CTA',page: '/features',    date: new Date(now-13*day).toISOString(),   status: 'new' },
-    { id: now-12,   email: 'helen.f@ngoconnect.org',     source: 'Use Cases',   page: '/use-cases',   date: new Date(now-15*day).toISOString(),   status: 'interested' },
-    { id: now-13,   email: 'david.p@mediapro.fr',        source: 'Blog CTA',    page: '/blog',        date: new Date(now-18*day).toISOString(),   status: 'new' },
-    { id: now-14,   email: 'riya.g@startupconf.co',      source: 'Hero CTA',    page: '/',            date: new Date(now-20*day).toISOString(),   status: 'contacted' },
-    { id: now-15,   email: 'tom.w@hybridevents.io',      source: 'Pricing CTA', page: '/pricing',     date: new Date(now-23*day).toISOString(),   status: 'new' },
+    { id: now-1,  email:'sarah.chen@globalconf.io',  source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-1*day).toISOString(),  status:'contacted'  },
+    { id: now-2,  email:'marco.b@euromedia.eu',      source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-2*day).toISOString(),  status:'new'        },
+    { id: now-3,  email:'priya.nair@techsummit.in',  source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-2*day).toISOString(),  status:'new'        },
+    { id: now-4,  email:'james.o@broadcastuk.co.uk', source:'Features CTA', page:'/features',     utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-3*day).toISOString(),  status:'interested' },
+    { id: now-5,  email:'anika.s@worshiptech.org',   source:'Hero CTA',     page:'/',             utm:{},                                                                              date:new Date(now-4*day).toISOString(),  status:'contacted'  },
+    { id: now-6,  email:'luca.m@sportsmedia.it',     source:'How It Works', page:'/how-it-works', utm:{ utm_source:'google',   utm_medium:'organic', utm_campaign:''               }, date:new Date(now-5*day).toISOString(),  status:'new'        },
+    { id: now-7,  email:'fatima.z@confhub.ae',       source:'Hero CTA',     page:'/',             utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'event-organizers' }, date:new Date(now-6*day).toISOString(),  status:'new'        },
+    { id: now-8,  email:'alex.r@unibroadcast.edu',   source:'Blog CTA',     page:'/blog',         utm:{},                                                                              date:new Date(now-7*day).toISOString(),  status:'interested' },
+    { id: now-9,  email:'nina.k@events.de',          source:'Pricing CTA',  page:'/pricing',      utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'competitor'      }, date:new Date(now-9*day).toISOString(),  status:'new'        },
+    { id: now-10, email:'carlos.v@latinconf.mx',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'twitter',  utm_medium:'social',  utm_campaign:'product-launch'  }, date:new Date(now-11*day).toISOString(), status:'contacted'  },
+    { id: now-11, email:'yuki.t@eventstech.jp',      source:'Features CTA', page:'/features',     utm:{},                                                                              date:new Date(now-13*day).toISOString(), status:'new'        },
+    { id: now-12, email:'helen.f@ngoconnect.org',    source:'Use Cases',    page:'/use-cases',    utm:{ utm_source:'referral', utm_medium:'referral', utm_campaign:''               }, date:new Date(now-15*day).toISOString(), status:'interested' },
+    { id: now-13, email:'david.p@mediapro.fr',       source:'Blog CTA',     page:'/blog',         utm:{ utm_source:'linkedin', utm_medium:'social',  utm_campaign:'content'         }, date:new Date(now-18*day).toISOString(), status:'new'        },
+    { id: now-14, email:'riya.g@startupconf.co',     source:'Hero CTA',     page:'/',             utm:{ utm_source:'google',   utm_medium:'cpc',     utm_campaign:'brand-search'    }, date:new Date(now-20*day).toISOString(), status:'contacted'  },
+    { id: now-15, email:'tom.w@hybridevents.io',     source:'Pricing CTA',  page:'/pricing',      utm:{},                                                                              date:new Date(now-23*day).toISOString(), status:'new'        },
   ]
 
   const demoSignups = [

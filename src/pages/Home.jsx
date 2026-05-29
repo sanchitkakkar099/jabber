@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 import { saveLead } from '../utils/leads'
+import { track } from '../utils/posthog'
 
 const HOME_SCHEMA = {
   '@context': 'https://schema.org',
@@ -191,6 +192,7 @@ export default function Home() {
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ctaEmail.trim())
     if (!valid) { setCtaError(true); setTimeout(() => setCtaError(false), 1800); return }
     saveLead({ email: ctaEmail.trim(), source: 'Hero CTA', page: '/' })
+    track('lead_captured', { source: 'Hero CTA', page: '/' })
     setCtaSubmitted(true)
   }
 

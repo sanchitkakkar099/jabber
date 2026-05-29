@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 import { saveLead } from '../utils/leads'
+import { track } from '../utils/posthog'
 
 export default function HowItWorks() {
   useScrollReveal()
@@ -11,6 +12,7 @@ export default function HowItWorks() {
   function handleCTA() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ctaEmail.trim())) { setCtaError(true); setTimeout(()=>setCtaError(false),1800); return }
     saveLead({ email: ctaEmail.trim(), source: 'How It Works CTA', page: '/how-it-works' })
+    track('lead_captured', { source: 'How It Works CTA', page: '/how-it-works' })
     setCtaSubmitted(true)
   }
 

@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { captureUTM } from './utils/utm'
+import { trackPageview } from './utils/posthog'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -17,7 +19,11 @@ import Admin from './pages/Admin'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    captureUTM()
+    trackPageview(pathname)
+  }, [pathname])
   return null
 }
 
