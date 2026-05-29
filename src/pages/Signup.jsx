@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import { saveSignup } from '../utils/leads'
 
 export default function Signup() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ firstName:'', lastName:'', email:'', company:'', role:'', password:'' })
   const [terms, setTerms] = useState(false)
   function set(k) { return e => setForm(f=>({...f,[k]:e.target.value})) }
-  function handleSubmit(e) { e.preventDefault(); setSubmitted(true) }
+  function handleSubmit(e) {
+    e.preventDefault()
+    saveSignup({ firstName: form.firstName, lastName: form.lastName, email: form.email, company: form.company, role: form.role })
+    setSubmitted(true)
+  }
 
   return (
     <>

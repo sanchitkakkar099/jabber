@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
+import { saveLead } from '../utils/leads'
 
 const HOME_SCHEMA = {
   '@context': 'https://schema.org',
@@ -189,6 +190,7 @@ export default function Home() {
   function handleCTASubmit() {
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ctaEmail.trim())
     if (!valid) { setCtaError(true); setTimeout(() => setCtaError(false), 1800); return }
+    saveLead({ email: ctaEmail.trim(), source: 'Hero CTA', page: '/' })
     setCtaSubmitted(true)
   }
 
