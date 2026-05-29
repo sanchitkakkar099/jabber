@@ -1,15 +1,23 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 import { track } from '../utils/posthog'
+import { getPlans } from '../utils/plans'
 
 const CheckYes = () => <svg className="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const CheckNo = () => <svg className="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
 
 export default function Pricing() {
   useScrollReveal()
-  useEffect(() => { track('pricing_page_viewed') }, [])
+  const [plans, setPlans] = useState(getPlans())
+
+  useEffect(() => {
+    track('pricing_page_viewed')
+    function onFocus() { setPlans(getPlans()) }
+    window.addEventListener('focus', onFocus)
+    return () => window.removeEventListener('focus', onFocus)
+  }, [])
   return (
     <>
       <SEO
@@ -38,60 +46,32 @@ export default function Pricing() {
       <section className="pricing-section">
         <div className="container">
           <div className="pricing-grid">
-            {/* STARTER */}
-            <div className="pricing-card reveal">
-              <div className="pricing-tier">Starter</div>
-              <div className="pricing-price"><span className="price-amount">$100</span><span className="price-period">&nbsp;free credits</span></div>
-              <div className="pricing-desc">$100 in free credits on sign-up — no credit card required. Enough to run your first multilingual event today.</div>
-              <hr className="pricing-divider" />
-              <ul className="pricing-features">
-                <li className="pf-item"><CheckYes />Up to 100 concurrent viewers</li>
-                <li className="pf-item"><CheckYes />2 languages per event</li>
-                <li className="pf-item"><CheckYes />Captions &amp; audio translation</li>
-                <li className="pf-item"><CheckYes />1 hr event · covers ~1 event</li>
-                <li className="pf-item muted"><CheckNo />Custom branding</li>
-                <li className="pf-item muted"><CheckNo />API access</li>
-                <li className="pf-item muted"><CheckNo />Priority support</li>
-              </ul>
-              <Link to="/signup" className="pricing-cta pricing-cta-ghost">Claim free credits</Link>
-            </div>
-
-            {/* PRO */}
-            <div className="pricing-card featured reveal">
-              <div className="pricing-badge">Most Popular</div>
-              <div className="pricing-tier">Pro</div>
-              <div className="pricing-price"><span className="price-currency">$</span><span className="price-amount">299</span><span className="price-period">&nbsp;/ month</span></div>
-              <div className="pricing-desc">For regular events and growing organisations that need reliability and scale.</div>
-              <hr className="pricing-divider" />
-              <ul className="pricing-features">
-                <li className="pf-item"><CheckYes />Up to 5,000 concurrent viewers</li>
-                <li className="pf-item"><CheckYes />10+ languages per event</li>
-                <li className="pf-item"><CheckYes />Captions &amp; audio translation</li>
-                <li className="pf-item"><CheckYes />Unlimited streaming hours</li>
-                <li className="pf-item"><CheckYes />Custom branding</li>
-                <li className="pf-item"><CheckYes />Full API access</li>
-                <li className="pf-item muted"><CheckNo />Dedicated SLA</li>
-              </ul>
-              <Link to="/signup" className="pricing-cta pricing-cta-solid">Get started</Link>
-            </div>
-
-            {/* ENTERPRISE */}
-            <div className="pricing-card reveal">
-              <div className="pricing-tier">Enterprise</div>
-              <div className="pricing-price"><span className="price-amount" style={{fontSize:'2rem',letterSpacing:'-0.02em'}}>Custom</span></div>
-              <div className="pricing-desc">For large-scale events, media companies, and organisations with custom requirements.</div>
-              <hr className="pricing-divider" />
-              <ul className="pricing-features">
-                <li className="pf-item"><CheckYes />Unlimited concurrent viewers</li>
-                <li className="pf-item"><CheckYes />All languages supported</li>
-                <li className="pf-item"><CheckYes />Custom voice models</li>
-                <li className="pf-item"><CheckYes />Dedicated infrastructure</li>
-                <li className="pf-item"><CheckYes />SSO &amp; custom domain</li>
-                <li className="pf-item"><CheckYes />99.99% uptime SLA</li>
-                <li className="pf-item"><CheckYes />Dedicated account manager</li>
-              </ul>
-              <Link to="/contact" className="pricing-cta pricing-cta-outline">Contact sales</Link>
-            </div>
+            {plans.map(p => (
+              <div key={p.id} className={`pricing-card reveal${p.featured ? ' featured' : ''}`}>
+                {p.badge && <div className="pricing-badge">{p.badge}</div>}
+                <div className="pricing-tier">{p.name}</div>
+                <div className="pricing-price">
+                  {p.showCurrency && <span className="price-currency">$</span>}
+                  <span className="price-amount">{p.priceDisplay}</span>
+                  {p.priceSuffix && <span className="price-period">&nbsp;{p.priceSuffix}</span>}
+                </div>
+                <div className="pricing-desc">{p.desc}</div>
+                <hr className="pricing-divider" />
+                <ul className="pricing-features">
+                  {p.features.map(f => (
+                    <li key={f.text} className={f.yes ? 'pf-item' : 'pf-item muted'}>
+                      {f.yes ? <CheckYes /> : <CheckNo />}{f.text}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to={p.ctaLink}
+                  className={`pricing-cta${p.ctaStyle === 'ghost' ? ' pricing-cta-ghost' : p.ctaStyle === 'solid' ? ' pricing-cta-solid' : ' pricing-cta-outline'}`}
+                >
+                  {p.ctaText}
+                </Link>
+              </div>
+            ))}
           </div>
 
           {/* COMPARISON TABLE */}

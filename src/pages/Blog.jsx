@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
-import { posts } from '../data/posts'
-
-const CATEGORIES = ['All', ...Array.from(new Set(posts.map(p => p.category)))]
+import { getBlogPosts } from '../utils/blogStorage'
 
 function BlogCard({ post }) {
   return (
@@ -30,6 +28,8 @@ function BlogCard({ post }) {
 
 export default function Blog() {
   useScrollReveal()
+  const posts = getBlogPosts()
+  const CATEGORIES = ['All', ...Array.from(new Set(posts.map(p => p.category)))]
   const [active, setActive] = useState('All')
   const filtered = active === 'All' ? posts : posts.filter(p => p.category === active)
 

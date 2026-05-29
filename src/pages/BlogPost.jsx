@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
-import { posts, getRelatedPosts } from '../data/posts'
+import { getBlogPosts, getRelatedBlogPosts } from '../utils/blogStorage'
 import { track } from '../utils/posthog'
 
 export default function BlogPost() {
   useScrollReveal()
   const { slug } = useParams()
+  const posts = getBlogPosts()
   const post = posts.find(p => p.slug === slug)
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function BlogPost() {
     )
   }
 
-  const related = getRelatedPosts(post.slug, 3)
+  const related = getRelatedBlogPosts(post.slug, 3)
 
   const articleSchema = {
     '@context': 'https://schema.org',

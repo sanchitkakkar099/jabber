@@ -4,6 +4,9 @@ import { getLeads, getSignups, updateLeadStatus, updateSignupStatus, exportCSV, 
 import { getTickets, updateTicket, addTicketNote, seedTickets } from '../utils/tickets'
 import { utmLabel } from '../utils/utm'
 import AdminSupport from '../components/AdminSupport'
+import { getPlans, savePlan, resetPlans, DEFAULT_PLANS } from '../utils/plans'
+import { getBlogPosts, saveBlogPost, deleteBlogPost, seedBlogPosts } from '../utils/blogStorage'
+import AdminBlogEditor from '../components/AdminBlogEditor'
 
 const ADMIN_PASS  = 'jabber@2026'
 const SESSION_KEY = 'jabber_admin_auth'
@@ -139,7 +142,7 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
   return (
     <aside className="adm-sidebar">
       <div className="adm-sidebar-logo">
-        <img src="/logo.png" alt="Jabber" style={{ height:36, filter:'brightness(0) invert(1)' }} />
+        <img src="/logo.png" alt="Jabber" style={{ height:36, filter:'invert(1)', mixBlendMode:'screen' }} />
         <span className="adm-sidebar-badge">Admin</span>
       </div>
 
@@ -597,64 +600,159 @@ function AnalyticsSection({ leads, signups }) {
   )
 }
 
-// ── Blog Performance ──────────────────────────────────────────────────────────
-function BlogSection() {
+// ── Blog Management ───────────────────────────────────────────────────────────
+function BlogSection({ onRefresh }) {
   return (
     <div className="adm-section">
       <div className="adm-section-header">
         <div>
-          <h1 className="adm-page-title">Blog Performance</h1>
-          <p className="adm-page-sub">Which posts are driving the most leads</p>
-        </div>
-        <Link to="/blog" target="_blank" className="adm-btn-outline">View Blog →</Link>
-      </div>
-
-      <div className="adm-card">
-        <table className="adm-table">
-          <thead><tr><th>Post</th><th>Views</th><th>Leads</th><th>Conv. Rate</th><th>Action</th></tr></thead>
-          <tbody>
-            {BLOG_POSTS.map(p => (
-              <tr key={p.title}>
-                <td style={{ fontWeight:600, maxWidth:340 }}>{p.title}</td>
-                <td>{p.views}</td>
-                <td style={{ fontWeight:700, color:'#6366f1' }}>{p.leads}</td>
-                <td><span style={{ color:'#22c55e', fontWeight:700 }}>{p.conv}</span></td>
-                <td><button className="adm-btn-mini">Edit</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="adm-suggest">
-        <div className="adm-suggest-icon">📝</div>
-        <div>
-          <strong>Content ideas to boost SEO & leads</strong>
-          <ul className="adm-suggest-list">
-            <li>"Best real-time translation software for events 2026" — high-intent comparison keyword</li>
-            <li>"How to stream in multiple languages on YouTube / Zoom" — discovery traffic</li>
-            <li>Case study: "How [Client X] reached 4× more attendees with Jabber"</li>
-            <li>Language-specific landing pages (e.g., /es, /fr) for non-English SEO</li>
-          </ul>
+          <h1 className="adm-page-title">Blog Management</h1>
+          <p className="adm-page-sub">Add, edit, and delete blog posts. Changes reflect immediately on the website.</p>
         </div>
       </div>
+      <AdminBlogEditor onRefresh={onRefresh} />
     </div>
   )
 }
 
-// ── Plans ─────────────────────────────────────────────────────────────────────
+// ── Plans Editor ──────────────────────────────────────────────────────────────
+function PlanEditorPanel({ plan, onSaved }) {
+  const [open, setOpen]   = useState(false)
+  const [form, setForm]   = useState({ ...plan, features: plan.features.map(f => ({ ...f })) })
+  const [saved, setSaved] = useState(false)
+
+  function handleField(field, value) {
+    setForm(prev => ({ ...prev, [field]: value }))
+  }
+  function handleFeatureText(i, val) {
+    setForm(prev => {
+      const features = prev.features.map((f, idx) => idx === i ? { ...f, text: val } : f)
+      return { ...prev, features }
+    })
+  }
+  function handleFeatureToggle(i) {
+    setForm(prev => {
+      const features = prev.features.map((f, idx) => idx === i ? { ...f, yes: !f.yes } : f)
+      return { ...prev, features }
+    })
+  }
+  function addFeature() {
+    setForm(prev => ({ ...prev, features: [...prev.features, { text: '', yes: true }] }))
+  }
+  function removeFeature(i) {
+    setForm(prev => ({ ...prev, features: prev.features.filter((_, idx) => idx !== i) }))
+  }
+  function handleSave() {
+    savePlan(form)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+    onSaved()
+  }
+
+  return (
+    <div className="adm-plan-editor-card">
+      <div className="adm-plan-editor-header" onClick={() => setOpen(o => !o)}>
+        <div className="adm-plan-editor-title">
+          {form.name}
+          {form.featured && <span style={{ background:'#f5f3ff', color:'#7c3aed', fontSize:'0.7rem', padding:'2px 8px', borderRadius:999, fontWeight:700 }}>Featured</span>}
+          {form.badge && <span style={{ background:'#eff6ff', color:'#3b82f6', fontSize:'0.7rem', padding:'2px 8px', borderRadius:999, fontWeight:700 }}>{form.badge}</span>}
+        </div>
+        <span style={{ color:'#64748b', fontSize:'0.8rem' }}>{open ? '▲' : '▼'}</span>
+      </div>
+      {open && (
+        <div className="adm-plan-editor-body">
+          <div className="adm-plan-form-row">
+            <div className="adm-plan-form-group">
+              <label>Plan Name</label>
+              <input type="text" value={form.name} onChange={e => handleField('name', e.target.value)} />
+            </div>
+            <div className="adm-plan-form-group">
+              <label>Price Display</label>
+              <input type="text" value={form.priceDisplay} onChange={e => handleField('priceDisplay', e.target.value)} placeholder="e.g. $100 or 299 or Custom" />
+            </div>
+          </div>
+          <div className="adm-plan-form-row">
+            <div className="adm-plan-form-group">
+              <label>Price Suffix</label>
+              <input type="text" value={form.priceSuffix} onChange={e => handleField('priceSuffix', e.target.value)} placeholder="e.g. free credits or / month" />
+            </div>
+            <div className="adm-plan-form-group">
+              <label>Badge Text</label>
+              <input type="text" value={form.badge} onChange={e => handleField('badge', e.target.value)} placeholder="e.g. Most Popular (leave empty for none)" />
+            </div>
+          </div>
+          <div className="adm-plan-form-row">
+            <div className="adm-plan-form-group" style={{ flexDirection:'row', alignItems:'center', gap:10 }}>
+              <label style={{ marginBottom:0 }}>Show $ Currency Prefix</label>
+              <input type="checkbox" checked={!!form.showCurrency} onChange={e => handleField('showCurrency', e.target.checked)} style={{ width:16, height:16 }} />
+            </div>
+            <div className="adm-plan-form-group" style={{ flexDirection:'row', alignItems:'center', gap:10 }}>
+              <label style={{ marginBottom:0 }}>Featured (glow)</label>
+              <input type="checkbox" checked={!!form.featured} onChange={e => handleField('featured', e.target.checked)} style={{ width:16, height:16 }} />
+            </div>
+          </div>
+          <div className="adm-plan-form-group">
+            <label>Description</label>
+            <textarea rows={2} value={form.desc} onChange={e => handleField('desc', e.target.value)} />
+          </div>
+          <div className="adm-plan-form-row">
+            <div className="adm-plan-form-group">
+              <label>CTA Button Text</label>
+              <input type="text" value={form.ctaText} onChange={e => handleField('ctaText', e.target.value)} />
+            </div>
+            <div className="adm-plan-form-group">
+              <label>CTA Link</label>
+              <input type="text" value={form.ctaLink} onChange={e => handleField('ctaLink', e.target.value)} placeholder="/signup or /contact" />
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize:'0.72rem', fontWeight:700, color:'#64748b', textTransform:'uppercase', letterSpacing:'0.04em', marginBottom:8 }}>Features</div>
+            {form.features.map((f, i) => (
+              <div key={i} className="adm-plan-feature-row">
+                <input
+                  type="text"
+                  value={f.text}
+                  onChange={e => handleFeatureText(i, e.target.value)}
+                  placeholder="Feature description"
+                />
+                <label className="adm-plan-feature-toggle">
+                  <input type="checkbox" checked={f.yes} onChange={() => handleFeatureToggle(i)} style={{ width:14, height:14 }} />
+                  {f.yes ? '✓ Yes' : '✗ No'}
+                </label>
+                <button type="button" onClick={() => removeFeature(i)} style={{ background:'none', border:'none', color:'#ef4444', cursor:'pointer', fontWeight:700, fontSize:'1rem', lineHeight:1 }}>×</button>
+              </div>
+            ))}
+            <button type="button" className="adm-btn-mini" style={{ marginTop:6 }} onClick={addFeature}>+ Add Feature</button>
+          </div>
+
+          <div style={{ display:'flex', gap:10, paddingTop:4 }}>
+            <button type="button" className="btn btn-primary" style={{ padding:'8px 20px', fontSize:'0.875rem' }} onClick={handleSave}>
+              {saved ? '✓ Saved!' : 'Save Changes'}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function PlansSection({ signups }) {
-  const PLAN_DATA = [
-    { name:'Free Credits', count: signups.length, color:'#6366f1', mrr: 0 },
-    { name:'Pro ($299/mo)', count: 0, color:'#8b5cf6', mrr: 0 },
-    { name:'Enterprise', count: 0, color:'#06b6d4', mrr: 0 },
-  ]
+  const [plans, setPlans] = useState(getPlans())
+
+  function reload() { setPlans(getPlans()) }
+
+  function handleReset() {
+    resetPlans()
+    reload()
+  }
+
   return (
     <div className="adm-section">
       <div className="adm-section-header">
         <div>
           <h1 className="adm-page-title">Plans & Revenue</h1>
-          <p className="adm-page-sub">User plan distribution and MRR overview</p>
+          <p className="adm-page-sub">Edit pricing plans and view MRR overview</p>
         </div>
       </div>
 
@@ -671,31 +769,23 @@ function PlansSection({ signups }) {
       </div>
 
       <div className="adm-card">
-        <h3 className="adm-card-title">Plan Distribution</h3>
-        {PLAN_DATA.map(p => (
-          <div key={p.name} className="adm-plan-row">
-            <div className="adm-plan-name">
-              <span className="adm-source-dot" style={{ background:p.color }} />
-              {p.name}
-            </div>
-            <div className="adm-source-bar-bg" style={{ flex:1, margin:'0 16px' }}>
-              <div className="adm-source-bar" style={{ width: signups.length ? `${(p.count/signups.length)*100}%` : '0%', background:p.color, minWidth: p.count > 0 ? 4 : 0 }} />
-            </div>
-            <span style={{ fontWeight:700, minWidth:24, textAlign:'right' }}>{p.count}</span>
-          </div>
+        <h3 className="adm-card-title">Plans Editor</h3>
+        <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:16 }}>Click a plan to expand and edit. Changes save to localStorage and reflect on /pricing immediately.</p>
+        {plans.map(p => (
+          <PlanEditorPanel key={p.id} plan={p} onSaved={reload} />
         ))}
-      </div>
-
-      <div className="adm-suggest">
-        <div className="adm-suggest-icon">💰</div>
-        <div>
-          <strong>Steps to activate revenue</strong>
-          <ul className="adm-suggest-list">
-            <li>Integrate <strong>Stripe</strong> to handle Pro plan subscriptions and usage-based billing</li>
-            <li>Add a <strong>upgrade prompt</strong> in the dashboard when free credits run out</li>
-            <li>Send a <strong>day-5 follow-up email</strong> to free-credit users offering a Pro trial extension</li>
-            <li>Add <strong>annual billing</strong> at 20% discount to improve cash flow and reduce churn</li>
-          </ul>
+        <div style={{ marginTop:16 }}>
+          <button
+            type="button"
+            className="adm-btn-outline"
+            style={{ color:'#ef4444', borderColor:'#fecaca', fontSize:'0.82rem' }}
+            onClick={handleReset}
+          >
+            Reset All Plans to Default
+          </button>
+        </div>
+        <div className="adm-plans-note" style={{ marginTop:16 }}>
+          💡 Changes to plans are saved in localStorage and reflected immediately on the /pricing page.
         </div>
       </div>
     </div>
@@ -713,6 +803,7 @@ export default function Admin() {
   useEffect(() => {
     seedDemoData()
     seedTickets()
+    seedBlogPosts()
     refresh()
   }, [])
 
@@ -744,7 +835,7 @@ export default function Admin() {
         {section === 'leads'     && <LeadsSection leads={leads} onStatusChange={updateLeadStatus} onRefresh={refresh} />}
         {section === 'signups'   && <SignupsSection signups={signups} onStatusChange={updateSignupStatus} onRefresh={refresh} />}
         {section === 'analytics' && <AnalyticsSection leads={leads} signups={signups} />}
-        {section === 'blog'      && <BlogSection />}
+        {section === 'blog'      && <BlogSection onRefresh={refresh} />}
         {section === 'plans'     && <PlansSection signups={signups} />}
         {section === 'support'   && <AdminSupport tickets={tickets} onUpdate={updateTicket} onAddNote={addTicketNote} onRefresh={refresh} />}
       </main>
