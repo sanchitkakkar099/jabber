@@ -38,6 +38,31 @@ export default function Home() {
   const [ctaSubmitted, setCtaSubmitted] = useState(false)
   const [ctaError, setCtaError] = useState(false)
 
+  // Typewriter effect
+  const TYPE_PHRASES = ['reach the world.', 'go multilingual.', 'hit go.']
+  const [typedWord, setTypedWord] = useState('')
+  const [typeIdx, setTypeIdx] = useState(0)
+  const [typeDeleting, setTypeDeleting] = useState(false)
+
+  useEffect(() => {
+    const current = TYPE_PHRASES[typeIdx]
+    let timer
+    if (!typeDeleting && typedWord === current) {
+      timer = setTimeout(() => setTypeDeleting(true), 2400)
+    } else if (typeDeleting && typedWord === '') {
+      setTypeDeleting(false)
+      setTypeIdx(i => (i + 1) % TYPE_PHRASES.length)
+    } else {
+      timer = setTimeout(() => {
+        setTypedWord(typeDeleting
+          ? current.slice(0, typedWord.length - 1)
+          : current.slice(0, typedWord.length + 1)
+        )
+      }, typeDeleting ? 55 : 85)
+    }
+    return () => clearTimeout(timer)
+  }, [typedWord, typeDeleting, typeIdx])
+
   // Canvas particle network
   useEffect(() => {
     const canvas = canvasRef.current
@@ -135,8 +160,8 @@ export default function Home() {
           <div className="hero-left">
             <div className="hero-badge"><span className="pulse-dot" />Enterprise-Grade Infrastructure · Real-Time AI</div>
             <h1 className="hero-headline">
-              Your Event.<br />Every Language.<br />
-              <span className="text-gradient">Live<span className="blink-cursor">|</span></span>
+              No interpreters.<br />No hardware. Just<br />
+              <span className="text-gradient">{typedWord}<span className="blink-cursor">|</span></span>
             </h1>
             <p className="hero-desc">Jabber delivers real-time transcription, translation, and audio to thousands of viewers — each in the language they choose. Serverless. Instant. Near-zero cost.</p>
             <div className="hero-btns">
