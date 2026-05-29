@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About &mdash; Jabber Real-Time Translation</title>
+    <meta name="description" content="We're building the infrastructure to make every live event accessible to everyone, everywhere, in any language.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.png" alt="Jabber" class="nav-logo-img"></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html" class="btn btn-ghost btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Get Early Access</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="features.html" onclick="closeMobileMenu()">Features</a>
+        <a href="how-it-works.html" onclick="closeMobileMenu()">How It Works</a>
+        <a href="use-cases.html" onclick="closeMobileMenu()">Use Cases</a>
+        <a href="pricing.html" onclick="closeMobileMenu()">Pricing</a>
+        <a href="about.html" onclick="closeMobileMenu()">About</a>
+        <a href="login.html" onclick="closeMobileMenu()">Log In</a>
+        <a href="signup.html" class="btn btn-primary" onclick="closeMobileMenu()">Get Early Access</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero-inner">
+            <div class="section-tag-wrap"><span class="section-tag">About Jabber</span></div>
+            <h1>Language shouldn&rsquo;t be a barrier to connection</h1>
+            <p>We&rsquo;re building the infrastructure to make every live event accessible to everyone, everywhere, in their own language &mdash; instantly.</p>
+        </div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-inner">
+                <div class="mission-text reveal">
+                    <h2>Our mission</h2>
+                    <p>Every year, billions of people miss out on live events &mdash; conferences, ceremonies, broadcasts, town halls &mdash; simply because they don&rsquo;t speak the primary language. Traditional interpretation is expensive, logistically complex, and doesn&rsquo;t scale to the internet.</p>
+                    <p>We built Jabber to change that. Using the latest AI for transcription, translation, and voice synthesis, we deliver real-time multilingual access to any live stream &mdash; at a fraction of the cost of traditional solutions, with none of the infrastructure overhead.</p>
+                    <p>Our goal is simple: make language a non-issue for live events, so organisers can focus on the content and viewers can focus on the experience.</p>
+                    <a href="signup.html" class="btn btn-primary" style="margin-top:8px;">Join early access</a>
+                </div>
+                <div class="mission-visual reveal">
+                    <div class="mission-stat-big">10+</div>
+                    <div class="mission-stat-label">Languages supported at launch</div>
+                    <div class="mv-divider"></div>
+                    <div class="mission-stat-big">&lt; 2s</div>
+                    <div class="mission-stat-label">End-to-end translation latency</div>
+                    <div class="mv-divider"></div>
+                    <div class="mission-stat-big">$0</div>
+                    <div class="mission-stat-label">Cost when you&rsquo;re not live</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-tag-wrap"><span class="section-tag">Our Values</span></div>
+            <h2 class="section-title">What we believe</h2>
+            <p class="section-desc">These principles guide every decision we make &mdash; from product design to infrastructure choices.</p>
+            <div class="values-grid">
+                <div class="value-card reveal">
+                    <div class="value-icon">⚡</div>
+                    <h3>Speed is accessibility</h3>
+                    <p>A translation that arrives 5 seconds late might as well not exist. We obsess over latency because every millisecond matters when you&rsquo;re following a live conversation.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🌍</div>
+                    <h3>Global by default</h3>
+                    <p>We design for the world, not a single market. Every feature we build is tested across languages, regions, and cultural contexts before it ships.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🔓</div>
+                    <h3>Accessible pricing</h3>
+                    <p>Language access shouldn&rsquo;t be a luxury. We price Jabber to be within reach for non-profits, educational institutions, and community organisations &mdash; not just enterprises.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🔒</div>
+                    <h3>Privacy by design</h3>
+                    <p>Live events often involve sensitive content. We build privacy protections in from the start &mdash; encrypted streams, optional PII redaction, and configurable data retention.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🛠️</div>
+                    <h3>Builders first</h3>
+                    <p>We build for the event organisers and developers who use Jabber every day. Our API is a first-class product, not an afterthought. Documentation is part of the feature.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">📈</div>
+                    <h3>Honest about AI</h3>
+                    <p>AI translation isn&rsquo;t perfect. We show quality scores, flag uncertainty, and continuously improve our models. We won&rsquo;t oversell what the technology can do today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-tag-wrap"><span class="section-tag">The Team</span></div>
+            <h2 class="section-title">Built by people who care about language</h2>
+            <p class="section-desc">We&rsquo;re a small team with deep experience in real-time infrastructure, AI, and live events.</p>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-avatar">AK</div>
+                    <h4>Arjun Kapoor</h4>
+                    <div class="team-role">Co-founder &amp; CEO</div>
+                    <p class="team-bio">Former VP Engineering at a global events company. Spent 10 years frustrated by the cost of live interpretation.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">ML</div>
+                    <h4>Maya Lin</h4>
+                    <div class="team-role">Co-founder &amp; CTO</div>
+                    <p class="team-bio">ML researcher and systems engineer. Previously built real-time infrastructure at scale for two unicorn startups.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">SP</div>
+                    <h4>Sofia Petrov</h4>
+                    <div class="team-role">Head of AI</div>
+                    <p class="team-bio">PhD in computational linguistics. Fluent in 5 languages. Has trained translation models used by millions daily.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">JO</div>
+                    <h4>James Osei</h4>
+                    <div class="team-role">Head of Product</div>
+                    <p class="team-bio">Product leader with a background in broadcast media. Has produced live events for audiences of 500,000+.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <div class="cta-badge">We&rsquo;re hiring</div>
+            <h2>Join us in breaking language barriers</h2>
+            <p>We&rsquo;re a small team solving a big problem. If that excites you, we&rsquo;d love to talk.</p>
+            <div class="page-hero-cta" style="margin-top:0;">
+                <a href="signup.html" class="btn btn-white btn-lg">Get early access</a>
+                <a href="contact.html" class="btn btn-lg" style="color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">Contact us &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.png" alt="Jabber" class="footer-logo-img"></a>
+                <p class="footer-tagline">Real-time multilingual translation<br>for global live events.</p>
+            </div>
+            <div class="footer-link-col"><h4>Product</h4><a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="use-cases.html">Use Cases</a><a href="pricing.html">Pricing</a></div>
+            <div class="footer-link-col"><h4>Company</h4><a href="about.html">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="contact.html">Contact</a></div>
+            <div class="footer-link-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>&copy; 2026 Jabber. All rights reserved.</span>
+                <div class="social-links"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

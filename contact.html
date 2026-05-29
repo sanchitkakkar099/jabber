@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact &mdash; Jabber Real-Time Translation</title>
+    <meta name="description" content="Get in touch with the Jabber team. Join the early access waitlist or talk to sales about enterprise plans.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.png" alt="Jabber" class="nav-logo-img"></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html" class="btn btn-ghost btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Get Early Access</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="features.html" onclick="closeMobileMenu()">Features</a>
+        <a href="how-it-works.html" onclick="closeMobileMenu()">How It Works</a>
+        <a href="use-cases.html" onclick="closeMobileMenu()">Use Cases</a>
+        <a href="pricing.html" onclick="closeMobileMenu()">Pricing</a>
+        <a href="about.html" onclick="closeMobileMenu()">About</a>
+        <a href="login.html" onclick="closeMobileMenu()">Log In</a>
+        <a href="signup.html" class="btn btn-primary" onclick="closeMobileMenu()">Get Early Access</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero-inner">
+            <div class="section-tag-wrap"><span class="section-tag">Contact</span></div>
+            <h1>Get in touch</h1>
+            <p>Join the early access waitlist, ask a question, or talk to us about enterprise requirements. We reply within 24 hours.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-inner">
+                <div class="contact-info-col reveal">
+                    <h3>We&rsquo;d love to hear from you</h3>
+                    <p>Whether you&rsquo;re planning your first multilingual event or evaluating Jabber for enterprise deployment, we&rsquo;re happy to answer questions, offer a demo, or help you get set up.</p>
+
+                    <div class="contact-detail">
+                        <div class="cd-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <span>hello@jabber.ai</span>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="cd-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <span>Remote-first &mdash; Global</span>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="cd-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <span>Response time: within 24 hours</span>
+                    </div>
+
+                    <div style="margin-top:32px;">
+                        <div class="section-tag-wrap" style="justify-content:flex-start;margin-bottom:14px;"><span class="section-tag">Enterprise</span></div>
+                        <p style="font-size:0.875rem;color:var(--slate-500);line-height:1.65;">Need a demo, custom pricing, or a proof-of-concept for your organisation? Our sales team works with event companies, media groups, and enterprises. We&rsquo;ll get back to you same day.</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-card reveal">
+                    <h3>Send us a message</h3>
+                    <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">First name</label>
+                                <input type="text" id="firstName" class="form-input" placeholder="Alex" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">Last name</label>
+                                <input type="text" id="lastName" class="form-input" placeholder="Smith" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Work email</label>
+                            <input type="email" id="email" class="form-input" placeholder="you@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company / Organisation</label>
+                            <input type="text" id="company" class="form-input" placeholder="Acme Events Ltd">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subject">What can we help with?</label>
+                            <select id="subject" class="form-input">
+                                <option value="">Select a topic&hellip;</option>
+                                <option value="early-access">Join early access waitlist</option>
+                                <option value="demo">Request a demo</option>
+                                <option value="enterprise">Enterprise / custom pricing</option>
+                                <option value="technical">Technical question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">Message</label>
+                            <textarea id="message" class="form-input" rows="4" placeholder="Tell us about your event or question&hellip;" style="resize:vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary contact-submit" id="contactBtn">Send message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-tag-wrap"><span class="section-tag">FAQ</span></div>
+            <h2 class="section-title">Quick answers</h2>
+            <div class="faq-grid">
+                <div class="faq-item reveal">
+                    <h4>How quickly can I get started?</h4>
+                    <p>Once on the early access list, we typically onboard new users within 24 hours. Setup for your first event takes under 10 minutes.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Do you offer a free trial?</h4>
+                    <p>Yes. Our Starter plan is free with no credit card required. It includes 5 hours of streaming per month with up to 3 languages and 100 viewers.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Can I see a live demo?</h4>
+                    <p>Absolutely. Book a 30-minute demo call with our team and we&rsquo;ll walk you through the product live, including a real translation demo.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Do you have a partner or reseller programme?</h4>
+                    <p>We&rsquo;re actively building our partner network. If you run an event production company or AV integration business, reach out to discuss partnership opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.png" alt="Jabber" class="footer-logo-img"></a>
+                <p class="footer-tagline">Real-time multilingual translation<br>for global live events.</p>
+            </div>
+            <div class="footer-link-col"><h4>Product</h4><a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="use-cases.html">Use Cases</a><a href="pricing.html">Pricing</a></div>
+            <div class="footer-link-col"><h4>Company</h4><a href="about.html">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="contact.html">Contact</a></div>
+            <div class="footer-link-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>&copy; 2026 Jabber. All rights reserved.</span>
+                <div class="social-links"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+    function handleContactSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById('contactBtn');
+        btn.textContent = '✓ Message sent!';
+        btn.style.background = '#22c55e';
+        btn.disabled = true;
+        e.target.querySelectorAll('input,textarea,select').forEach(el => el.disabled = true);
+    }
+    </script>
+</body>
+</html>

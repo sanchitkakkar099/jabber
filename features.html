@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features &mdash; Jabber Real-Time Translation</title>
+    <meta name="description" content="Explore every feature of Jabber — real-time transcription, parallel translation, voice synthesis, edge delivery, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Jabber" class="nav-logo-img">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html" class="btn btn-ghost btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Get Early Access</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="features.html" onclick="closeMobileMenu()">Features</a>
+        <a href="how-it-works.html" onclick="closeMobileMenu()">How It Works</a>
+        <a href="use-cases.html" onclick="closeMobileMenu()">Use Cases</a>
+        <a href="pricing.html" onclick="closeMobileMenu()">Pricing</a>
+        <a href="about.html" onclick="closeMobileMenu()">About</a>
+        <a href="login.html" onclick="closeMobileMenu()">Log In</a>
+        <a href="signup.html" class="btn btn-primary" onclick="closeMobileMenu()">Get Early Access</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero-inner">
+            <div class="section-tag-wrap"><span class="section-tag">Features</span></div>
+            <h1>Everything your global event needs</h1>
+            <p>A complete real-time translation pipeline. Fully managed. Fully serverless. From your encoder to every viewer&rsquo;s ear &mdash; in under two seconds.</p>
+            <div class="page-hero-cta">
+                <a href="signup.html" class="btn btn-primary btn-lg">Get Early Access</a>
+                <a href="how-it-works.html" class="btn btn-ghost btn-lg">See how it works &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-blue">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="2" width="6" height="12" rx="3"/>
+                            <path d="M5 10a7 7 0 0014 0"/>
+                            <line x1="12" y1="17" x2="12" y2="22"/>
+                            <line x1="8" y1="22" x2="16" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3>Real-Time Transcription</h3>
+                    <p>AI-powered speech-to-text with automatic language detection and optional PII redaction. Interim and final transcripts delivered in real time with &lt;500ms delay. Supports accents and technical vocabulary out of the box.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-violet">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="19" cy="18" r="2"/>
+                            <path d="M7 11.5l10-4.5M7 12h10M7 12.5l10 4.5"/>
+                        </svg>
+                    </div>
+                    <h3>Parallel Translation</h3>
+                    <p>Transcripts fan out to 10+ languages simultaneously &mdash; zero sequential delay. Built on state-of-the-art neural translation models tuned for live speech. Extend to new languages without touching a line of code.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-cyan">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                    </div>
+                    <h3>Voice Synthesis (TTS)</h3>
+                    <p>Natural-sounding audio synthesised in every target language using neural voice models. Every viewer hears a native voice &mdash; not robotic text-to-speech. Multiple voice styles available per language.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-indigo">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3>Edge WebSocket Delivery</h3>
+                    <p>Translations pushed to millions of persistent WebSocket connections globally. Session state maintained at the edge for zero-latency, personalised delivery. No polling. No dropped captions.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-green">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+                            <line x1="12" y1="2" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3>Auto Scale to Zero</h3>
+                    <p>Containers spin up the moment you go LIVE, shut down completely when you stop. Your idle cost is literally $0. No reserved capacity wasted. Pay only for what you use, billed per minute of active streaming.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-orange">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <h3>Viewer Language Control</h3>
+                    <p>Each viewer picks their preferred language via browser or app. They receive synchronised captions and audio &mdash; personalised, in real-time. Language can be changed mid-session with zero interruption.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-blue">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                    </div>
+                    <h3>Organiser Dashboard</h3>
+                    <p>Real-time event analytics, viewer counts per language, latency monitoring, and translation quality scores. Manage live events, configure languages, and view billing &mdash; all in one place.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-violet">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Enterprise Security</h3>
+                    <p>End-to-end encrypted audio streams. SOC 2 Type II compliant infrastructure. Optional PII redaction in transcripts. GDPR-ready data handling with configurable data residency options.</p>
+                </div>
+                <div class="feat-card reveal">
+                    <div class="feat-icon-wrap fi-green">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                    </div>
+                    <h3>Developer API</h3>
+                    <p>Fully documented REST and WebSocket APIs. Webhook support for stream events. SDKs for Web, iOS, and Android. Embed Jabber directly into your own event platform or app in minutes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFRASTRUCTURE -->
+    <section class="tech-section">
+        <div class="container">
+            <div class="tech-inner">
+                <div class="tech-left reveal">
+                    <div class="section-tag-wrap" style="justify-content:flex-start;">
+                        <span class="section-tag">Infrastructure</span>
+                    </div>
+                    <h2 class="section-title" style="text-align:left;max-width:420px;margin-bottom:16px;">Enterprise infrastructure, built for real-time scale</h2>
+                    <p class="tech-intro">Serverless by design &mdash; Jabber runs on purpose-built enterprise infrastructure optimised for ultra-low-latency audio processing, real-time translation, and global edge delivery.</p>
+                    <ul class="tech-list">
+                        <li><span class="tl-badge">Live Ingest Layer</span><span class="tl-desc">High-throughput stream ingestion at any scale</span></li>
+                        <li><span class="tl-badge">AI Transcription</span><span class="tl-desc">Real-time speech-to-text with automatic language detection</span></li>
+                        <li><span class="tl-badge">Neural Translation</span><span class="tl-desc">Parallel multi-language translation in milliseconds</span></li>
+                        <li><span class="tl-badge">Voice Synthesis</span><span class="tl-desc">Natural-sounding audio in every supported language</span></li>
+                        <li><span class="tl-badge">Edge Delivery Network</span><span class="tl-desc">Global WebSocket delivery to millions of simultaneous viewers</span></li>
+                    </ul>
+                </div>
+                <div class="tech-right reveal">
+                    <div class="pipeline-card">
+                        <div class="pipe-label-top">Live Pipeline</div>
+                        <div class="pipeline-visual">
+                            <div class="pv-col"><div class="pv-node pv-gray">OBS</div><div class="pv-sublabel">Encoder</div></div>
+                            <div class="pv-arrow-col">&rarr;</div>
+                            <div class="pv-col"><div class="pv-node pv-indigo">Ingest</div><div class="pv-sublabel">Live Layer</div></div>
+                            <div class="pv-arrow-col">&rarr;</div>
+                            <div class="pv-col pv-stack-col">
+                                <div class="pv-node pv-small pv-indigo">Transcribe</div>
+                                <div class="pv-node pv-small pv-indigo">Translate</div>
+                                <div class="pv-node pv-small pv-indigo">Synthesise</div>
+                                <div class="pv-sublabel">AI Core</div>
+                            </div>
+                            <div class="pv-arrow-col">&rarr;</div>
+                            <div class="pv-col"><div class="pv-node pv-indigo">Edge&nbsp;CDN</div><div class="pv-sublabel">Deliver</div></div>
+                            <div class="pv-arrow-col">&rarr;</div>
+                            <div class="pv-col"><div class="pv-node pv-gray">Viewers</div><div class="pv-sublabel">&#x221e; scale</div></div>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Event-Driven</span>
+                            <span class="tech-tag">Serverless</span>
+                            <span class="tech-tag">Auto-Scaling</span>
+                            <span class="tech-tag">Zero Idle Cost</span>
+                            <span class="tech-tag">Multi-Language</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <div class="cta-badge">Early Access</div>
+            <h2>Ready to go global?</h2>
+            <p>Join the waitlist. We&rsquo;ll reach out with setup details within 24 hours.</p>
+            <div class="cta-form">
+                <input type="email" id="ctaEmail" placeholder="you@company.com" class="cta-input" aria-label="Email address">
+                <button class="btn btn-white btn-lg" onclick="handleCTASubmit()">Get Early Access &rarr;</button>
+            </div>
+            <p class="cta-note">No credit card required &middot; Free to get started &middot; Cancel anytime</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.png" alt="Jabber" class="footer-logo-img"></a>
+                <p class="footer-tagline">Real-time multilingual translation<br>for global live events.</p>
+            </div>
+            <div class="footer-link-col">
+                <h4>Product</h4>
+                <a href="features.html">Features</a>
+                <a href="how-it-works.html">How It Works</a>
+                <a href="use-cases.html">Use Cases</a>
+                <a href="pricing.html">Pricing</a>
+            </div>
+            <div class="footer-link-col">
+                <h4>Company</h4>
+                <a href="about.html">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-link-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>&copy; 2026 Jabber. All rights reserved.</span>
+                <div class="social-links"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases &mdash; Jabber Real-Time Translation</title>
+    <meta name="description" content="From international conferences to live sports, see how event organizers use Jabber for real-time multilingual translation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.png" alt="Jabber" class="nav-logo-img"></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html" class="btn btn-ghost btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Get Early Access</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="features.html" onclick="closeMobileMenu()">Features</a>
+        <a href="how-it-works.html" onclick="closeMobileMenu()">How It Works</a>
+        <a href="use-cases.html" onclick="closeMobileMenu()">Use Cases</a>
+        <a href="pricing.html" onclick="closeMobileMenu()">Pricing</a>
+        <a href="about.html" onclick="closeMobileMenu()">About</a>
+        <a href="login.html" onclick="closeMobileMenu()">Log In</a>
+        <a href="signup.html" class="btn btn-primary" onclick="closeMobileMenu()">Get Early Access</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero-inner">
+            <div class="section-tag-wrap"><span class="section-tag">Use Cases</span></div>
+            <h1>Built for every global event</h1>
+            <p>From intimate corporate calls to stadium-scale broadcasts, Jabber makes every event accessible to every viewer &mdash; in their own language.</p>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-strip">
+        <div class="container">
+            <div class="stats-row">
+                <div class="stat"><div class="stat-number">&lt;&nbsp;2s</div><div class="stat-label">End-to-End Latency</div></div>
+                <div class="stat-rule"></div>
+                <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Languages Supported</div></div>
+                <div class="stat-rule"></div>
+                <div class="stat"><div class="stat-number">&#x221e;</div><div class="stat-label">Concurrent Viewers</div></div>
+                <div class="stat-rule"></div>
+                <div class="stat"><div class="stat-number">$0</div><div class="stat-label">Idle Cost</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USE CASES EXPANDED -->
+    <section class="uc-expanded">
+        <div class="container">
+            <div class="uc-expanded-grid">
+                <div class="uc-expanded-card featured reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">🌐</div>
+                    <h3>International Conferences</h3>
+                    <p>Give every delegate their native language in real time. No interpreter booths, no headsets, no logistics nightmare &mdash; just a link. Jabber lets conference organizers offer 10+ languages simultaneously without any additional on-site infrastructure.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">No interpreter booths or equipment rental</div>
+                        <div class="uc-bullet">Delegates join from anywhere via browser</div>
+                        <div class="uc-bullet">Language selection mid-session</div>
+                        <div class="uc-bullet">Full captions + audio translation</div>
+                    </div>
+                    <span class="uc-tag" style="margin-top:16px;">Most Popular</span>
+                </div>
+
+                <div class="uc-expanded-card reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">🏟️</div>
+                    <h3>Live Sports Broadcasts</h3>
+                    <p>Commentary in every market's language, live. Engage global fanbases without localization teams or dubbing delays. Broadcast the same feed to audiences in dozens of countries, each hearing commentary in their own language.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">Real-time commentary translation</div>
+                        <div class="uc-bullet">Massive concurrent viewer support</div>
+                        <div class="uc-bullet">No dubbing studios or turnaround time</div>
+                        <div class="uc-bullet">Works with existing OTT infrastructure</div>
+                    </div>
+                </div>
+
+                <div class="uc-expanded-card reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">🏢</div>
+                    <h3>Corporate Town Halls</h3>
+                    <p>Connect your global workforce. Every employee hears leadership in their own language, in real time. Run a single all-hands from HQ and have it translated simultaneously for your teams in Europe, Asia, and Latin America.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">Single stream, every office covered</div>
+                        <div class="uc-bullet">Integrates with your video conferencing</div>
+                        <div class="uc-bullet">Inclusive messaging for global teams</div>
+                        <div class="uc-bullet">Transcript export for records</div>
+                    </div>
+                </div>
+
+                <div class="uc-expanded-card reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">⛪</div>
+                    <h3>Religious &amp; Cultural Events</h3>
+                    <p>Broadcast ceremonies and cultural events to diaspora communities worldwide. No language barriers. Connect your community across continents, ensuring every member can follow services, ceremonies, and cultural programs in their first language.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">Reach diaspora communities globally</div>
+                        <div class="uc-bullet">Respectful, accurate religious translations</div>
+                        <div class="uc-bullet">Simple viewer link sharing</div>
+                        <div class="uc-bullet">Free tier suitable for smaller communities</div>
+                    </div>
+                </div>
+
+                <div class="uc-expanded-card reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">🎓</div>
+                    <h3>Online Education &amp; Webinars</h3>
+                    <p>Every lecture, lesson, and Q&amp;A in the learner's first language. Global reach, local feel. Educators and course creators can expand their audience to non-English speakers without re-recording, dubbing, or hiring translators.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">Expand reach to new language markets</div>
+                        <div class="uc-bullet">Live Q&amp;A translation included</div>
+                        <div class="uc-bullet">Caption export for accessibility compliance</div>
+                        <div class="uc-bullet">No re-recording or post-production</div>
+                    </div>
+                </div>
+
+                <div class="uc-expanded-card reveal">
+                    <div class="uc-stripe"></div>
+                    <div class="uc-emoji">🎙️</div>
+                    <h3>Product Launches &amp; Press Events</h3>
+                    <p>Make your product announcements accessible to global press and customers from day one. Live-translate keynotes, announcements, and press briefings so international media can cover your launch in real time, in their language.</p>
+                    <div class="uc-bullets">
+                        <div class="uc-bullet">Global press coverage from day one</div>
+                        <div class="uc-bullet">Simultaneous multi-language launch</div>
+                        <div class="uc-bullet">No regional broadcast delay</div>
+                        <div class="uc-bullet">Branded viewer experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <div class="cta-badge">Early Access</div>
+            <h2>What&rsquo;s your event?</h2>
+            <p>Whatever you&rsquo;re broadcasting, we can translate it. Join the waitlist and we&rsquo;ll set you up within 24 hours.</p>
+            <div class="cta-form">
+                <input type="email" id="ctaEmail" placeholder="you@company.com" class="cta-input" aria-label="Email address">
+                <button class="btn btn-white btn-lg" onclick="handleCTASubmit()">Get Early Access &rarr;</button>
+            </div>
+            <p class="cta-note">No credit card required &middot; Free to get started &middot; Cancel anytime</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.png" alt="Jabber" class="footer-logo-img"></a>
+                <p class="footer-tagline">Real-time multilingual translation<br>for global live events.</p>
+            </div>
+            <div class="footer-link-col"><h4>Product</h4><a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="use-cases.html">Use Cases</a><a href="pricing.html">Pricing</a></div>
+            <div class="footer-link-col"><h4>Company</h4><a href="about.html">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="contact.html">Contact</a></div>
+            <div class="footer-link-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>&copy; 2026 Jabber. All rights reserved.</span>
+                <div class="social-links"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing &mdash; Jabber Real-Time Translation</title>
+    <meta name="description" content="Simple, transparent pricing. Pay only when you're live. Zero idle cost. From free events to enterprise scale.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.png" alt="Jabber" class="nav-logo-img"></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html" class="btn btn-ghost btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Get Early Access</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="features.html" onclick="closeMobileMenu()">Features</a>
+        <a href="how-it-works.html" onclick="closeMobileMenu()">How It Works</a>
+        <a href="use-cases.html" onclick="closeMobileMenu()">Use Cases</a>
+        <a href="pricing.html" onclick="closeMobileMenu()">Pricing</a>
+        <a href="about.html" onclick="closeMobileMenu()">About</a>
+        <a href="login.html" onclick="closeMobileMenu()">Log In</a>
+        <a href="signup.html" class="btn btn-primary" onclick="closeMobileMenu()">Get Early Access</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero-inner">
+            <div class="section-tag-wrap"><span class="section-tag">Pricing</span></div>
+            <h1>Simple, transparent pricing</h1>
+            <p>Pay only when you&rsquo;re live. Zero idle cost. Scale from a single event to stadium-size broadcasts &mdash; without changing plans.</p>
+        </div>
+    </section>
+
+    <!-- PRICING CARDS -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+
+                <!-- STARTER -->
+                <div class="pricing-card reveal">
+                    <div class="pricing-tier">Starter</div>
+                    <div class="pricing-price">
+                        <span class="price-amount">$0</span>
+                    </div>
+                    <div class="pricing-desc">Perfect for testing and small events. Get started in minutes with no commitment.</div>
+                    <hr class="pricing-divider">
+                    <ul class="pricing-features">
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Up to 100 concurrent viewers
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            3 languages per event
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Captions &amp; audio translation
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            5 hours streaming / month
+                        </li>
+                        <li class="pf-item muted">
+                            <svg class="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            Custom branding
+                        </li>
+                        <li class="pf-item muted">
+                            <svg class="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            API access
+                        </li>
+                        <li class="pf-item muted">
+                            <svg class="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            Priority support
+                        </li>
+                    </ul>
+                    <a href="signup.html" class="pricing-cta pricing-cta-ghost">Start for free</a>
+                </div>
+
+                <!-- PRO (FEATURED) -->
+                <div class="pricing-card featured reveal">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-price">
+                        <span class="price-currency">$</span><span class="price-amount">299</span>
+                        <span class="price-period">&nbsp;/ month</span>
+                    </div>
+                    <div class="pricing-desc">For regular events and growing organisations that need reliability and scale.</div>
+                    <hr class="pricing-divider">
+                    <ul class="pricing-features">
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Up to 5,000 concurrent viewers
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            10+ languages per event
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Captions &amp; audio translation
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited streaming hours
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Custom branding
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Full API access
+                        </li>
+                        <li class="pf-item muted">
+                            <svg class="pf-icon no" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            Dedicated SLA
+                        </li>
+                    </ul>
+                    <a href="signup.html" class="pricing-cta pricing-cta-solid">Get started</a>
+                </div>
+
+                <!-- ENTERPRISE -->
+                <div class="pricing-card reveal">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">
+                        <span class="price-amount" style="font-size:2rem;letter-spacing:-0.02em;">Custom</span>
+                    </div>
+                    <div class="pricing-desc">For large-scale events, media companies, and organisations with custom requirements.</div>
+                    <hr class="pricing-divider">
+                    <ul class="pricing-features">
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited concurrent viewers
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            All languages supported
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Custom voice models
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated infrastructure
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            SSO &amp; custom domain
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            99.99% uptime SLA
+                        </li>
+                        <li class="pf-item">
+                            <svg class="pf-icon yes" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated account manager
+                        </li>
+                    </ul>
+                    <a href="contact.html" class="pricing-cta pricing-cta-outline">Contact sales</a>
+                </div>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <div class="pricing-compare reveal">
+                <div class="compare-title">Full feature comparison</div>
+                <div class="compare-wrap">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40%">Feature</th>
+                                <th>Starter</th>
+                                <th>Pro</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section-row"><td colspan="4">Capacity</td></tr>
+                            <tr><td>Concurrent viewers</td><td>100</td><td>5,000</td><td class="check-custom">Unlimited</td></tr>
+                            <tr><td>Languages per event</td><td>3</td><td>10+</td><td class="check-custom">All</td></tr>
+                            <tr><td>Streaming hours / month</td><td>5 hrs</td><td class="check-custom">Unlimited</td><td class="check-custom">Unlimited</td></tr>
+                            <tr class="section-row"><td colspan="4">Translation</td></tr>
+                            <tr><td>Real-time captions</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Audio translation (TTS)</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Custom voice models</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-yes">✓</td></tr>
+                            <tr><td>PII redaction</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr class="section-row"><td colspan="4">Platform</td></tr>
+                            <tr><td>Organiser dashboard</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Custom branding</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>REST &amp; WebSocket API</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>SSO / SAML</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Custom domain</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-yes">✓</td></tr>
+                            <tr class="section-row"><td colspan="4">Support</td></tr>
+                            <tr><td>Email support</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Priority support</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Dedicated account manager</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-yes">✓</td></tr>
+                            <tr><td>Uptime SLA</td><td class="check-no">—</td><td class="check-custom">99.9%</td><td class="check-custom">99.99%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-tag-wrap"><span class="section-tag">FAQ</span></div>
+            <h2 class="section-title">Pricing questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item reveal">
+                    <h4>How exactly is usage billed?</h4>
+                    <p>Pro plans include unlimited streaming. Overages on Starter (beyond 5 hours) are billed at $0.04 per minute. Enterprise pricing is negotiated based on volume.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Is there really zero idle cost?</h4>
+                    <p>Yes. Your plan includes a monthly allotment of streaming hours. When you're not live, nothing is running and nothing is billed. You pay for active translation, not capacity.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Can I switch plans mid-event?</h4>
+                    <p>Plans can be upgraded at any time and take effect immediately. Downgrading takes effect at the start of your next billing cycle.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>What happens if I exceed my viewer limit?</h4>
+                    <p>New viewers above your plan limit will see a waiting state. You can upgrade instantly from the dashboard to accommodate additional viewers without interrupting existing ones.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Do you offer non-profit or academic discounts?</h4>
+                    <p>Yes. Non-profits, academic institutions, and registered charities receive 40% off Pro plans. Contact us with proof of status to apply the discount.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>What payment methods are accepted?</h4>
+                    <p>We accept all major credit and debit cards, and offer invoice-based billing for Enterprise customers. Annual plans receive a 20% discount.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <div class="cta-badge">Early Access</div>
+            <h2>Start for free today</h2>
+            <p>No credit card required. Go live in minutes.</p>
+            <div class="page-hero-cta" style="margin-top:0;">
+                <a href="signup.html" class="btn btn-white btn-lg">Create free account</a>
+                <a href="contact.html" class="btn btn-lg" style="color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">Talk to sales &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.png" alt="Jabber" class="footer-logo-img"></a>
+                <p class="footer-tagline">Real-time multilingual translation<br>for global live events.</p>
+            </div>
+            <div class="footer-link-col"><h4>Product</h4><a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="use-cases.html">Use Cases</a><a href="pricing.html">Pricing</a></div>
+            <div class="footer-link-col"><h4>Company</h4><a href="about.html">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="contact.html">Contact</a></div>
+            <div class="footer-link-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>&copy; 2026 Jabber. All rights reserved.</span>
+                <div class="social-links"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
