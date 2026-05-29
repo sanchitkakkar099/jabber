@@ -35,7 +35,7 @@ export default function Signup() {
             </div>
             <div className="auth-feature">
               <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-              <div className="auth-feature-text"><h4>Works with any OBS stream</h4><p>Point your RTMP stream at Jabber. Setup in under 10 minutes.</p></div>
+              <div className="auth-feature-text"><h4>Works with any OBS stream</h4><p>Point your RTMP stream at Zabber. Setup in under 10 minutes.</p></div>
             </div>
             <div className="auth-feature">
               <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -63,7 +63,7 @@ export default function Signup() {
       {/* RIGHT: Signup form */}
       <div className="auth-left">
         <div className="auth-left-inner">
-          <Link to="/" className="auth-split-logo"><img src="/logo.png" alt="Jabber" /></Link>
+          <Link to="/" className="auth-split-logo"><img src="/logo.png" alt="Zabber" /></Link>
           <h1 className="auth-title">Get early access</h1>
           <p className="auth-subtitle">Join hundreds of event organisers on the waitlist. Free to start — no credit card required.</p>
 
@@ -95,13 +95,13 @@ export default function Signup() {
             <div className="form-group"><label className="form-label" htmlFor="password">Password</label><input type="password" id="password" className="form-input" placeholder="At least 8 characters" required autoComplete="new-password" minLength="8" value={form.password} onChange={set('password')} disabled={submitted} /></div>
             <div className="form-checkbox-row">
               <input type="checkbox" id="terms" required checked={terms} onChange={e=>setTerms(e.target.checked)} disabled={submitted} />
-              <label htmlFor="terms">I agree to Jabber's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+              <label htmlFor="terms">I agree to Zabber's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
             </div>
             <button type="submit" className="btn btn-primary auth-submit" disabled={submitted} style={submitted?{background:'#22c55e'}:{}}>{submitted ? "You're on the list! ✓" : 'Create account →'}</button>
           </form>
 
           <p className="auth-footer-link">Already have an account? <Link to="/login">Sign in</Link></p>
-          <p className="auth-footer-link" style={{marginTop:8}}><Link to="/" style={{color:'#94a3b8',fontSize:'0.8rem'}}>← Back to Jabber</Link></p>
+          <p className="auth-footer-link" style={{marginTop:8}}><Link to="/" style={{color:'#94a3b8',fontSize:'0.8rem'}}>← Back to Zabber</Link></p>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container footer-inner">
         <div className="footer-brand-col">
           <Link to="/" className="logo footer-logo">
-            <img src="/logo.png" alt="Jabber" className="footer-logo-img" />
+            <img src="/logo.png" alt="Zabber" className="footer-logo-img" />
           </Link>
           <p className="footer-tagline">Real-time multilingual translation<br />for global live events.</p>
         </div>
@@ -33,7 +33,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
-          <span>&copy; 2026 Jabber. All rights reserved.</span>
+          <span>&copy; 2026 Zabber. All rights reserved.</span>
           <div className="social-links">
             <a href="#">Twitter</a>
             <a href="#">LinkedIn</a>

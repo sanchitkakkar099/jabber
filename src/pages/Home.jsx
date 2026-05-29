@@ -11,33 +11,33 @@ const HOME_SCHEMA = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What is Jabber?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Jabber is a real-time AI translation platform for live events. It connects to any RTMP stream (such as OBS) and delivers simultaneous transcription, translation, and voice synthesis in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' }
+      name: 'What is Zabber?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Zabber is a real-time AI translation platform for live events. It connects to any RTMP stream (such as OBS) and delivers simultaneous transcription, translation, and voice synthesis in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' }
     },
     {
       '@type': 'Question',
-      name: 'How does Jabber work?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Point your OBS or encoder RTMP stream at Jabber. Jabber\'s AI transcribes the speech in real time, fans out translations to all enabled languages simultaneously, and pushes synchronised captions and audio to every viewer via WebSocket. Each viewer chooses their own language. Setup takes under 10 minutes.' }
+      name: 'How does Zabber work?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Point your OBS or encoder RTMP stream at Zabber. Zabber\'s AI transcribes the speech in real time, fans out translations to all enabled languages simultaneously, and pushes synchronised captions and audio to every viewer via WebSocket. Each viewer chooses their own language. Setup takes under 10 minutes.' }
     },
     {
       '@type': 'Question',
-      name: 'What languages does Jabber support?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Jabber supports 10+ languages at launch including English, Spanish, French, German, Portuguese, Japanese, Chinese (Simplified), Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More languages are being added continuously.' }
+      name: 'What languages does Zabber support?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Zabber supports 10+ languages at launch including English, Spanish, French, German, Portuguese, Japanese, Chinese (Simplified), Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More languages are being added continuously.' }
     },
     {
       '@type': 'Question',
-      name: 'How much does Jabber cost?',
+      name: 'How much does Zabber cost?',
       acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required. Paid plans unlock more hours, languages, and scale.' }
     },
     {
       '@type': 'Question',
       name: 'What is the translation latency?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Jabber delivers end-to-end translation — from speech input to translated captions and audio reaching viewers — in under 2 seconds. AI transcription alone has under 500ms delay.' }
+      acceptedAnswer: { '@type': 'Answer', text: 'Zabber delivers end-to-end translation — from speech input to translated captions and audio reaching viewers — in under 2 seconds. AI transcription alone has under 500ms delay.' }
     },
     {
       '@type': 'Question',
-      name: 'Does Jabber work with OBS?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber works with any RTMP-compatible software or hardware encoder, including OBS Studio, vMix, Wirecast, and dedicated hardware encoders. You simply point your RTMP output at your Jabber stream key — no plugins or additional software required.' }
+      name: 'Does Zabber work with OBS?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Zabber works with any RTMP-compatible software or hardware encoder, including OBS Studio, vMix, Wirecast, and dedicated hardware encoders. You simply point your RTMP output at your Zabber stream key — no plugins or additional software required.' }
     },
     {
       '@type': 'Question',
@@ -46,8 +46,8 @@ const HOME_SCHEMA = {
     },
     {
       '@type': 'Question',
-      name: 'What events is Jabber best suited for?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Jabber is ideal for international conferences, corporate town halls, live sports broadcasts, religious ceremonies, online education and webinars, and product launches. Any live event where the audience speaks more than one language benefits from Jabber.' }
+      name: 'What events is Zabber best suited for?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Zabber is ideal for international conferences, corporate town halls, live sports broadcasts, religious ceremonies, online education and webinars, and product launches. Any live event where the audience speaks more than one language benefits from Zabber.' }
     }
   ]
 }
@@ -200,7 +200,7 @@ export default function Home() {
     <>
       <SEO
         canonical="/"
-        description="No interpreters. No hardware. Jabber translates your live stream into 10+ languages simultaneously with under 2-second latency. Free plan available — no credit card required."
+        description="No interpreters. No hardware. Zabber translates your live stream into 10+ languages simultaneously with under 2-second latency. Free plan available — no credit card required."
         schema={HOME_SCHEMA}
       />
       {/* HERO */}
@@ -220,7 +220,7 @@ export default function Home() {
               No interpreters.<br />No hardware. Just<br />
               <span className="text-gradient">{typedWord}<span className="blink-cursor">|</span></span>
             </h1>
-            <p className="hero-desc">Jabber delivers real-time transcription, translation, and audio to thousands of viewers — each in the language they choose. Serverless. Instant. Near-zero cost.</p>
+            <p className="hero-desc">Zabber delivers real-time transcription, translation, and audio to thousands of viewers — each in the language they choose. Serverless. Instant. Near-zero cost.</p>
             <div className="hero-btns">
               <Link to="/signup" className="btn btn-primary btn-lg">Get Early Access</Link>
               <Link to="/how-it-works" className="btn btn-ghost btn-lg">See how it works →</Link>
@@ -331,14 +331,14 @@ export default function Home() {
               <div className="step-num">01</div>
               <div className="step-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
               <h3>Broadcast Your Event</h3>
-              <p>Stream with OBS or any RTMP encoder. Jabber's live ingest layer picks it up and triggers the entire pipeline automatically — no configuration needed.</p>
+              <p>Stream with OBS or any RTMP encoder. Zabber's live ingest layer picks it up and triggers the entire pipeline automatically — no configuration needed.</p>
             </div>
             <div className="step-connector"><svg viewBox="0 0 80 20" fill="none" preserveAspectRatio="none"><path d="M0 10 Q20 2 40 10 Q60 18 80 10" stroke="#C7D2FE" strokeWidth="2" fill="none" strokeDasharray="4 3"/></svg></div>
             <div className="step reveal">
               <div className="step-num">02</div>
               <div className="step-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
               <h3>AI Processes in Real Time</h3>
-              <p>Jabber transcribes audio, detects language, translates into all configured languages, and synthesizes audio — all in parallel, in seconds.</p>
+              <p>Zabber transcribes audio, detects language, translates into all configured languages, and synthesizes audio — all in parallel, in seconds.</p>
             </div>
             <div className="step-connector"><svg viewBox="0 0 80 20" fill="none" preserveAspectRatio="none"><path d="M0 10 Q20 2 40 10 Q60 18 80 10" stroke="#C7D2FE" strokeWidth="2" fill="none" strokeDasharray="4 3"/></svg></div>
             <div className="step reveal">
@@ -382,7 +382,7 @@ export default function Home() {
             <div className="tech-left reveal">
               <div className="section-tag-wrap" style={{ justifyContent:'flex-start' }}><span className="section-tag">Infrastructure</span></div>
               <h2 className="section-title" style={{ textAlign:'left', maxWidth:420, marginBottom:16 }}>Enterprise infrastructure, built for real-time scale</h2>
-              <p className="tech-intro">Serverless by design — Jabber runs on purpose-built enterprise infrastructure optimised for ultra-low-latency audio processing, real-time translation, and global edge delivery.</p>
+              <p className="tech-intro">Serverless by design — Zabber runs on purpose-built enterprise infrastructure optimised for ultra-low-latency audio processing, real-time translation, and global edge delivery.</p>
               <ul className="tech-list">
                 {[['Live Ingest Layer','High-throughput stream ingestion at any scale'],['AI Transcription','Real-time speech-to-text with automatic language detection'],['Neural Translation','Parallel multi-language translation in milliseconds'],['Voice Synthesis','Natural-sounding audio in every supported language'],['Edge Delivery Network','Global WebSocket delivery to millions of simultaneous viewers']].map(([b,d]) => (
                   <li key={b}><span className="tl-badge">{b}</span><span className="tl-desc">{d}</span></li>
@@ -424,12 +424,12 @@ export default function Home() {
           <h2 className="section-title">Common questions</h2>
           <div className="faq-grid">
             {[
-              { q:'What is Jabber?', a:'Jabber is a real-time AI translation platform for live events. It connects to any RTMP stream and delivers simultaneous translation in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' },
-              { q:'Does it work with OBS?', a:'Yes. Jabber works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Jabber stream key. Setup takes under 10 minutes.' },
+              { q:'What is Zabber?', a:'Zabber is a real-time AI translation platform for live events. It connects to any RTMP stream and delivers simultaneous translation in 10+ languages to your viewers — with under 2 seconds of end-to-end latency. No interpreters or dedicated hardware required.' },
+              { q:'Does it work with OBS?', a:'Yes. Zabber works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Zabber stream key. Setup takes under 10 minutes.' },
               { q:'What languages are supported?', a:'10+ languages at launch: English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish, and Swedish. More are added continuously.' },
               { q:'Is there a free plan?', a:'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' },
               { q:'How low is the latency?', a:'Under 2 seconds end-to-end — from speech input to translated captions and audio reaching your viewers. AI transcription alone is under 500ms.' },
-              { q:'How does billing work?', a:'Jabber uses a pay-as-you-go model billed per minute of active streaming. Your idle cost is literally $0 — containers spin up when you go live and shut down the moment you stop.' },
+              { q:'How does billing work?', a:'Zabber uses a pay-as-you-go model billed per minute of active streaming. Your idle cost is literally $0 — containers spin up when you go live and shut down the moment you stop.' },
             ].map(({ q, a }) => (
               <div key={q} className="faq-item reveal">
                 <h3>{q}</h3>

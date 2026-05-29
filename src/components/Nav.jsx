@@ -20,7 +20,7 @@ export default function Nav() {
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
         <div className="container nav-container">
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Jabber" className="nav-logo-img" />
+            <img src="/logo.png" alt="Zabber" className="nav-logo-img" />
           </Link>
           <ul className="nav-menu">
             <li><Link to="/features">Features</Link></li>

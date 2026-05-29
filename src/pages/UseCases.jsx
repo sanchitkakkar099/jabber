@@ -4,7 +4,7 @@ import SEO from '../components/SEO'
 
 const cases = [
   { emoji:'🌐', title:'International Conferences', featured:true, tag:'Most Popular',
-    desc:'Give every delegate their native language in real time. No interpreter booths, no headsets, no logistics nightmare — just a link. Jabber lets conference organizers offer 10+ languages simultaneously without any additional on-site infrastructure.',
+    desc:'Give every delegate their native language in real time. No interpreter booths, no headsets, no logistics nightmare — just a link. Zabber lets conference organizers offer 10+ languages simultaneously without any additional on-site infrastructure.',
     bullets:['No interpreter booths or equipment rental','Delegates join from anywhere via browser','Language selection mid-session','Full captions + audio translation'] },
   { emoji:'🏟️', title:'Live Sports Broadcasts',
     desc:"Commentary in every market's language, live. Engage global fanbases without localization teams or dubbing delays. Broadcast the same feed to audiences in dozens of countries, each hearing commentary in their own language.",
@@ -37,12 +37,12 @@ export default function UseCases() {
     <>
       <SEO
         title="Use Cases — Conferences, Town Halls, Sports, Worship & More"
-        description="Jabber powers multilingual live events across conferences, corporate town halls, live sports, religious ceremonies, webinars, and press launches. Any live stream, every language."
+        description="Zabber powers multilingual live events across conferences, corporate town halls, live sports, religious ceremonies, webinars, and press launches. Any live stream, every language."
         canonical="/use-cases"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: 'Jabber Use Cases',
+          name: 'Zabber Use Cases',
           description: 'Industries and event types that benefit from real-time live translation',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'International Conferences', description: 'Give every delegate their native language in real time — no interpreter booths or equipment' },
@@ -58,7 +58,7 @@ export default function UseCases() {
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Use Cases</span></div>
           <h1>Built for every global event</h1>
-          <p>From intimate corporate calls to stadium-scale broadcasts, Jabber makes every event accessible to every viewer — in their own language.</p>
+          <p>From intimate corporate calls to stadium-scale broadcasts, Zabber makes every event accessible to every viewer — in their own language.</p>
         </div>
       </section>
 

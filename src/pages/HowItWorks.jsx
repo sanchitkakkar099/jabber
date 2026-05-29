@@ -20,16 +20,16 @@ export default function HowItWorks() {
     <>
       <SEO
         title="How It Works — Live Translation in 3 Steps"
-        description="Connect your OBS stream, Jabber transcribes and translates in real time, viewers pick their language. From encoder to global audience in under 2 seconds. Setup in 10 minutes."
+        description="Connect your OBS stream, Zabber transcribes and translates in real time, viewers pick their language. From encoder to global audience in under 2 seconds. Setup in 10 minutes."
         canonical="/how-it-works"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'HowTo',
-          name: 'How to set up real-time live translation with Jabber',
-          description: 'Three steps to make your live event multilingual using Jabber',
+          name: 'How to set up real-time live translation with Zabber',
+          description: 'Three steps to make your live event multilingual using Zabber',
           step: [
-            { '@type': 'HowToStep', position: 1, name: 'Connect your stream', text: 'Point your OBS or encoder RTMP output at your Jabber stream key. No plugins or additional software required.' },
-            { '@type': 'HowToStep', position: 2, name: 'Jabber processes it', text: 'AI transcribes speech in real time, fans out translations to all enabled languages simultaneously using neural models.' },
+            { '@type': 'HowToStep', position: 1, name: 'Connect your stream', text: 'Point your OBS or encoder RTMP output at your Zabber stream key. No plugins or additional software required.' },
+            { '@type': 'HowToStep', position: 2, name: 'Zabber processes it', text: 'AI transcribes speech in real time, fans out translations to all enabled languages simultaneously using neural models.' },
             { '@type': 'HowToStep', position: 3, name: 'Viewers choose their language', text: 'Share a single viewer link. Each attendee picks their preferred language and receives synchronised captions and audio.' }
           ],
           totalTime: 'PT10M'
@@ -39,7 +39,7 @@ export default function HowItWorks() {
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">How It Works</span></div>
           <h1>Live in three steps</h1>
-          <p>From your encoder to every viewer's screen — in under two seconds. No dedicated hardware. No interpreter teams. Just Jabber.</p>
+          <p>From your encoder to every viewer's screen — in under two seconds. No dedicated hardware. No interpreter teams. Just Zabber.</p>
         </div>
       </section>
 
@@ -50,14 +50,14 @@ export default function HowItWorks() {
               <div className="step-num">01</div>
               <div className="step-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
               <h3>Broadcast Your Event</h3>
-              <p>Stream with OBS, vMix, or any RTMP encoder. Jabber's live ingest layer picks it up and triggers the entire pipeline automatically — no configuration needed per event.</p>
+              <p>Stream with OBS, vMix, or any RTMP encoder. Zabber's live ingest layer picks it up and triggers the entire pipeline automatically — no configuration needed per event.</p>
             </div>
             <div className="step-connector"><svg viewBox="0 0 80 20" fill="none" preserveAspectRatio="none"><path d="M0 10 Q20 2 40 10 Q60 18 80 10" stroke="#C7D2FE" strokeWidth="2" fill="none" strokeDasharray="4 3"/></svg></div>
             <div className="step reveal">
               <div className="step-num">02</div>
               <div className="step-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
               <h3>AI Processes in Real Time</h3>
-              <p>Jabber transcribes audio, detects language, translates into all configured languages, and synthesises audio — all in parallel, in seconds. The whole AI pipeline runs end-to-end in under 1.5 seconds.</p>
+              <p>Zabber transcribes audio, detects language, translates into all configured languages, and synthesises audio — all in parallel, in seconds. The whole AI pipeline runs end-to-end in under 1.5 seconds.</p>
             </div>
             <div className="step-connector"><svg viewBox="0 0 80 20" fill="none" preserveAspectRatio="none"><path d="M0 10 Q20 2 40 10 Q60 18 80 10" stroke="#C7D2FE" strokeWidth="2" fill="none" strokeDasharray="4 3"/></svg></div>
             <div className="step reveal">
@@ -115,11 +115,11 @@ export default function HowItWorks() {
         <div className="container">
           <div className="section-tag-wrap"><span className="section-tag">Integrations</span></div>
           <h2 className="section-title">Works with your existing setup</h2>
-          <p className="section-desc">No new hardware required. Jabber connects to your existing broadcast workflow.</p>
+          <p className="section-desc">No new hardware required. Zabber connects to your existing broadcast workflow.</p>
           <div className="integration-grid">
             {[
               { tag:'Encoder', title:'OBS Studio', desc:'Stream directly from OBS using a custom RTMP endpoint. Works with all OBS versions. Setup takes under 5 minutes — just paste your stream key and go.' },
-              { tag:'Encoder', title:'Any RTMP Source', desc:'Supports any encoder that outputs RTMP — vMix, Wirecast, hardware encoders, and more. If it streams, Jabber can translate it.' },
+              { tag:'Encoder', title:'Any RTMP Source', desc:'Supports any encoder that outputs RTMP — vMix, Wirecast, hardware encoders, and more. If it streams, Zabber can translate it.' },
               { tag:'Viewer', title:'Browser & Mobile', desc:'Viewers join via a shareable link in any browser — no app download required. Native iOS and Android SDKs available for embedded experiences.' },
               { tag:'Platform', title:'REST & WebSocket API', desc:'Full API access to manage events, configure languages, and receive real-time transcripts programmatically. Webhook support for event lifecycle notifications.' },
               { tag:'Analytics', title:'Dashboard & Webhooks', desc:'Real-time viewer counts, language breakdowns, latency metrics, and quality scores. Export data via webhooks to your own analytics stack.' },
@@ -141,11 +141,11 @@ export default function HowItWorks() {
           <h2 className="section-title">Common questions</h2>
           <div className="faq-grid">
             {[
-              ['What encoders are supported?','Any encoder that outputs RTMP works with Jabber — OBS Studio, vMix, Wirecast, hardware encoders, and cloud-based broadcast tools.'],
+              ['What encoders are supported?','Any encoder that outputs RTMP works with Zabber — OBS Studio, vMix, Wirecast, hardware encoders, and cloud-based broadcast tools.'],
               ['How do viewers access the translations?','You share a link. Viewers open it in any browser, select their language, and immediately receive synchronised captions and audio. No app install needed.'],
               ['What is the actual end-to-end latency?','Typically under 2 seconds from your microphone to the viewer\'s speaker. This includes transcription, translation, synthesis, and global delivery.'],
               ['Can I add languages after an event starts?','Yes. Languages can be enabled or disabled from the organiser dashboard during a live event with no interruption to existing viewers.'],
-              ['Does Jabber work for pre-recorded events?','Jabber is optimised for live streaming, but supports simulated live and on-demand replay with the same translation quality.'],
+              ['Does Zabber work for pre-recorded events?','Zabber is optimised for live streaming, but supports simulated live and on-demand replay with the same translation quality.'],
               ['How does billing work?','You are billed per minute of active streaming, per language enabled. There is no charge when your event is not live. See the Pricing page for full details.'],
             ].map(([q,a]) => (
               <div key={q} className="faq-item reveal"><h4>{q}</h4><p>{a}</p></div>

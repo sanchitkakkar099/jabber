@@ -9,14 +9,14 @@ function slugify(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
 
-const PROMPT_TEMPLATE = (topic) => `Write a blog post for Jabber (a real-time AI translation platform for live events) about: ${topic}
+const PROMPT_TEMPLATE = (topic) => `Write a blog post for Zabber (a real-time AI translation platform for live events) about: ${topic}
 
 Return ONLY valid JSON in this exact format:
 {
   "title": "...",
   "excerpt": "one paragraph summary under 200 chars",
   "category": "one of: Industry | Technical | Guide | Strategy | Use Case",
-  "author": "Jabber Team",
+  "author": "Zabber Team",
   "readTime": "X min read",
   "image": "https://images.unsplash.com/photo-XXXXXXXXXX?w=1200&h=630&fit=crop&auto=format&q=80",
   "content": "<h2>...</h2><p>...</p>..."
@@ -28,7 +28,7 @@ const EMPTY_FORM = {
   title: '',
   slug: '',
   category: 'Industry',
-  author: 'Jabber Team',
+  author: 'Zabber Team',
   date: TODAY,
   readTime: '',
   image: '',
@@ -264,7 +264,7 @@ export default function AdminBlogEditor({ onRefresh }) {
                 type="text"
                 value={form.author}
                 onChange={e => handleFormChange('author', e.target.value)}
-                placeholder="Jabber Team"
+                placeholder="Zabber Team"
               />
             </div>
             <div className="adm-blog-form-group">
