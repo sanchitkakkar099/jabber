@@ -27,6 +27,7 @@ export default function Nav() {
             <li><Link to="/how-it-works">How It Works</Link></li>
             <li><Link to="/pricing">Pricing</Link></li>
             <li><Link to="/about">About</Link></li>
+            <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/login" className="btn btn-ghost btn-sm">Log In</Link></li>
             <li><Link to="/signup" className="btn btn-primary btn-sm">Get Early Access</Link></li>
           </ul>
@@ -46,6 +47,7 @@ export default function Nav() {
         <Link to="/use-cases" onClick={() => setMenuOpen(false)}>Use Cases</Link>
         <Link to="/pricing" onClick={() => setMenuOpen(false)}>Pricing</Link>
         <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+        <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
         <Link to="/login" onClick={() => setMenuOpen(false)}>Log In</Link>
         <Link to="/signup" className="btn btn-primary" onClick={() => setMenuOpen(false)}>Get Early Access</Link>
       </div>

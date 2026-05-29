@@ -4,12 +4,13 @@ const BASE_URL = 'https://jabber.live'
 const DEFAULT_DESC = 'Jabber delivers real-time AI transcription, translation, and voice synthesis to thousands of live event viewers — each in the language they choose. Serverless. Under 2-second latency. Free to start.'
 const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`
 
-export default function SEO({ title, description, canonical = '/', schema, noindex = false }) {
+export default function SEO({ title, description, canonical = '/', schema, noindex = false, ogImage }) {
   const fullTitle = title
     ? `${title} | Jabber`
     : 'Jabber — Real-Time Live Translation for Global Events'
   const desc = description || DEFAULT_DESC
   const url = `${BASE_URL}${canonical}`
+  const image = ogImage || DEFAULT_IMAGE
 
   return (
     <Helmet>
@@ -24,7 +25,7 @@ export default function SEO({ title, description, canonical = '/', schema, noind
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={desc} />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={DEFAULT_IMAGE} />
+      <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
@@ -33,7 +34,7 @@ export default function SEO({ title, description, canonical = '/', schema, noind
       <meta name="twitter:site" content="@jabberlive" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={desc} />
-      <meta name="twitter:image" content={DEFAULT_IMAGE} />
+      <meta name="twitter:image" content={image} />
 
       {/* JSON-LD */}
       {schema && (
