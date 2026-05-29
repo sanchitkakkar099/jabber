@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jabber — Technical Handover Document</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+    padding: 64px 48px 56px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .cover-logo {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-bottom: 6px;
+  }
+  .cover-logo span { color: rgba(255,255,255,0.6); }
+  .cover-tagline {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 40px;
+  }
+  .cover h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    font-size: 0.82rem;
+    opacity: 0.75;
+  }
+  .cover-meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── Sections ── */
+  .section {
+    padding: 48px 0 24px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6366f1;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: #475569;
+    max-width: 680px;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+  }
+
+  /* ── Credential Cards ── */
+  .cred-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .cred-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cred-card.highlight {
+    border-color: #c7d2fe;
+    background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  }
+  .cred-card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 8px;
+  }
+  .cred-card-value {
+    font-family: 'SFMono-Regular', 'Menlo', monospace;
+    font-size: 0.92rem;
+    color: #1e293b;
+    font-weight: 600;
+    word-break: break-all;
+    background: rgba(255,255,255,0.7);
+    padding: 8px 12px;
+    border-radius: 7px;
+    border: 1px solid rgba(0,0,0,0.06);
+    margin-bottom: 6px;
+  }
+  .cred-card-desc {
+    font-size: 0.78rem;
+    color: #64748b;
+  }
+  .cred-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #16a34a;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Feature Grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .feature-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .feature-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .feature-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  /* ── Stack Table ── */
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    font-size: 0.88rem;
+  }
+  .stack-table th {
+    background: #f8fafc;
+    padding: 12px 18px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .stack-table td {
+    padding: 13px 18px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+  .stack-table tr:last-child td { border-bottom: none; }
+  .stack-table td:first-child { font-weight: 700; color: #1e293b; width: 160px; }
+  .stack-table td:nth-child(2) { color: #6366f1; font-weight: 600; }
+  .stack-table td:nth-child(3) { color: #64748b; }
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: #eff6ff;
+    color: #3b82f6;
+    margin-right: 4px;
+    margin-bottom: 2px;
+  }
+  .tag.purple { background: #f5f3ff; color: #7c3aed; }
+  .tag.green  { background: #f0fdf4; color: #16a34a; }
+  .tag.orange { background: #fff7ed; color: #ea580c; }
+
+  /* ── Admin Section ── */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .admin-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .admin-card-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: #eef2ff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .admin-card-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #1e293b;
+    margin-bottom: 3px;
+  }
+  .admin-card-desc {
+    font-size: 0.78rem;
+    color: #64748b;
+    line-height: 1.45;
+  }
+
+  /* ── Timeline ── */
+  .timeline { margin-top: 4px; }
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 24px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 32px;
+    width: 2px;
+    height: calc(100% - 16px);
+    background: #e2e8f0;
+  }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #eef2ff;
+    border: 2px solid #c7d2fe;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    color: #6366f1;
+    font-weight: 800;
+    z-index: 1;
+  }
+  .timeline-content { padding-top: 4px; }
+  .timeline-title { font-weight: 700; color: #1e293b; margin-bottom: 3px; font-size: 0.92rem; }
+  .timeline-desc { font-size: 0.82rem; color: #64748b; line-height: 1.5; }
+
+  /* ── Warning / Info boxes ── */
+  .info-box {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.88rem;
+  }
+  .info-box.blue   { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
+  .info-box.yellow { background: #fefce8; border: 1px solid #fde68a; color: #92400e; }
+  .info-box.green  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+  .info-box-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+
+  /* ── Footer ── */
+  .doc-footer {
+    background: #0f172a;
+    color: rgba(255,255,255,0.5);
+    padding: 32px 48px;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 48px;
+  }
+  .doc-footer strong { color: rgba(255,255,255,0.8); }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; }
+    .section { page-break-inside: avoid; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 640px) {
+    .cover { padding: 40px 24px; }
+    .cover h1 { font-size: 1.8rem; }
+    .container { padding: 0 20px; }
+    .cred-grid, .feature-grid, .admin-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Cover ───────────────────────────────────────────────────── -->
+<div class="cover">
+  <div class="cover-logo">jabber<span>.</span></div>
+  <div class="cover-tagline">Real-time multilingual live event translation</div>
+  <h1>Technical Handover<br>& Knowledge Base</h1>
+  <p style="opacity:0.8; max-width:520px; font-size:0.95rem;">
+    Everything you need to understand, manage, and grow the Jabber platform —
+    from live site access to database credentials, admin controls, and deployment workflow.
+  </p>
+  <div class="cover-meta">
+    <span>📅 Prepared: May 2026</span>
+    <span>🌐 jabber.live</span>
+    <span>🚀 v1.0 — Early Access</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── 1. What Is Jabber ──────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">01 — Product</div>
+    <div class="section-title">What is Jabber?</div>
+    <div class="section-desc">
+      Jabber is a real-time multilingual live-event translation platform. Event organisers connect
+      their existing OBS/RTMP stream to Jabber and their audience can instantly listen in any of
+      10+ languages with sub-2-second latency — no interpreters, no hardware, no downloads.
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-name">Real-Time Translation</div>
+        <div class="feature-desc">Audio translated and synthesised live with &lt;2s end-to-end latency across 10+ languages.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-name">Works with Any Stream</div>
+        <div class="feature-desc">Plug in any OBS or RTMP source. Setup takes under 10 minutes — no SDK needed.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <div class="feature-name">Viewer App Included</div>
+        <div class="feature-desc">Attendees pick their language in-browser. No app download. Works on any device.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <div class="feature-name">Usage-Based Billing</div>
+        <div class="feature-desc">$0 idle cost. Billed per minute of active streaming. Free $100 starter credits.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-name">PII Redaction</div>
+        <div class="feature-desc">Pro plan includes automatic personally-identifiable information filtering from transcripts.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <div class="feature-name">REST & WebSocket API</div>
+        <div class="feature-desc">Full API access on Pro/Enterprise for custom integrations and white-label deployments.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. Live URLs ───────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">02 — Access</div>
+    <div class="section-title">Live URLs & Login Credentials</div>
+    <div class="section-desc">All public and admin access points for the Jabber platform.</div>
+
+    <div class="cred-grid">
+      <div class="cred-card highlight">
+        <div class="cred-card-label">🌐 Live Website</div>
+        <div class="cred-card-value">https://jabber.live</div>
+        <div class="cred-card-desc">Primary production domain. Public-facing marketing site.</div>
+      </div>
+      <div class="cred-card highlight">
+        <div class="cred-card-label">🔧 Railway URL (fallback)</div>
+        <div class="cred-card-value">https://jabber-production.up.railway.app</div>
+        <div class="cred-card-desc">Direct Railway deployment URL. Always live even before DNS propagates.</div>
+      </div>
+      <div class="cred-card highlight">
+        <div class="cred-card-label">🛡️ Admin Dashboard</div>
+        <div class="cred-card-value">https://jabber.live/admin</div>
+        <div class="cred-card-desc">Password-protected backend for managing all data and content.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🔑 Admin Password</div>
+        <div class="cred-card-value">jabber@2026</div>
+        <div class="cred-card-desc">Change this in <code style="font-size:0.8em;background:#f1f5f9;padding:1px 5px;border-radius:4px">src/pages/Admin.jsx</code> — look for <code style="font-size:0.8em;background:#f1f5f9;padding:1px 5px;border-radius:4px">ADMIN_PASS</code>.</div>
+      </div>
+    </div>
+
+    <div class="info-box yellow">
+      <div class="info-box-icon">⚠️</div>
+      <div><strong>Security note:</strong> The admin uses a simple password stored in the frontend code. For a production-grade launch, replace this with a proper authentication provider (e.g. Supabase Auth or Clerk). The current setup is suitable for early-access / MVP stage.</div>
+    </div>
+  </div>
+
+  <!-- ── 3. Tech Stack ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">03 — Technology</div>
+    <div class="section-title">Tech Stack</div>
+    <div class="section-desc">All services used to build, host, and operate Jabber.</div>
+
+    <table class="stack-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Service / Tool</th>
+          <th>What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Frontend</td>
+          <td>React + Vite</td>
+          <td>SPA built with React 18 and Vite 5. <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">React Router v6</span></td>
+        </tr>
+        <tr>
+          <td>Hosting</td>
+          <td>Railway</td>
+          <td>Deploys the Vite build via Nixpacks (Node 20). Auto-serves static files via <code>serve</code>. <span class="tag orange">Free → Hobby plan</span></td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Supabase (PostgreSQL)</td>
+          <td>Stores all leads, signups, and support tickets in real-time. Free tier (500MB). <span class="tag green">Live ✓</span></td>
+        </tr>
+        <tr>
+          <td>Analytics</td>
+          <td>PostHog</td>
+          <td>Privacy-first product analytics. Tracks pageviews, lead captures, signups, and custom events. <span class="tag green">Live ✓</span></td>
+        </tr>
+        <tr>
+          <td>SEO</td>
+          <td>react-helmet-async</td>
+          <td>Per-page meta tags, canonical URLs, Open Graph, JSON-LD structured data (FAQPage, BlogPosting, Organization).</td>
+        </tr>
+        <tr>
+          <td>Version Control</td>
+          <td>GitHub</td>
+          <td>Full commit history. All source code lives at <strong>github.com/sanchitkakkar099/jabber</strong>.</td>
+        </tr>
+        <tr>
+          <td>Blog &amp; Plans</td>
+          <td>localStorage (browser)</td>
+          <td>Blog posts and pricing plans are admin-editable and stored locally. Easily migrated to Supabase when needed.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 4. Supabase ───────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">04 — Database</div>
+    <div class="section-title">Supabase PostgreSQL</div>
+    <div class="section-desc">All user-submitted data (leads, signups, support tickets) is stored in Supabase and accessible from the admin dashboard in real time.</div>
+
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-card-label">🔗 Project URL</div>
+        <div class="cred-card-value">https://kjjfkniksxtvmydlzvdn.supabase.co</div>
+        <div class="cred-card-desc">Supabase project endpoint</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🆔 Project ID</div>
+        <div class="cred-card-value">kjjfkniksxtvmydlzvdn</div>
+        <div class="cred-card-desc">Used with Supabase CLI commands</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🔑 Anon / Public Key</div>
+        <div class="cred-card-value">sb_publishable_ClDf0Y2Gt…</div>
+        <div class="cred-card-desc">Write-only frontend key. Safe to expose in client code.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🗃️ Tables</div>
+        <div class="cred-card-value">leads · signups · tickets</div>
+        <div class="cred-card-desc">All with Row Level Security enabled. Migration SQL in <code style="font-size:0.8em">supabase/migrations/</code></div>
+      </div>
+    </div>
+
+    <div class="info-box green">
+      <div class="info-box-icon">✅</div>
+      <div><strong>Row Level Security (RLS)</strong> is enabled on all tables. The anon key can INSERT and SELECT, but cannot DELETE or access other users' data. This is the correct pattern for a public-facing SaaS frontend.</div>
+    </div>
+  </div>
+
+  <!-- ── 5. Railway ────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">05 — Deployment</div>
+    <div class="section-title">Railway Deployment</div>
+    <div class="section-desc">Railway hosts and serves the production build. Every deploy is triggered manually via CLI or can be automated via GitHub.</div>
+
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-card-label">🚂 Project ID</div>
+        <div class="cred-card-value">e459b18e-bc32-4303-9097-2e65613eb697</div>
+        <div class="cred-card-desc">Railway project reference</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">⚙️ Service ID</div>
+        <div class="cred-card-value">029d2228-3c5c-4dd8-a32b-c526c02efbe7</div>
+        <div class="cred-card-desc">Jabber service within the project</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#64748b;margin-bottom:10px;">Environment Variables set in Railway</div>
+      <table class="stack-table">
+        <thead><tr><th>Variable</th><th>Value</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>VITE_SUPABASE_URL</td><td style="font-family:monospace;font-size:0.8em">https://kjjfkniksxtvmydlzvdn.supabase.co</td><td>Supabase project endpoint</td></tr>
+          <tr><td>VITE_SUPABASE_ANON_KEY</td><td style="font-family:monospace;font-size:0.8em">sb_publishable_ClDf0Y2Gt…</td><td>Public Supabase key</td></tr>
+          <tr><td>VITE_POSTHOG_KEY</td><td style="font-family:monospace;font-size:0.8em">phc_wvm263qSNtNnj…</td><td>PostHog project token</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box blue" style="margin-top:20px;">
+      <div class="info-box-icon">💡</div>
+      <div>
+        <strong>To deploy a new version:</strong> run <code style="background:rgba(0,0,0,0.08);padding:2px 6px;border-radius:4px">railway up --service jabber --detach</code> from the project directory.
+        All <code>VITE_</code> env vars are baked into the bundle at build time by Vite.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. PostHog ────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">06 — Analytics</div>
+    <div class="section-title">PostHog Analytics</div>
+    <div class="section-desc">Privacy-first analytics with manual event tracking — no cookie banner required. All events are fired explicitly in code.</div>
+
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-card-label">🆔 Project ID</div>
+        <div class="cred-card-value">445562</div>
+        <div class="cred-card-desc">Used to build deep-link URLs to dashboards from within Admin</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🌍 Region</div>
+        <div class="cred-card-value">US Cloud · us.posthog.com</div>
+        <div class="cred-card-desc">PostHog US data residency</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#64748b;margin-bottom:10px;">Events Tracked</div>
+      <table class="stack-table">
+        <thead><tr><th>Event</th><th>Triggered When</th></tr></thead>
+        <tbody>
+          <tr><td>$pageview</td><td>Every route change (all pages)</td></tr>
+          <tr><td>lead_captured</td><td>Email submitted in any CTA form</td></tr>
+          <tr><td>signup_completed</td><td>Full signup form submitted</td></tr>
+          <tr><td>blog_post_viewed</td><td>Any blog post opened</td></tr>
+          <tr><td>pricing_page_viewed</td><td>Pricing page loaded</td></tr>
+          <tr><td>support_ticket_submitted</td><td>Support ticket form submitted</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 7. Admin Dashboard ────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">07 — Admin</div>
+    <div class="section-title">Admin Dashboard Guide</div>
+    <div class="section-desc">
+      Access the admin at <strong>jabber.live/admin</strong> with password <strong>jabber@2026</strong>.
+      The sidebar shows a green <em>● PostgreSQL</em> chip when Supabase is connected.
+    </div>
+
+    <div class="admin-grid">
+      <div class="admin-card">
+        <div class="admin-card-icon">📊</div>
+        <div>
+          <div class="admin-card-title">Overview</div>
+          <div class="admin-card-desc">Live KPIs: total leads, this week, signups, conversion rate. Real funnel + recent activity feed.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">📧</div>
+        <div>
+          <div class="admin-card-title">Leads</div>
+          <div class="admin-card-desc">Every email captured from CTAs across the site. Filter, search, update status, export CSV.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">👤</div>
+        <div>
+          <div class="admin-card-title">Signups</div>
+          <div class="admin-card-desc">Full signup form submissions with name, company, role, UTM source. Status management + CSV export.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">📈</div>
+        <div>
+          <div class="admin-card-title">Analytics</div>
+          <div class="admin-card-desc">Real UTM campaign attribution from Supabase. Deep-links to PostHog for pageviews and funnels.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">✍️</div>
+        <div>
+          <div class="admin-card-title">Blog Management</div>
+          <div class="admin-card-desc">Create, edit, delete posts. Built-in Claude AI prompt generator — paste JSON response to auto-fill all fields.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">💰</div>
+        <div>
+          <div class="admin-card-title">Plans & Revenue</div>
+          <div class="admin-card-desc">Edit pricing plans (name, price, features, CTA). Changes reflect live on the /pricing page instantly.</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-icon">🎫</div>
+        <div>
+          <div class="admin-card-title">Support Tickets</div>
+          <div class="admin-card-desc">View, triage, and respond to support tickets. Add internal notes, change priority/status.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 8. GitHub ─────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">08 — Source Code</div>
+    <div class="section-title">GitHub Repository</div>
+    <div class="section-desc">Full version history and source code on GitHub.</div>
+
+    <div class="cred-grid">
+      <div class="cred-card highlight">
+        <div class="cred-card-label">🐙 Repository</div>
+        <div class="cred-card-value">github.com/sanchitkakkar099/jabber</div>
+        <div class="cred-card-desc">All commits, branches, and history. Private by default — share access via Settings → Collaborators.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-label">🌿 Main Branch</div>
+        <div class="cred-card-value">main</div>
+        <div class="cred-card-desc">Production branch. All deployments go from here.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#64748b;margin-bottom:10px;">Key Files & Folders</div>
+      <table class="stack-table">
+        <thead><tr><th>Path</th><th>What's inside</th></tr></thead>
+        <tbody>
+          <tr><td>src/pages/</td><td>All page components — Home, Pricing, Blog, Admin, Signup, Login, Contact, etc.</td></tr>
+          <tr><td>src/components/</td><td>Shared UI — Nav, Footer, SEO, AdminSupport, AdminBlogEditor</td></tr>
+          <tr><td>src/utils/</td><td>supabase.js, leads.js, tickets.js, posthog.js, utm.js, plans.js, blogStorage.js</td></tr>
+          <tr><td>src/data/posts.js</td><td>Default blog post content (seed data)</td></tr>
+          <tr><td>src/style.css</td><td>All CSS — site + admin dashboard styles</td></tr>
+          <tr><td>supabase/migrations/</td><td>SQL schema for leads, signups, tickets tables</td></tr>
+          <tr><td>nixpacks.toml</td><td>Tells Railway how to build (Node 20 + Vite)</td></tr>
+          <tr><td>.env.example</td><td>Template for required environment variables</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 9. How to Deploy ──────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">09 — Workflow</div>
+    <div class="section-title">How to Deploy Changes</div>
+    <div class="section-desc">Step-by-step to update and push the site.</div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Make your changes</div>
+          <div class="timeline-desc">Edit files in <code>src/</code>. The dev server runs with <code>npm run dev</code> (port 5173).</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Test locally</div>
+          <div class="timeline-desc">Run <code>npm run build</code> to make sure there are no build errors before pushing.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Commit to GitHub</div>
+          <div class="timeline-desc"><code>git add . && git commit -m "your message" && git push origin main</code></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Deploy to Railway</div>
+          <div class="timeline-desc"><code>railway up --service jabber --detach</code> — builds and deploys in ~2 minutes. Or connect GitHub for auto-deploy on push.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">5</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Verify</div>
+          <div class="timeline-desc">Visit <strong>jabber.live</strong> and check Railway dashboard for "Online" status.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 10. Next Steps ────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">10 — Roadmap</div>
+    <div class="section-title">Suggested Next Steps</div>
+    <div class="section-desc">What to build or set up after this handover.</div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-name">Proper Admin Auth</div>
+        <div class="feature-desc">Replace the hardcoded password with Supabase Auth or Clerk for secure multi-user admin access.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-name">Payments (Stripe)</div>
+        <div class="feature-desc">Wire up Stripe for Pro plan billing. Admin Plans section already shows MRR tracking placeholder.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📧</div>
+        <div class="feature-name">Email Sequences</div>
+        <div class="feature-desc">Connect Mailchimp or ConvertKit to auto-enrol leads and signups into onboarding sequences.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-name">Connect GitHub → Railway</div>
+        <div class="feature-desc">Enable auto-deploy on push so every <code>git push main</code> deploys automatically with zero CLI needed.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-name">Slack Notifications</div>
+        <div class="feature-desc">Zapier webhook → Slack channel ping every time a new lead or signup comes in.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-name">Custom Domain on Railway</div>
+        <div class="feature-desc">Add jabber.live as a custom domain in Railway Settings → Domain, then update DNS CNAME.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<div class="doc-footer">
+  <div><strong>Jabber</strong> — Technical Handover Document · v1.0 · May 2026</div>
+  <div>Prepared for client handover · <strong>jabber.live</strong></div>
+</div>
+
+</body>
+</html>
