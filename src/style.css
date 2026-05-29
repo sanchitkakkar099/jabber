@@ -28,7 +28,7 @@
     --white:      #ffffff;
 
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --nav-h: 88px;
+    --nav-h: 64px;
     --radius: 12px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
@@ -170,14 +170,14 @@ ul { list-style: none; }
     align-items: center;
 }
 .nav-logo-img {
-    height: 72px;
+    height: 44px;
     width: auto;
     display: block;
     object-fit: contain;
     mix-blend-mode: multiply;
 }
 .footer-logo-img {
-    height: 120px;
+    height: 64px;
     width: auto;
     display: block;
     object-fit: contain;
@@ -1273,7 +1273,7 @@ ul { list-style: none; }
     .lp-3, .lp-4, .lp-5, .lp-6, .lp-9, .lp-10,
     .lp-11, .lp-13, .lp-14, .lp-15 { display: none; }
 
-    .nav-logo-img { height: 52px; }
+    .nav-logo-img { height: 36px; }
 
     .features-grid { grid-template-columns: 1fr; gap: 14px; }
 
@@ -1492,14 +1492,14 @@ ul { list-style: none; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: calc(var(--nav-h) + 48px) 64px 56px;
+    padding: 56px 64px;
     background: var(--white);
     min-height: 100vh;
     overflow-y: auto;
 }
 .auth-left-inner { width: 100%; max-width: 380px; }
-.auth-split-logo { display: flex; justify-content: center; margin-bottom: 28px; }
-.auth-split-logo img { height: 110px; width: auto; mix-blend-mode: multiply; }
+.auth-split-logo { display: flex; justify-content: center; margin-bottom: 24px; }
+.auth-split-logo img { height: 72px; width: auto; mix-blend-mode: multiply; }
 .auth-right {
     position: sticky;
     top: 0;
@@ -1508,7 +1508,7 @@ ul { list-style: none; }
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: calc(var(--nav-h) + 40px) 52px 48px;
+    padding: 52px 52px 48px;
     background: linear-gradient(160deg, #13112d 0%, #1e1b4b 50%, #312e81 100%);
 }
 .auth-right::before {
@@ -1606,10 +1606,10 @@ ul { list-style: none; }
 @media (max-width: 960px) {
     .auth-split { grid-template-columns: 1fr; }
     .auth-right { display: none; }
-    .auth-left { padding: calc(var(--nav-h) + 32px) 32px 48px; }
+    .auth-left { padding: 40px 32px 48px; }
 }
 @media (max-width: 480px) {
-    .auth-left { padding: calc(var(--nav-h) + 20px) 20px 40px; }
+    .auth-left { padding: 32px 20px 40px; }
     .auth-left-inner { max-width: 100%; }
 }
 

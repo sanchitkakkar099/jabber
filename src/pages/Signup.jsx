@@ -101,6 +101,7 @@ export default function Signup() {
           </form>
 
           <p className="auth-footer-link">Already have an account? <Link to="/login">Sign in</Link></p>
+          <p className="auth-footer-link" style={{marginTop:8}}><Link to="/" style={{color:'#94a3b8',fontSize:'0.8rem'}}>← Back to Jabber</Link></p>
         </div>
       </div>
 

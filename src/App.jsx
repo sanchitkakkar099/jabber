@@ -38,12 +38,7 @@ function MainLayout() {
 }
 
 function AuthLayout() {
-  return (
-    <>
-      <Nav />
-      <Outlet />
-    </>
-  )
+  return <Outlet />
 }
 
 export default function App() {
