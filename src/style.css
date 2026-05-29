@@ -2538,13 +2538,15 @@ ul { list-style: none; }
 
 /* Responsive */
 @media (max-width: 900px) {
-    .adm-kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .adm-two-col   { grid-template-columns: 1fr; }
-    .adm-section   { padding: 20px 16px 40px; }
+    .adm-kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+    .adm-two-col    { grid-template-columns: 1fr; }
+    .adm-section    { padding: 20px 16px 40px; }
+    .adm-stats-row  { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-    .adm-sidebar { display: none; }
-    .adm-kpi-grid { grid-template-columns: 1fr 1fr; }
+    .adm-sidebar    { display: none; }
+    .adm-kpi-grid   { grid-template-columns: 1fr 1fr; }
+    .adm-stats-row  { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── Contact Tabs ──────────────────────────────────────────────────────────── */
@@ -2765,6 +2767,22 @@ ul { list-style: none; }
   transition: background 0.12s, border-color 0.12s;
 }
 .adm-ph-link:hover { background: #ede9fe; border-color: #c4b5fd; }
+
+/* ── Analytics charts ────────────────────────────────────────────────────────── */
+.adm-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.adm-stat-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.adm-stat-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; margin-bottom: 6px; }
+.adm-stat-val   { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 4px; }
+.adm-stat-sub   { font-size: 0.75rem; color: #94a3b8; }
 
 /* ── Responsive: ticket kpis ────────────────────────────────────────────────── */
 @media (max-width: 900px) {

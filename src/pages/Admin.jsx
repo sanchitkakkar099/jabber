@@ -455,120 +455,226 @@ function buildUTMAttribution(leads, signups) {
   return Object.values(map).sort((a,b) => (b.leads+b.signups) - (a.leads+a.signups))
 }
 
-// ── PostHog Config Card ───────────────────────────────────────────────────────
-const PH_KEY = 'jabber_posthog_project_id'
-function PostHogCard() {
-  const [projectId, setProjectId] = useState(localStorage.getItem(PH_KEY) || '')
-  const [saved,     setSaved]     = useState(false)
-
-  function handleSave(e) {
-    e.preventDefault()
-    localStorage.setItem(PH_KEY, projectId.trim())
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+// ── Analytics helpers ─────────────────────────────────────────────────────────
+function buildDailyTrend(leads, signups, days = 30) {
+  const buckets = []
+  const now = new Date()
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(now); d.setDate(d.getDate() - i)
+    const dateStr = d.toISOString().slice(0, 10)
+    buckets.push({
+      label: d.toLocaleDateString('en', { month:'short', day:'numeric' }),
+      leads:   leads.filter(l   => (l.date   || '').slice(0, 10) === dateStr).length,
+      signups: signups.filter(s => (s.date   || '').slice(0, 10) === dateStr).length,
+    })
   }
-  const dashboardUrl = projectId ? `https://us.posthog.com/project/${projectId}/dashboard` : null
+  return buckets
+}
+
+function buildSourceBreakdown(leads) {
+  const map = {}
+  leads.forEach(l => { const s = l.source || 'Direct'; map[s] = (map[s] || 0) + 1 })
+  return Object.entries(map).sort((a, b) => b[1] - a[1]).map(([source, count]) => ({ source, count }))
+}
+
+function buildPageBreakdown(leads) {
+  const map = {}
+  leads.forEach(l => { const p = l.page || '/'; map[p] = (map[p] || 0) + 1 })
+  return Object.entries(map).sort((a, b) => b[1] - a[1]).map(([page, count]) => ({ page, count }))
+}
+
+function buildStatusBreakdown(items, statuses) {
+  return statuses.map(s => ({ status: s, count: items.filter(i => i.status === s).length }))
+}
+
+// ── Tiny SVG bar chart ─────────────────────────────────────────────────────────
+function TrendChart({ data, days = 30 }) {
+  const H = 80
+  const maxVal = Math.max(...data.map(d => d.leads + d.signups), 1)
+  const W = 100
+  const barW = W / data.length
 
   return (
-    <div className="adm-card" style={{ borderLeft:'3px solid #6366f1' }}>
-      <h3 className="adm-card-title">
-        <span style={{marginRight:8}}>📊</span> PostHog Live Analytics
-      </h3>
-      <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:16 }}>
-        Connect your PostHog project to jump directly to your live dashboards — pageviews, funnels, session recordings, and event breakdowns.
-      </p>
-      <form onSubmit={handleSave} style={{ display:'flex', gap:10, alignItems:'center', flexWrap:'wrap' }}>
-        <input
-          className="adm-search"
-          style={{ flex:1, minWidth:200 }}
-          placeholder="PostHog Project ID (e.g. 12345)"
-          value={projectId}
-          onChange={e => setProjectId(e.target.value)}
-        />
-        <button type="submit" className="btn btn-primary" style={{ padding:'8px 18px', fontSize:'0.82rem', flexShrink:0 }}>
-          {saved ? '✓ Saved!' : 'Save'}
-        </button>
-        {dashboardUrl && (
-          <a href={dashboardUrl} target="_blank" rel="noreferrer" className="adm-btn-outline" style={{ flexShrink:0 }}>
-            Open PostHog →
-          </a>
-        )}
-      </form>
-      {dashboardUrl && (
-        <div style={{ marginTop:14, display:'flex', gap:10, flexWrap:'wrap' }}>
-          {[
-            ['Pageviews', `https://us.posthog.com/project/${projectId}/insights/new?insight=TRENDS&events=[{"id":"$pageview"}]`],
-            ['Lead Events', `https://us.posthog.com/project/${projectId}/insights/new?insight=TRENDS&events=[{"id":"lead_captured"}]`],
-            ['Signup Funnel', `https://us.posthog.com/project/${projectId}/insights/new?insight=FUNNELS`],
-            ['Session Recordings', `https://us.posthog.com/project/${projectId}/recordings`],
-          ].map(([label, url]) => (
-            <a key={label} href={url} target="_blank" rel="noreferrer" className="adm-ph-link">{label} →</a>
-          ))}
+    <div>
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ width:'100%', height: H, display:'block' }}>
+        {data.map((d, i) => {
+          const leadsH  = (d.leads   / maxVal) * (H - 4)
+          const signupsH = (d.signups / maxVal) * (H - 4)
+          const totalH  = ((d.leads + d.signups) / maxVal) * (H - 4)
+          return (
+            <g key={i}>
+              <rect x={i * barW + 0.3} y={H - totalH} width={barW - 0.6} height={totalH} fill="#6366f1" opacity={0.25} rx={0.5} />
+              <rect x={i * barW + 0.3} y={H - leadsH} width={barW - 0.6} height={leadsH}  fill="#6366f1" opacity={0.85} rx={0.5} />
+              <rect x={i * barW + 0.3} y={H - (leadsH + signupsH)} width={barW - 0.6} height={signupsH} fill="#06b6d4" opacity={0.85} rx={0.5} />
+            </g>
+          )
+        })}
+      </svg>
+      {/* X-axis labels: show only first, mid, last */}
+      <div style={{ display:'flex', justifyContent:'space-between', fontSize:'0.68rem', color:'#94a3b8', marginTop:4 }}>
+        <span>{data[0]?.label}</span>
+        <span>{data[Math.floor(data.length / 2)]?.label}</span>
+        <span>{data[data.length - 1]?.label}</span>
+      </div>
+    </div>
+  )
+}
+
+function HBarChart({ rows, maxCount, color = '#6366f1' }) {
+  return (
+    <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+      {rows.map((r, i) => (
+        <div key={i} style={{ display:'flex', alignItems:'center', gap:10 }}>
+          <div style={{ width:120, fontSize:'0.78rem', color:'#475569', textAlign:'right', flexShrink:0, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{r.label}</div>
+          <div style={{ flex:1, height:16, background:'#f1f5f9', borderRadius:4, overflow:'hidden' }}>
+            <div style={{ width:`${(r.count / maxCount) * 100}%`, height:'100%', background:color, borderRadius:4, transition:'width 0.4s' }} />
+          </div>
+          <div style={{ width:28, fontSize:'0.8rem', fontWeight:700, color, flexShrink:0 }}>{r.count}</div>
         </div>
-      )}
+      ))}
     </div>
   )
 }
 
 // ── Analytics ─────────────────────────────────────────────────────────────────
+const PH_KEY = 'jabber_posthog_project_id'
+
 function AnalyticsSection({ leads, signups }) {
-  const utmRows = buildUTMAttribution(leads, signups)
+  const [phProjectId] = useState(localStorage.getItem(PH_KEY) || '445562')
+  const utmRows      = buildUTMAttribution(leads, signups)
+  const trend        = buildDailyTrend(leads, signups, 30)
+  const sources      = buildSourceBreakdown(leads)
+  const pages        = buildPageBreakdown(leads)
+  const leadStatuses = buildStatusBreakdown(leads,   ['new','contacted','interested'])
+  const signupStatuses = buildStatusBreakdown(signups, ['waitlist','interested'])
+
+  const thisWeekLeads   = leads.filter(l   => { const d = new Date(l.date); return (Date.now() - d) < 7*86400000 }).length
+  const thisWeekSignups = signups.filter(s => { const d = new Date(s.date); return (Date.now() - d) < 7*86400000 }).length
+  const convRate = leads.length ? Math.round((signups.length / leads.length) * 100) : 0
+
+  const totalTrendLeads   = trend.reduce((s, d) => s + d.leads,   0)
+  const totalTrendSignups = trend.reduce((s, d) => s + d.signups, 0)
 
   return (
     <div className="adm-section">
       <div className="adm-section-header">
         <div>
           <h1 className="adm-page-title">Analytics</h1>
-          <p className="adm-page-sub">UTM attribution from real leads · connect PostHog for pageviews & funnels</p>
+          <p className="adm-page-sub">Real-time data from your Supabase database · UTM attribution · PostHog pageviews</p>
         </div>
       </div>
 
-      {/* PostHog config */}
-      <PostHogCard />
+      {/* KPI row */}
+      <div className="adm-stats-row" style={{ marginBottom:24 }}>
+        {[
+          { label:'Total Leads',     value: leads.length,    sub: `${thisWeekLeads} this week`,       color:'#6366f1' },
+          { label:'Total Signups',   value: signups.length,  sub: `${thisWeekSignups} this week`,     color:'#06b6d4' },
+          { label:'Conversion Rate', value: `${convRate}%`,  sub: 'leads → signups',                  color:'#10b981' },
+          { label:'Avg per Day',     value: leads.length ? (leads.length / 30).toFixed(1) : '0',
+                                            sub: 'leads / 30 days',                                   color:'#f59e0b' },
+        ].map(k => (
+          <div key={k.label} className="adm-stat-card">
+            <div className="adm-stat-label">{k.label}</div>
+            <div className="adm-stat-val" style={{ color: k.color }}>{k.value}</div>
+            <div className="adm-stat-sub">{k.sub}</div>
+          </div>
+        ))}
+      </div>
 
-      <div className="adm-two-col" style={{ marginTop:24 }}>
-        {/* PostHog pageviews prompt */}
-        <div className="adm-card" style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', minHeight:220, gap:12 }}>
-          <div style={{ fontSize:'2.2rem' }}>📊</div>
-          <h3 style={{ margin:0, fontSize:'1rem', fontWeight:700, color:'#1e293b' }}>Page Views &amp; Sessions</h3>
-          <p style={{ margin:0, fontSize:'0.85rem', color:'#64748b', maxWidth:260 }}>
-            Real-time pageview data lives in PostHog. Enter your Project ID above to get direct links.
-          </p>
+      {/* 30-day trend */}
+      <div className="adm-card" style={{ marginBottom:24 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16, flexWrap:'wrap', gap:8 }}>
+          <h3 className="adm-card-title" style={{ margin:0 }}>30-Day Activity Trend</h3>
+          <div style={{ display:'flex', gap:16, fontSize:'0.78rem', color:'#64748b' }}>
+            <span><span style={{ display:'inline-block', width:10, height:10, borderRadius:2, background:'#6366f1', marginRight:4 }}/>Leads ({totalTrendLeads})</span>
+            <span><span style={{ display:'inline-block', width:10, height:10, borderRadius:2, background:'#06b6d4', marginRight:4 }}/>Signups ({totalTrendSignups})</span>
+          </div>
         </div>
+        {leads.length + signups.length === 0 ? (
+          <div style={{ textAlign:'center', color:'#94a3b8', padding:'32px 0', fontSize:'0.85rem' }}>No activity yet — data will appear as leads and signups come in.</div>
+        ) : (
+          <TrendChart data={trend} />
+        )}
+      </div>
 
-        {/* Real UTM attribution */}
+      {/* Sources + Pages */}
+      <div className="adm-two-col" style={{ marginBottom:24 }}>
         <div className="adm-card">
-          <h3 className="adm-card-title">Campaign Attribution <span className="adm-card-note">from real leads & signups</span></h3>
-          {utmRows.length === 0 ? (
-            <div style={{ padding:'24px 0', textAlign:'center', color:'#94a3b8', fontSize:'0.85rem' }}>
-              <div style={{ fontSize:'2rem', marginBottom:8 }}>📡</div>
-              No UTM data yet. Add <code style={{fontSize:'0.78rem',background:'#f1f5f9',padding:'1px 5px',borderRadius:4}}>?utm_source=</code> to your campaign links.
-            </div>
-          ) : (
-            <table className="adm-table" style={{ marginTop:8 }}>
-              <thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th>Leads</th><th>Signups</th></tr></thead>
-              <tbody>
-                {utmRows.map((r,i) => (
-                  <tr key={i}>
-                    <td style={{ fontWeight:600 }}>{r.source}</td>
-                    <td className="adm-td-muted">{r.medium}</td>
-                    <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.78rem' }}>{r.campaign}</td>
-                    <td style={{ fontWeight:700, color:'#6366f1' }}>{r.leads}</td>
-                    <td style={{ fontWeight:700, color:'#06b6d4' }}>{r.signups}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+          <h3 className="adm-card-title">Lead Sources <span className="adm-card-note">by CTA</span></h3>
+          {sources.length === 0
+            ? <div style={{ color:'#94a3b8', fontSize:'0.85rem', textAlign:'center', padding:'20px 0' }}>No leads yet</div>
+            : <HBarChart rows={sources.map(s => ({ label: s.source, count: s.count }))} maxCount={sources[0]?.count || 1} color="#6366f1" />
+          }
+        </div>
+        <div className="adm-card">
+          <h3 className="adm-card-title">Top Landing Pages <span className="adm-card-note">by lead volume</span></h3>
+          {pages.length === 0
+            ? <div style={{ color:'#94a3b8', fontSize:'0.85rem', textAlign:'center', padding:'20px 0' }}>No leads yet</div>
+            : <HBarChart rows={pages.map(p => ({ label: p.page, count: p.count }))} maxCount={pages[0]?.count || 1} color="#8b5cf6" />
+          }
         </div>
       </div>
 
-      {/* Top pages — PostHog prompt */}
-      <div className="adm-card" style={{ display:'flex', alignItems:'center', gap:20 }}>
-        <div style={{ fontSize:'2rem', flexShrink:0 }}>🔍</div>
-        <div style={{ flex:1 }}>
-          <h3 style={{ margin:'0 0 4px', fontSize:'1rem', fontWeight:700, color:'#1e293b' }}>Top Pages &amp; Conversion Rates</h3>
-          <p style={{ margin:0, fontSize:'0.85rem', color:'#64748b' }}>Per-page view counts and conversion rates are tracked by PostHog. Add your Project ID above to access these insights.</p>
+      {/* Status breakdown */}
+      <div className="adm-two-col" style={{ marginBottom:24 }}>
+        <div className="adm-card">
+          <h3 className="adm-card-title">Lead Status Breakdown</h3>
+          {leads.length === 0
+            ? <div style={{ color:'#94a3b8', fontSize:'0.85rem', textAlign:'center', padding:'20px 0' }}>No leads yet</div>
+            : <HBarChart rows={leadStatuses.map(s => ({ label: s.status, count: s.count }))} maxCount={leads.length} color="#6366f1" />
+          }
+        </div>
+        <div className="adm-card">
+          <h3 className="adm-card-title">Signup Status Breakdown</h3>
+          {signups.length === 0
+            ? <div style={{ color:'#94a3b8', fontSize:'0.85rem', textAlign:'center', padding:'20px 0' }}>No signups yet</div>
+            : <HBarChart rows={signupStatuses.map(s => ({ label: s.status, count: s.count }))} maxCount={signups.length} color="#06b6d4" />
+          }
+        </div>
+      </div>
+
+      {/* UTM Attribution */}
+      <div className="adm-card" style={{ marginBottom:24 }}>
+        <h3 className="adm-card-title">Campaign Attribution <span className="adm-card-note">from UTM parameters</span></h3>
+        {utmRows.length === 0 ? (
+          <div style={{ padding:'24px 0', textAlign:'center', color:'#94a3b8', fontSize:'0.85rem' }}>
+            <div style={{ fontSize:'2rem', marginBottom:8 }}>📡</div>
+            No UTM data yet. Add <code style={{fontSize:'0.78rem',background:'#f1f5f9',padding:'1px 5px',borderRadius:4}}>?utm_source=</code> to your campaign links.
+          </div>
+        ) : (
+          <table className="adm-table" style={{ marginTop:8 }}>
+            <thead><tr><th>Source</th><th>Medium</th><th>Campaign</th><th>Leads</th><th>Signups</th></tr></thead>
+            <tbody>
+              {utmRows.map((r,i) => (
+                <tr key={i}>
+                  <td style={{ fontWeight:600 }}>{r.source}</td>
+                  <td className="adm-td-muted">{r.medium}</td>
+                  <td className="adm-td-muted" style={{ fontFamily:'monospace', fontSize:'0.78rem' }}>{r.campaign}</td>
+                  <td style={{ fontWeight:700, color:'#6366f1' }}>{r.leads}</td>
+                  <td style={{ fontWeight:700, color:'#06b6d4' }}>{r.signups}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* PostHog session data */}
+      <div className="adm-card" style={{ borderLeft:'3px solid #6366f1' }}>
+        <h3 className="adm-card-title"><span style={{ marginRight:6 }}>📊</span>PostHog — Pageviews &amp; Sessions</h3>
+        <p style={{ fontSize:'0.85rem', color:'#64748b', marginBottom:14 }}>
+          Pageview counts and session recordings live in PostHog. Click below to open your live dashboards.
+        </p>
+        <div style={{ display:'flex', gap:10, flexWrap:'wrap' }}>
+          {[
+            ['Pageviews',          `https://us.posthog.com/project/${phProjectId}/insights/new?insight=TRENDS&events=[{"id":"$pageview"}]`],
+            ['Lead Events',        `https://us.posthog.com/project/${phProjectId}/insights/new?insight=TRENDS&events=[{"id":"lead_captured"}]`],
+            ['Signup Funnel',      `https://us.posthog.com/project/${phProjectId}/insights/new?insight=FUNNELS`],
+            ['Session Recordings', `https://us.posthog.com/project/${phProjectId}/recordings`],
+            ['Full Dashboard',     `https://us.posthog.com/project/${phProjectId}/dashboard`],
+          ].map(([label, url]) => (
+            <a key={label} href={url} target="_blank" rel="noreferrer" className="adm-ph-link">{label} →</a>
+          ))}
         </div>
       </div>
     </div>
