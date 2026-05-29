@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 
-const BASE_URL = 'https://jabber.live'
+const BASE_URL = 'https://jabber-production.up.railway.app'
 const DEFAULT_DESC = 'Jabber delivers real-time AI transcription, translation, and voice synthesis to thousands of live event viewers — each in the language they choose. Serverless. Under 2-second latency. Free to start.'
 const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`
 

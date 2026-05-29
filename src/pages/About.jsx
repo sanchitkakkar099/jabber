@@ -15,12 +15,12 @@ export default function About() {
           '@type': 'AboutPage',
           name: 'About Jabber',
           description: 'Jabber is building infrastructure to make every live event accessible to everyone, everywhere, in their own language — instantly.',
-          url: 'https://jabber.live/about',
+          url: 'https://jabber-production.up.railway.app/about',
           mainEntity: {
             '@type': 'Organization',
             name: 'Jabber',
             description: 'Real-time AI translation SaaS for live events',
-            url: 'https://jabber.live',
+            url: 'https://jabber-production.up.railway.app',
             foundingDate: '2025',
             mission: 'Make language a non-issue for live events, so organisers can focus on the content and viewers can focus on the experience.'
           }

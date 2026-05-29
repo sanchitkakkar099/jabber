@@ -44,8 +44,8 @@ export default function Blog() {
           '@type': 'Blog',
           name: 'Jabber Blog',
           description: 'Insights on live translation, AI, and global events from the Jabber team',
-          url: 'https://jabber.live/blog',
-          publisher: { '@type': 'Organization', name: 'Jabber', url: 'https://jabber.live' }
+          url: 'https://jabber-production.up.railway.app/blog',
+          publisher: { '@type': 'Organization', name: 'Jabber', url: 'https://jabber-production.up.railway.app' }
         }}
       />
 
