@@ -17,6 +17,14 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Admin from './pages/Admin'
 import Dashboard from './pages/Dashboard'
+import DashEvents from './pages/dashboard/Events'
+import DashLanguages from './pages/dashboard/Languages'
+import DashAnalytics from './pages/dashboard/Analytics'
+import DashRecordings from './pages/dashboard/Recordings'
+import DashTranscripts from './pages/dashboard/Transcripts'
+import DashTeam from './pages/dashboard/Team'
+import DashBilling from './pages/dashboard/Billing'
+import DashSettings from './pages/dashboard/Settings'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -60,6 +68,14 @@ export default function App() {
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/events" element={<DashEvents />} />
+        <Route path="/dashboard/languages" element={<DashLanguages />} />
+        <Route path="/dashboard/analytics" element={<DashAnalytics />} />
+        <Route path="/dashboard/recordings" element={<DashRecordings />} />
+        <Route path="/dashboard/transcripts" element={<DashTranscripts />} />
+        <Route path="/dashboard/team" element={<DashTeam />} />
+        <Route path="/dashboard/billing" element={<DashBilling />} />
+        <Route path="/dashboard/settings" element={<DashSettings />} />
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

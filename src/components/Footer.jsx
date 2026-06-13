@@ -6,24 +6,24 @@ export default function Footer() {
       <div className="hh-wrap hh-foot-inner">
         <div className="hh-foot-disclaimer">
           <Link to="/" className="hh-foot-logo">
-            <img src="/logo.png" alt="Zabber" />
+            <img src="/logo.png" alt="Jabber" />
           </Link>
           <p>
-            Zabber provides real-time AI transcription, translation, and voice
-            synthesis for live events. Zabber is a software platform and does not
+            Jabber provides real-time AI transcription, translation, and voice
+            synthesis for live events. Jabber is a software platform and does not
             provide interpretation, broadcast, or advisory services.
           </p>
           <p>
-            Translations and captions generated through Zabber are produced
+            Translations and captions generated through Jabber are produced
             automatically from the audio and configuration provided by the customer.
-            Zabber does not guarantee the accuracy or completeness of any output. By
-            using this website or the Zabber platform you agree to our Terms of Use
+            Jabber does not guarantee the accuracy or completeness of any output. By
+            using this website or the Jabber platform you agree to our Terms of Use
             and Privacy Policy.
           </p>
         </div>
         <div className="hh-foot-cols">
           <div className="hh-foot-col">
-            <h4>Zabber</h4>
+            <h4>Jabber</h4>
             <Link to="/features">Features</Link>
             <Link to="/pricing">Pricing</Link>
             <Link to="/about">About</Link>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="hh-wrap hh-foot-bottom">
-        <span>&copy; 2026 Zabber. All rights reserved.</span>
+        <span>&copy; 2026 Jabber. All rights reserved.</span>
         <div className="hh-foot-social">
           <a href="#">Twitter</a>
           <a href="#">LinkedIn</a>

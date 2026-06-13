@@ -40,7 +40,7 @@ export default function Signup() {
       {/* RIGHT: Signup form */}
       <div className="auth-left">
         <div className="auth-left-inner">
-          <Link to="/" className="auth-split-logo"><img src="/logo.png" alt="Zabber" /></Link>
+          <Link to="/" className="auth-split-logo"><img src="/logo.png" alt="Jabber" /></Link>
           <h1 className="auth-title">Get early access</h1>
           <p className="auth-subtitle">Join hundreds of event organisers on the waitlist. Free to start — no credit card required.</p>
 
@@ -72,13 +72,13 @@ export default function Signup() {
             <div className="form-group"><label className="form-label" htmlFor="password">Password</label><input type="password" id="password" className="form-input" placeholder="At least 8 characters" required autoComplete="new-password" minLength="8" value={form.password} onChange={set('password')} disabled={submitted} /></div>
             <div className="form-checkbox-row">
               <input type="checkbox" id="terms" required checked={terms} onChange={e=>setTerms(e.target.checked)} disabled={submitted} />
-              <label htmlFor="terms">I agree to Zabber's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+              <label htmlFor="terms">I agree to Jabber's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
             </div>
             <button type="submit" className="btn btn-primary auth-submit" disabled={submitted} style={submitted?{background:'#22c55e'}:{}}>{submitted ? "You're on the list! ✓" : 'Create account →'}</button>
           </form>
 
           <p className="auth-footer-link">Already have an account? <Link to="/login">Sign in</Link></p>
-          <p className="auth-footer-link" style={{marginTop:8}}><Link to="/" style={{color:'#94a3b8',fontSize:'0.8rem'}}>← Back to Zabber</Link></p>
+          <p className="auth-footer-link" style={{marginTop:8}}><Link to="/" style={{color:'#94a3b8',fontSize:'0.8rem'}}>← Back to Jabber</Link></p>
         </div>
       </div>
 

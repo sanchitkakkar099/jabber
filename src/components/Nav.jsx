@@ -18,12 +18,12 @@ export default function Nav() {
     <>
       <header id="navbar" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-announce">
-          <span>Zabber now delivers live AI translation in 50+ languages.</span>
+          <span>Jabber now delivers live AI translation in 50+ languages.</span>
           <Link to="/about">Read more →</Link>
         </div>
         <div className="container nav-container">
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Zabber" className="nav-logo-img" />
+            <img src="/logo.png" alt="Jabber" className="nav-logo-img" />
           </Link>
           <ul className="nav-menu">
             <li><Link to="/features">Features</Link></li>
