@@ -16,6 +16,7 @@ import BlogPost from './pages/BlogPost'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Admin from './pages/Admin'
+import Dashboard from './pages/Dashboard'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
