@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import GradientWave from '../components/GradientWave'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -18,48 +19,18 @@ export default function Login() {
     <SEO title="Sign In" canonical="/login" noindex={true} />
     <div className="auth-split">
 
-      {/* LEFT: Event showcase — trimmed */}
+      {/* LEFT: brand panel */}
       <div className="auth-right">
         <div className="auth-right-content">
-          <h2 className="auth-right-headline">Your events.<br /><span className="text-gradient">Every language.</span><br />Zero friction.</h2>
-          <p className="auth-right-sub">Join thousands of event organisers delivering multilingual live experiences with sub-2-second latency.</p>
-
-          <div className="auth-features">
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <div className="auth-feature-text"><h4>Under 2s end-to-end latency</h4><p>Transcription, translation, and voice synthesis in real time.</p></div>
-            </div>
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-              <div className="auth-feature-text"><h4>10+ languages at launch</h4><p>Serve global audiences without a single interpreter.</p></div>
-            </div>
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-              <div className="auth-feature-text"><h4>Pay only when you're live</h4><p>$0 idle cost. Usage-based, billed per minute.</p></div>
-            </div>
-          </div>
-
-          {/* Mini live player */}
-          <div className="amp-wrap">
-            <div className="amp-header">
-              <span className="amp-brand">Zabber Live</span>
-              <span style={{display:'flex',alignItems:'center',gap:5,fontSize:'0.68rem',color:'#22c55e',fontWeight:700}}>
-                <span style={{width:6,height:6,borderRadius:'50%',background:'#22c55e',display:'inline-block'}} /> LIVE
-              </span>
-            </div>
-            <div className="amp-event-name">Global Tech Summit 2026 — Keynote</div>
-            <div className="amp-langs">
-              <span className="amp-lchip">EN</span><span className="amp-lchip">ES</span><span className="amp-lchip">FR</span><span className="amp-lchip">DE</span><span className="amp-lchip off">+7</span>
-            </div>
-            <div className="amp-caption">"...real-time multilingual access changes everything for global audiences..."</div>
-            <div className="amp-meta"><span className="amp-lang-active">Translating: English → Spanish</span><span className="amp-latency">1.4s latency</span></div>
-          </div>
-
-          <div className="auth-quote">
-            <p>"Zabber let us reach 4× more attendees. Setup took 8 minutes."</p>
-            <cite>— Arjun K., Head of Events, TechConf Asia</cite>
-          </div>
+          <h2 className="auth-right-headline">Your events.<br />Every language.<br />Zero friction.</h2>
+          <p className="auth-right-sub">Deliver multilingual live experiences with sub-2-second latency — no interpreters, no hardware.</p>
+          <ul className="auth-feat-list">
+            <li className="auth-feat"><span className="auth-feat-dot" />Under 2s end-to-end latency</li>
+            <li className="auth-feat"><span className="auth-feat-dot" />50+ languages, no interpreters</li>
+            <li className="auth-feat"><span className="auth-feat-dot" />Pay only when you’re live</li>
+          </ul>
         </div>
+        <GradientWave className="auth-wave" />
       </div>
 
       {/* RIGHT: Login form */}
