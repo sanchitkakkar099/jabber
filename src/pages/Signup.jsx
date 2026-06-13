@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import GradientWave from '../components/GradientWave'
 import { saveSignup } from '../utils/leads'
 import { track } from '../utils/posthog'
 
@@ -21,43 +22,19 @@ export default function Signup() {
     <SEO title="Get Early Access" canonical="/signup" noindex={true} />
     <div className="auth-split">
 
-      {/* LEFT: Showcase — trimmed */}
+      {/* LEFT: brand panel */}
       <div className="auth-right">
         <div className="auth-right-content">
-          <div className="section-tag-wrap" style={{justifyContent:'flex-start',marginBottom:20}}><span className="section-tag">Early Access</span></div>
-          <h2 className="auth-right-headline">Go live in<br /><span className="text-gradient">any language</span><br />in minutes.</h2>
-          <p className="auth-right-sub">No interpreters. No expensive hardware. Just connect your stream and reach a global audience instantly.</p>
-
-          <div className="auth-features">
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <div className="auth-feature-text"><h4>Free Starter plan</h4><p>5 hours/month, 3 languages, 100 viewers. No credit card.</p></div>
-            </div>
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-              <div className="auth-feature-text"><h4>Works with any OBS stream</h4><p>Point your RTMP stream at Zabber. Setup in under 10 minutes.</p></div>
-            </div>
-            <div className="auth-feature">
-              <div className="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-              <div className="auth-feature-text"><h4>Viewer app included</h4><p>Attendees pick their language. No download required.</p></div>
-            </div>
-          </div>
-
-          {/* Event types */}
-          <div className="amp-wrap">
-            <div className="amp-header"><span className="amp-brand">Perfect for</span></div>
-            <div style={{display:'flex',flexWrap:'wrap',gap:6,marginTop:6}}>
-              {['Conferences','Town Halls','Worship','Sports','Webinars','Press Events'].map(t => (
-                <span key={t} style={{padding:'4px 10px',background:'rgba(99,102,241,0.2)',border:'1px solid rgba(99,102,241,0.35)',borderRadius:6,fontSize:'0.72rem',color:'#a5b4fc',fontWeight:600}}>{t}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="auth-quote">
-            <p>"We onboarded in 15 minutes and ran our first multilingual event the same day."</p>
-            <cite>— Sofia M., Producer, EuroMedia Group</cite>
-          </div>
+          <span className="hh-eyebrow" style={{marginBottom:20}}>Early access</span>
+          <h2 className="auth-right-headline">Go live in<br />any language<br />in minutes.</h2>
+          <p className="auth-right-sub">No interpreters. No expensive hardware. Connect your stream and reach a global audience instantly.</p>
+          <ul className="auth-feat-list">
+            <li className="auth-feat"><span className="auth-feat-dot" />Free Starter plan — no credit card</li>
+            <li className="auth-feat"><span className="auth-feat-dot" />Works with any OBS / RTMP stream</li>
+            <li className="auth-feat"><span className="auth-feat-dot" />Viewers pick their own language</li>
+          </ul>
         </div>
+        <GradientWave className="auth-wave" />
       </div>
 
       {/* RIGHT: Signup form */}
