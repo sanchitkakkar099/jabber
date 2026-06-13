@@ -1,39 +1,49 @@
 /* ─── Variables ──────────────────────────────────────────────────────────── */
+/* Warm editorial system (handhold.io ethic): cream canvas, espresso text,
+   blue interactive accent, coral feature/highlight accent, Fraunces serif
+   display + Inter body, generous radii, soft warm shadows.
+   NOTE: legacy token NAMES are retained so existing rules keep working —
+   only their VALUES are remapped to the warm palette. */
 :root {
-    --indigo-50:  #eef2ff;
-    --indigo-100: #e0e7ff;
-    --indigo-200: #c7d2fe;
-    --indigo-300: #a5b4fc;
-    --indigo-400: #818cf8;
-    --indigo-500: #6366f1;
-    --indigo-600: #4f46e5;
-    --indigo-700: #4338ca;
-    --indigo-800: #3730a3;
-    --indigo-900: #312e81;
-    --violet-500: #8b5cf6;
-    --cyan-500:   #06b6d4;
-    --green-500:  #22c55e;
-    --orange-500: #f97316;
-    --red-500:    #ef4444;
-    --slate-50:   #f8fafc;
-    --slate-100:  #f1f5f9;
-    --slate-200:  #e2e8f0;
-    --slate-300:  #cbd5e1;
-    --slate-400:  #94a3b8;
-    --slate-500:  #64748b;
-    --slate-600:  #475569;
-    --slate-700:  #334155;
-    --slate-800:  #1e293b;
-    --slate-900:  #0f172a;
+    /* Interactive / link accent — handhold blue, mapped onto the old indigo scale */
+    --indigo-50:  #eef3ff;
+    --indigo-100: #ddeaff;
+    --indigo-200: #c2d8ff;
+    --indigo-300: #97baff;
+    --indigo-400: #5b8dfb;
+    --indigo-500: #2f6bf6;
+    --indigo-600: #155dfc;
+    --indigo-700: #0e47c9;
+    --indigo-800: #0c3a9e;
+    --indigo-900: #0b2f7a;
+    /* Feature / highlight accent — terracotta coral, mapped onto the old violet */
+    --violet-500: #e27457;
+    --cyan-500:   #1aa6b7;
+    --green-500:  #2f9e64;
+    --orange-500: #e08a3c;
+    --red-500:    #d8543f;
+    /* Warm neutral scale — paper → espresso (replaces cool slate) */
+    --slate-50:   #f7f5ef;
+    --slate-100:  #efece3;
+    --slate-200:  #e4ded2;
+    --slate-300:  #cfc7b8;
+    --slate-400:  #a89e8d;
+    --slate-500:  #847a6b;
+    --slate-600:  #6a6051;
+    --slate-700:  #50473b;
+    --slate-800:  #3a332b;
+    --slate-900:  #2a2420;
     --white:      #ffffff;
+    --cream:      #f2f1ed;
 
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
     --nav-h: 64px;
-    --radius: 12px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
-    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
-    --shadow-xl: 0 24px 64px rgba(15,23,42,0.18), 0 8px 24px rgba(79,70,229,0.12);
+    --radius: 20px;
+    --shadow-sm: 0 1px 2px rgba(60,50,40,0.06);
+    --shadow-md: 0 6px 20px rgba(60,50,40,0.07), 0 2px 6px rgba(60,50,40,0.05);
+    --shadow-lg: 0 18px 48px rgba(50,40,30,0.10), 0 6px 16px rgba(50,40,30,0.06);
+    --shadow-xl: 0 30px 70px rgba(40,32,24,0.16), 0 10px 28px rgba(40,32,24,0.08);
 }
 
 /* ─── Reset & Base ───────────────────────────────────────────────────────── */
@@ -44,10 +54,11 @@ html { scroll-behavior: smooth; }
 body {
     font-family: var(--font);
     color: var(--slate-900);
-    background: var(--white);
+    background: var(--cream);
     line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 img { display: block; max-width: 100%; }
@@ -2850,3 +2861,167 @@ ul { list-style: none; }
   animation: adm-spin 0.8s linear infinite;
 }
 @keyframes adm-spin { to { transform: rotate(360deg); } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   HANDHOLD REDESIGN — warm editorial overrides
+   Loaded last so it wins the cascade. Flips the public marketing site from the
+   old dark-neon look to a cream + serif + coral/blue editorial aesthetic.
+   (Admin dashboard is intentionally left on its own theme.)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Serif display headlines (Fraunces) ─────────────────────────────────────── */
+.hero-headline, .section-title, .page-hero h1, .cta-section h2,
+.mission-text h2, .auth-title, .auth-right-headline, .compare-title,
+.blog-post-title, .blog-post-cta h2, .related-title,
+.contact-info-col h3, .contact-form-card h3, .prose h2, .not-found-wrap h1,
+.price-amount, .stat-number, .mission-stat-big, .auth-stat-num {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+}
+.hero-headline { font-weight: 600; line-height: 1.05; }
+.section-title { line-height: 1.12; }
+
+/* ── Buttons — espresso primary, pill shape ─────────────────────────────────── */
+.btn { border-radius: 999px; font-weight: 600; }
+.btn-primary { background: var(--slate-900); color: #fff; }
+.btn-primary:hover {
+    background: #41382f;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(40,32,24,0.20);
+}
+.btn-ghost { color: var(--slate-700); }
+.btn-ghost:hover { color: var(--slate-900); background: rgba(42,36,32,0.05); }
+.btn-white { color: var(--slate-900); border-radius: 999px; }
+.btn-white:hover { background: #fff; }
+.pricing-cta, .auth-submit, .contact-submit, .btn-oauth { border-radius: 999px; }
+.pricing-cta-solid { background: var(--slate-900); border-color: var(--slate-900); }
+.pricing-cta-solid:hover { background: #41382f; }
+.pricing-cta-outline { color: var(--slate-900); border-color: var(--slate-300); }
+.pricing-cta-outline:hover { background: rgba(42,36,32,0.05); border-color: var(--slate-400); }
+
+/* ── Navigation — frosted cream ─────────────────────────────────────────────── */
+#navbar {
+    background: rgba(242,241,237,0.82);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            backdrop-filter: blur(14px) saturate(1.3);
+}
+#navbar.scrolled { border-color: var(--slate-200); box-shadow: 0 1px 22px rgba(60,50,40,0.06); }
+.nav-menu li a:hover { color: var(--slate-900); background: rgba(42,36,32,0.05); }
+.nav-menu li:last-child a:hover { background: #41382f; color: #fff; }
+
+/* ── Section eyebrow — coral, understated ───────────────────────────────────── */
+.section-tag, .int-tag, .uc-tag, .tech-tag, .blog-cat-pill {
+    color: var(--violet-500);
+    background: rgba(226,116,87,0.08);
+    border-color: rgba(226,116,87,0.22);
+}
+
+/* ── Hero — calm cream, soft orbs (drop the busy particle field) ─────────────── */
+.hero {
+    padding: calc(var(--nav-h) + 64px) 0 76px;
+    background:
+        radial-gradient(ellipse at 82% 0%, rgba(226,116,87,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 4% 92%, rgba(21,93,252,0.07) 0%, transparent 55%),
+        var(--cream);
+}
+#heroCanvas { display: none; }
+.hero::after { background: linear-gradient(to bottom, transparent, var(--cream)); }
+.hero-bg-grid {
+    background-image: radial-gradient(rgba(80,71,59,0.10) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.55;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 28%, #000 28%, transparent 74%);
+            mask-image: radial-gradient(ellipse at 50% 28%, #000 28%, transparent 74%);
+}
+.hero-orb-1 { background: radial-gradient(circle, rgba(226,116,87,0.18) 0%, rgba(226,116,87,0.06) 50%, transparent 75%); }
+.hero-orb-2 { background: radial-gradient(circle, rgba(21,93,252,0.12) 0%, transparent 70%); }
+.hero-orb-3 { background: radial-gradient(circle, rgba(226,116,87,0.10) 0%, transparent 70%); }
+.hero-badge {
+    background: rgba(255,255,255,0.72);
+    border-color: var(--slate-200);
+    color: var(--slate-700);
+}
+.lang-pill {
+    color: rgba(80,71,59,0.5);
+    border-color: rgba(80,71,59,0.16);
+    background: rgba(255,255,255,0.5);
+}
+.text-gradient { filter: none; }
+.blink-cursor { -webkit-text-fill-color: var(--violet-500); color: var(--violet-500); }
+.mockup-glow { background: radial-gradient(ellipse at center, rgba(226,116,87,0.16) 0%, transparent 70%); }
+
+/* ── Stats — airy light strip with serif numerals ───────────────────────────── */
+.stats-strip {
+    background: var(--cream);
+    padding: 40px 0;
+    border-top: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--slate-200);
+}
+.stat-number { color: var(--slate-900); }
+.stat-label { color: var(--slate-500); }
+.stat-rule { background: var(--slate-200); }
+
+/* ── Warm section backgrounds (replace cool/light-blue panels) ──────────────── */
+.tech-section, .values-section {
+    background: var(--slate-50);
+    border-top: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--slate-200);
+}
+.pipeline-card, .value-card { border-color: var(--slate-200); }
+
+/* ── More editorial whitespace ──────────────────────────────────────────────── */
+.features-section, .how-section, .usecases-section, .tech-section,
+.values-section, .team-section, .integration-section, .uc-expanded,
+.mission-section, .contact-section, .pricing-section, .faq-section {
+    padding-top: 84px;
+    padding-bottom: 84px;
+}
+
+/* ── Featured pricing — coral highlight ─────────────────────────────────────── */
+.pricing-card.featured {
+    border-color: var(--violet-500);
+    box-shadow: 0 0 0 1px var(--violet-500), var(--shadow-lg);
+}
+.pricing-badge { background: var(--violet-500); }
+.pricing-tier { color: var(--violet-500); }
+
+/* ── Final CTA — espresso panel, coral glow ─────────────────────────────────── */
+.cta-section { background: var(--slate-900); }
+.cta-glow { background: radial-gradient(circle, rgba(226,116,87,0.35) 0%, transparent 65%); }
+.cta-section h2 { color: #fff; }
+.cta-section > .cta-inner > p { color: rgba(247,245,239,0.72); }
+.cta-badge { background: rgba(247,245,239,0.10); color: #f7f5ef; border-color: rgba(247,245,239,0.18); }
+.cta-input { background: rgba(247,245,239,0.08); border-color: rgba(247,245,239,0.22); color: #fff; }
+.cta-input::placeholder { color: rgba(247,245,239,0.42); }
+.cta-note { color: rgba(247,245,239,0.42); }
+
+/* ── Inner page hero — warm ─────────────────────────────────────────────────── */
+.page-hero {
+    background:
+        radial-gradient(ellipse at 75% 0%, rgba(226,116,87,0.09) 0%, transparent 50%),
+        radial-gradient(ellipse at 25% 100%, rgba(21,93,252,0.06) 0%, transparent 45%),
+        var(--cream);
+    border-bottom: 1px solid var(--slate-200);
+}
+
+/* ── Auth split marketing panel — warm espresso ─────────────────────────────── */
+.auth-wrap {
+    background:
+        radial-gradient(ellipse at 80% 0%, rgba(226,116,87,0.07) 0%, transparent 50%),
+        var(--cream);
+}
+.auth-right { background: linear-gradient(160deg, #2a2420 0%, #3a332b 58%, #50473b 100%); }
+.auth-right::before { background: radial-gradient(circle, rgba(226,116,87,0.26) 0%, transparent 70%); }
+.auth-right::after { background: radial-gradient(circle, rgba(21,93,252,0.18) 0%, transparent 70%); }
+.auth-right-headline .text-gradient {
+    background: linear-gradient(135deg, #f7c9b8 0%, #e27457 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ── Mobile: keep stat dividers warm ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .stats-strip .stat { border-color: var(--slate-200) !important; }
+}
