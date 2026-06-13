@@ -116,7 +116,7 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
   return (
     <aside className="adm-sidebar">
       <div className="adm-sidebar-logo">
-        <img src="/logo.png" alt="Jabber" style={{ height:36, filter:'invert(1)', mixBlendMode:'screen' }} />
+        <img src="/logo-mark.png" alt="Jabber" style={{ height:30, mixBlendMode:'multiply' }} />
         <span className="adm-sidebar-badge">Admin</span>
       </div>
       <div style={{ padding:'6px 16px 12px', borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
