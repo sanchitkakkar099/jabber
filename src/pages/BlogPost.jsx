@@ -35,7 +35,7 @@ export default function BlogPost() {
     image: post.image,
     datePublished: post.date,
     author: { '@type': 'Person', name: post.author },
-    publisher: { '@type': 'Organization', name: 'Zabber', url: 'https://jabber-production.up.railway.app', logo: 'https://jabber-production.up.railway.app/logo.png' },
+    publisher: { '@type': 'Organization', name: 'Jabber', url: 'https://jabber-production.up.railway.app', logo: 'https://jabber-production.up.railway.app/logo.png' },
     url: `https://jabber-production.up.railway.app/blog/${post.slug}`,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://jabber-production.up.railway.app/blog/${post.slug}` }
   }

@@ -5,7 +5,7 @@ export const posts = [
     excerpt: 'Traditional interpretation costs $500–$5,000+ per event, requires weeks of planning, and still leaves most of your audience without access. Here\'s what the numbers actually look like — and what\'s changed.',
     category: 'Industry',
     date: '2026-05-22',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '6 min read',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
@@ -35,7 +35,7 @@ export const posts = [
 
 <h2>The AI alternative</h2>
 <p>Real-time AI translation has crossed a threshold. Latency is now under two seconds end-to-end. Translation quality for common language pairs is indistinguishable from competent human interpretation for most conference content. And the cost model is completely different.</p>
-<p>With Zabber, the maths looks like this:</p>
+<p>With Jabber, the maths looks like this:</p>
 <ul>
   <li><strong>Starter (free credits):</strong> $100 in free credits on sign-up — covers 1 event, 1 hour, up to 100 viewers, 2 languages. No credit card required.</li>
   <li><strong>Pro:</strong> $299/month — 5,000 viewers, 10+ languages, unlimited hours.</li>
@@ -54,58 +54,58 @@ export const posts = [
   {
     slug: 'obs-live-translation-setup',
     title: 'How to Add Real-Time Translation to Any OBS Stream in Under 10 Minutes',
-    excerpt: 'A step-by-step guide to connecting Zabber with OBS Studio, sharing a multilingual viewer link, and going live in 10+ languages — no plugins, no extra hardware, no technical degree required.',
+    excerpt: 'A step-by-step guide to connecting Jabber with OBS Studio, sharing a multilingual viewer link, and going live in 10+ languages — no plugins, no extra hardware, no technical degree required.',
     category: 'Tutorial',
     date: '2026-05-18',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
 <h2>What you'll need</h2>
 <ul>
   <li>OBS Studio (any recent version) — or any RTMP-compatible encoder</li>
-  <li>A Zabber account (free tier works fine for testing)</li>
+  <li>A Jabber account (free tier works fine for testing)</li>
   <li>A microphone and something to say</li>
 </ul>
 <p>That's it. No hardware purchases. No plugin installs. No waiting for equipment to arrive.</p>
 
-<h2>Step 1: Create your Zabber account and event</h2>
+<h2>Step 1: Create your Jabber account and event</h2>
 <p>Head to <strong>jabber.live/signup</strong> and create a free account. Once you're in the dashboard, click <strong>New Event</strong> and give it a name — "Test Stream" is fine for now.</p>
 <p>Under <strong>Languages</strong>, select the languages you want to translate into. On the free tier you get 3; Pro unlocks 10+. For this walkthrough, pick Spanish and French.</p>
-<p>Hit <strong>Create Event</strong>. Zabber will generate two things you need: a <strong>Stream Key</strong> and a <strong>Viewer Link</strong>.</p>
+<p>Hit <strong>Create Event</strong>. Jabber will generate two things you need: a <strong>Stream Key</strong> and a <strong>Viewer Link</strong>.</p>
 
 <h2>Step 2: Configure OBS</h2>
 <p>In OBS, go to <strong>Settings → Stream</strong>.</p>
 <ul>
   <li>Set <strong>Service</strong> to "Custom..."</li>
   <li>Set <strong>Server</strong> to <code>rtmp://ingest.jabber.live/live</code></li>
-  <li>Paste your Zabber <strong>Stream Key</strong> into the Stream Key field</li>
+  <li>Paste your Jabber <strong>Stream Key</strong> into the Stream Key field</li>
   <li>Click <strong>OK</strong></li>
 </ul>
-<p>That's your entire OBS configuration. Zabber accepts standard RTMP — the same protocol used for YouTube Live, Twitch, and every other major streaming platform. If you can stream there, you can stream to Zabber.</p>
+<p>That's your entire OBS configuration. Jabber accepts standard RTMP — the same protocol used for YouTube Live, Twitch, and every other major streaming platform. If you can stream there, you can stream to Jabber.</p>
 
 <h2>Step 3: Set your audio source</h2>
-<p>In OBS, make sure your microphone is set as an active audio source in your scene. Zabber's transcription engine processes the audio track from your RTMP stream, so whatever OBS captures is what gets transcribed and translated.</p>
+<p>In OBS, make sure your microphone is set as an active audio source in your scene. Jabber's transcription engine processes the audio track from your RTMP stream, so whatever OBS captures is what gets transcribed and translated.</p>
 <p><strong>Pro tip:</strong> Use a dedicated microphone rather than a laptop's built-in mic. Audio quality directly affects transcription accuracy, which directly affects translation quality. A $50 USB mic makes a meaningful difference.</p>
 
 <h2>Step 4: Go live and share the viewer link</h2>
-<p>In OBS, click <strong>Start Streaming</strong>. Within a few seconds, your stream will appear as active in the Zabber dashboard.</p>
+<p>In OBS, click <strong>Start Streaming</strong>. Within a few seconds, your stream will appear as active in the Jabber dashboard.</p>
 <p>Now share your <strong>Viewer Link</strong> — it looks like <code>jabber.live/watch/your-event-name</code> — with your audience. When they open it, they'll see a language selector. They pick their language and immediately start receiving synchronised captions and translated audio.</p>
 <p>You don't need to do anything else. Translation is automatic from the moment you go live.</p>
 
 <h2>Step 5: Stop the stream</h2>
-<p>When you're done, click <strong>Stop Streaming</strong> in OBS. Zabber detects the stream ending and shuts down translation automatically. Your viewers see a "Stream ended" message. You stop being billed for the minute.</p>
+<p>When you're done, click <strong>Stop Streaming</strong> in OBS. Jabber detects the stream ending and shuts down translation automatically. Your viewers see a "Stream ended" message. You stop being billed for the minute.</p>
 
 <h2>Tips for best results</h2>
 <ul>
   <li><strong>Speak clearly and at a measured pace.</strong> AI transcription handles natural speech well, but rapid-fire delivery or heavy background noise will reduce accuracy.</li>
-  <li><strong>Set your source language correctly.</strong> In the Zabber dashboard, confirm your primary language (the language you're speaking in). This ensures the transcription model uses the right acoustic and language model.</li>
+  <li><strong>Set your source language correctly.</strong> In the Jabber dashboard, confirm your primary language (the language you're speaking in). This ensures the transcription model uses the right acoustic and language model.</li>
   <li><strong>Test before your real event.</strong> Do a 5-minute test stream with a colleague acting as a viewer. Verify they can hear translated audio and that captions are accurate.</li>
   <li><strong>Stable internet matters.</strong> RTMP streaming requires consistent upload bandwidth. 3–5 Mbps is sufficient for most streams. A wired connection is more reliable than Wi-Fi for live production.</li>
 </ul>
 
 <h2>What about hardware encoders?</h2>
-<p>Everything above applies equally to hardware encoders (Teradek, LiveU, Blackmagic Web Presenter, etc.). Set the RTMP output to Zabber's ingest URL and paste the stream key. The encoder doesn't need to know anything about translation — it just sends a stream, and Zabber handles the rest.</p>
+<p>Everything above applies equally to hardware encoders (Teradek, LiveU, Blackmagic Web Presenter, etc.). Set the RTMP output to Jabber's ingest URL and paste the stream key. The encoder doesn't need to know anything about translation — it just sends a stream, and Jabber handles the rest.</p>
     `
   },
   {
@@ -114,7 +114,7 @@ export const posts = [
     excerpt: 'A 5-second translation delay feels like nothing on paper. In practice, it breaks the live experience entirely. Here\'s the engineering behind low-latency translation and why 2 seconds is the magic threshold.',
     category: 'Technology',
     date: '2026-05-14',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '7 min read',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
@@ -138,8 +138,8 @@ export const posts = [
 <p>Beyond 2–3 seconds, the brain can no longer maintain that synchronisation. The translated audio begins competing with the original instead of replacing it. Viewers lose the thread. By 5 seconds, the experience is essentially broken — you're hearing the translation of a joke while the speaker is delivering a serious point.</p>
 <p>This is why sub-2-second latency is not a marketing claim — it's the minimum viable spec for live translation to actually work.</p>
 
-<h2>How Zabber achieves it</h2>
-<p>Several architectural choices combine to keep Zabber's end-to-end latency under 2 seconds consistently:</p>
+<h2>How Jabber achieves it</h2>
+<p>Several architectural choices combine to keep Jabber's end-to-end latency under 2 seconds consistently:</p>
 <ul>
   <li><strong>Streaming ASR:</strong> We don't wait for sentence boundaries. Audio is processed in overlapping 200ms windows, with interim transcripts updated in real time as confidence improves.</li>
   <li><strong>Parallel language processing:</strong> Translation into all enabled languages happens simultaneously on separate GPU workers, not sequentially. Adding a 10th language adds zero latency compared to a single language.</li>
@@ -148,12 +148,12 @@ export const posts = [
 </ul>
 
 <h2>What affects your latency in practice</h2>
-<p>Zabber's infrastructure handles most of it, but a few factors on your end matter:</p>
+<p>Jabber's infrastructure handles most of it, but a few factors on your end matter:</p>
 <ul>
   <li><strong>Encoder latency settings:</strong> OBS and most encoders have a "latency" preset in advanced output settings. Set it to "Low Latency" or "Zero Latency" for live events.</li>
   <li><strong>Keyframe interval:</strong> Set to 2 seconds in OBS output settings. This is the standard for RTMP live streaming.</li>
   <li><strong>Audio quality:</strong> Poor audio (background noise, clipping, reverb) forces the ASR model to work harder, increasing per-chunk processing time. Clean audio = lower latency.</li>
-  <li><strong>Viewer network:</strong> WebSocket delivery is fast, but a viewer on a 2G mobile connection will add their own latency. This is outside Zabber's control.</li>
+  <li><strong>Viewer network:</strong> WebSocket delivery is fast, but a viewer on a 2G mobile connection will add their own latency. This is outside Jabber's control.</li>
 </ul>
     `
   },
@@ -163,7 +163,7 @@ export const posts = [
     excerpt: 'From a 400-person fintech conference to a Sunday worship service reaching diaspora communities on three continents — here are five real event types that have been transformed by real-time translation.',
     category: 'Events',
     date: '2026-05-10',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
@@ -197,11 +197,11 @@ export const posts = [
   },
   {
     slug: 'jabber-vs-traditional-interpretation',
-    title: 'Zabber vs. Traditional Interpretation: An Honest Comparison for Event Organisers',
+    title: 'Jabber vs. Traditional Interpretation: An Honest Comparison for Event Organisers',
     excerpt: 'We lay out exactly where AI translation wins, where human interpreters still have an edge, and how to decide which approach is right for your next event. No spin — just the comparison you need.',
     category: 'Industry',
     date: '2026-05-06',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '8 min read',
     image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
@@ -213,43 +213,43 @@ export const posts = [
 
 <h3>1. Cost</h3>
 <p><strong>Traditional:</strong> $4,000–$50,000+ per event depending on language pairs, duration, and interpreter availability. Costs scale linearly with languages and days.</p>
-<p><strong>Zabber:</strong> Free to $299/month. A full-day event with 10 languages on the Pro plan costs a small fraction of a single interpreter team. Costs don't scale with language count.</p>
-<p><strong>Winner: Zabber</strong> — by a wide margin for most events.</p>
+<p><strong>Jabber:</strong> Free to $299/month. A full-day event with 10 languages on the Pro plan costs a small fraction of a single interpreter team. Costs don't scale with language count.</p>
+<p><strong>Winner: Jabber</strong> — by a wide margin for most events.</p>
 
 <h3>2. Setup time</h3>
 <p><strong>Traditional:</strong> Weeks of advance booking required. Qualified interpreters for technical or niche subject matter may need 4–8 weeks' notice. Equipment rental requires logistics coordination.</p>
-<p><strong>Zabber:</strong> 10 minutes from account creation to live event. No advance booking. No equipment delivery.</p>
-<p><strong>Winner: Zabber</strong></p>
+<p><strong>Jabber:</strong> 10 minutes from account creation to live event. No advance booking. No equipment delivery.</p>
+<p><strong>Winner: Jabber</strong></p>
 
 <h3>3. Language coverage</h3>
 <p><strong>Traditional:</strong> Typically 1–3 languages per event due to cost. Each additional language pair multiplies staffing and equipment requirements.</p>
-<p><strong>Zabber:</strong> 10+ languages simultaneously at no additional cost per language. All languages translate in parallel.</p>
-<p><strong>Winner: Zabber</strong></p>
+<p><strong>Jabber:</strong> 10+ languages simultaneously at no additional cost per language. All languages translate in parallel.</p>
+<p><strong>Winner: Jabber</strong></p>
 
 <h3>4. Translation quality</h3>
 <p><strong>Traditional:</strong> Excellent for common language pairs (e.g., English ↔ French, Spanish, German) with experienced interpreters. The best interpreters capture tone, nuance, and cultural context in a way AI cannot yet fully replicate.</p>
-<p><strong>Zabber:</strong> Very good for standard conference content in common language pairs. Accuracy is high for factual, presentational content. Nuance, humor, and cultural references are handled well but not perfectly. Quality is consistent — no fatigue, no bad days.</p>
-<p><strong>Winner: Human interpreters</strong> — for events where nuance is critical. <strong>Zabber</strong> — for most conference, corporate, and broadcast content where accuracy and consistency matter more than interpretive subtlety.</p>
+<p><strong>Jabber:</strong> Very good for standard conference content in common language pairs. Accuracy is high for factual, presentational content. Nuance, humor, and cultural references are handled well but not perfectly. Quality is consistent — no fatigue, no bad days.</p>
+<p><strong>Winner: Human interpreters</strong> — for events where nuance is critical. <strong>Jabber</strong> — for most conference, corporate, and broadcast content where accuracy and consistency matter more than interpretive subtlety.</p>
 
 <h3>5. Scalability</h3>
 <p><strong>Traditional:</strong> Does not scale to remote audiences. Serves only physically present attendees with receivers. Online simulcast gets no translation.</p>
-<p><strong>Zabber:</strong> Scales to unlimited concurrent viewers globally. In-person and remote audiences receive identical translation quality via the viewer link.</p>
-<p><strong>Winner: Zabber</strong></p>
+<p><strong>Jabber:</strong> Scales to unlimited concurrent viewers globally. In-person and remote audiences receive identical translation quality via the viewer link.</p>
+<p><strong>Winner: Jabber</strong></p>
 
 <h3>6. Reliability</h3>
 <p><strong>Traditional:</strong> Human. Subject to illness, travel delays, and the fatigue that comes from sustained high-concentration work. Most interpretation contracts include backup provisions, but last-minute interpreter replacement is common.</p>
-<p><strong>Zabber:</strong> Cloud infrastructure with redundancy. No single point of failure. Consistent quality throughout an event regardless of duration.</p>
-<p><strong>Winner: Zabber</strong> — for consistency. Human interpreters can sometimes outperform their average in high-stakes moments; they can also underperform.</p>
+<p><strong>Jabber:</strong> Cloud infrastructure with redundancy. No single point of failure. Consistent quality throughout an event regardless of duration.</p>
+<p><strong>Winner: Jabber</strong> — for consistency. Human interpreters can sometimes outperform their average in high-stakes moments; they can also underperform.</p>
 
 <h3>7. Specialized content</h3>
 <p><strong>Traditional:</strong> Subject-matter-expert interpreters exist for legal, medical, and scientific domains. They understand the vocabulary and context in ways that require genuine expertise.</p>
-<p><strong>Zabber:</strong> Neural models have been trained on large corpora including technical content, and performance on most technical vocabulary is strong. But for highly specialized legal or medical proceedings where a mistranslation has real consequences, human specialists remain the safer choice.</p>
+<p><strong>Jabber:</strong> Neural models have been trained on large corpora including technical content, and performance on most technical vocabulary is strong. But for highly specialized legal or medical proceedings where a mistranslation has real consequences, human specialists remain the safer choice.</p>
 <p><strong>Winner: Human interpreters</strong> — for specialized high-stakes content.</p>
 
 <h2>Our honest recommendation</h2>
-<p>Use Zabber for: conferences, corporate events, webinars, sports broadcasts, religious services, product launches, town halls, educational content, and any event where reaching a global audience matters more than absolute interpretive perfection.</p>
+<p>Use Jabber for: conferences, corporate events, webinars, sports broadcasts, religious services, product launches, town halls, educational content, and any event where reaching a global audience matters more than absolute interpretive perfection.</p>
 <p>Use professional human interpreters for: legal proceedings, medical consultations, diplomatic negotiations, sensitive multi-party negotiations, and any context where a translation error carries legal, medical, or political consequences.</p>
-<p>The good news: for 95% of live events, Zabber's quality is more than sufficient — and the cost, speed, and scale advantages are decisive.</p>
+<p>The good news: for 95% of live events, Jabber's quality is more than sufficient — and the cost, speed, and scale advantages are decisive.</p>
     `
   },
   {
@@ -258,7 +258,7 @@ export const posts = [
     excerpt: 'Language has been a barrier to global participation in live events for as long as live events have existed. That barrier is disappearing. Here\'s what the world looks like when it\'s gone.',
     category: 'Industry',
     date: '2026-05-01',
-    author: 'Zabber Team',
+    author: 'Jabber Team',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop&auto=format&q=80',
     content: `
