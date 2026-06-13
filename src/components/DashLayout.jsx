@@ -58,7 +58,7 @@ export default function DashLayout({ title, children }) {
 
       <aside className="dash-side">
         <div className="dash-brand">
-          <Link to="/" className="dash-brand-logo"><img src="/logo.png" alt="Jabber" /></Link>
+          <Link to="/" className="dash-brand-logo"><img src="/logo-mark.png" alt="Jabber" /></Link>
           <span className="dash-brand-badge">Console</span>
         </div>
         <nav className="dash-nav">
