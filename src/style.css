@@ -3470,3 +3470,45 @@ ul { list-style: none; }
     .dash-eventgrid, .dash-recgrid, .dash-langgrid, .dash-statline { grid-template-columns: 1fr; }
     .dash-form { grid-template-columns: 1fr; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   ADMIN re-skin → Jabber theme (CSS-only; functionality untouched)
+   Light glass sidebar, blue/amber accents, serif numerals, ink pills.
+   ════════════════════════════════════════════════════════════════════════════ */
+.adm-layout {
+    background:
+        radial-gradient(60% 50% at 100% 0%, rgba(21,93,252,0.06) 0%, transparent 60%),
+        radial-gradient(50% 50% at 0% 100%, rgba(233,162,59,0.06) 0%, transparent 60%),
+        #fbfbfa;
+    color: var(--ink);
+}
+.adm-sidebar { background: rgba(255,255,255,0.72); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-right: 1px solid var(--slate-200); }
+.adm-sidebar-logo { border-bottom-color: var(--slate-200); }
+.adm-sidebar-badge { background: var(--indigo-50); color: var(--indigo-600); }
+.adm-nav-label { color: var(--slate-400); }
+.adm-nav-item { color: var(--slate-600); border-radius: 11px; }
+.adm-nav-item:hover { background: var(--slate-100); color: var(--ink); }
+.adm-nav-item.active { background: var(--ink); color: #fff; }
+.adm-nav-soon { background: var(--slate-100); color: var(--slate-400); }
+.adm-sidebar-footer { border-top-color: var(--slate-200); }
+
+.adm-page-title { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.03em; color: var(--ink); }
+.adm-kpi, .adm-card, .adm-stat-card, .adm-tkpi { border-radius: 18px; border-color: var(--slate-200); }
+.adm-kpi-value, .adm-stat-val, .adm-tkpi-val { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.03em; }
+
+.adm-search:focus { border-color: var(--ink); background: #fff; }
+.adm-filter-pill:hover { border-color: var(--slate-300); color: var(--ink); }
+.adm-filter-pill.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.adm-btn-outline:hover, .adm-btn-mini:hover { border-color: var(--ink); color: var(--ink); }
+.adm-badge-note { color: var(--indigo-700); background: var(--indigo-50); }
+.adm-ph-link { color: var(--indigo-600); }
+.adm-ph-link:hover { background: var(--indigo-50); border-color: var(--indigo-200); }
+.adm-funnel-bar { background: linear-gradient(90deg, #155dfc, #e9a23b); }
+.adm-funnel-pct { color: var(--indigo-600); }
+.adm-bar { background: linear-gradient(180deg, #5b8dfb, #155dfc); }
+
+.adm-login-bg { background: radial-gradient(130% 110% at 18% 0%, #eef3ff 0%, #fdf4ea 55%, #fff 100%); }
+.adm-login-card { border-radius: 22px; border: 1px solid var(--slate-200); box-shadow: var(--shadow-xl); }
+.adm-loading { background: #fbfbfa; }
+.adm-loading-inner p { color: var(--slate-500); }
+.adm-loading-spinner { border-color: var(--slate-200); border-top-color: var(--indigo-600); }
