@@ -3512,3 +3512,41 @@ ul { list-style: none; }
 .adm-loading { background: #fbfbfa; }
 .adm-loading-inner p { color: var(--slate-500); }
 .adm-loading-spinner { border-color: var(--slate-200); border-top-color: var(--indigo-600); }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   QA FIXES — mobile optimisation, header, alignment, spacing
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Eyebrow labels must never stretch full-width (fixes pricing tier bar) */
+.section-tag, .int-tag, .uc-tag, .tech-tag, .blog-cat-pill, .pricing-tier, .hh-eyebrow { display: inline-block; }
+
+/* Announcement bar: keep to one line so the fixed header height stays correct */
+.nav-announce { white-space: nowrap; }
+.nav-announce > span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.nav-announce > a { flex-shrink: 0; }
+
+/* Dashboard: allow grid/flex children to shrink → no horizontal overflow on mobile */
+.dash-main, .dash-scroll, .dash-col, .dash-grid, .dash-settings, .dash-setmain,
+.dash-settabs, .dash-form, .dash-field, .dash-kpi, .dash-card, .dash-langgrid,
+.dash-eventgrid, .dash-recgrid, .dash-statline, .dash-transcript { min-width: 0; }
+.dash-input { min-width: 0; max-width: 100%; }
+
+/* Dashboard tables scroll inside their card on small screens (stay readable) */
+@media (max-width: 860px) {
+  .dash-card { overflow-x: auto; }
+  .dash-table { min-width: 440px; }
+  .dash-settabs { flex-direction: row; flex-wrap: wrap; position: static; top: auto; }
+}
+
+/* Dashboard page-header spacing */
+.dash-pagehead { margin-bottom: 6px; }
+.dash-pagetitle { margin: 12px 0 6px; }
+.dash-pagesub { line-height: 1.55; }
+
+/* Marketing page-hero spacing polish (title ↔ body) */
+.page-hero h1 { margin-bottom: 14px; }
+.page-hero p { max-width: 34ch; margin-left: auto; margin-right: auto; }
+@media (max-width: 600px) {
+  .page-hero { padding-top: calc(var(--nav-h) + 28px); padding-bottom: 40px; }
+  .page-hero p { max-width: 100%; }
+}
