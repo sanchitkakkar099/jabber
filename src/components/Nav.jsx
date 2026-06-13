@@ -12,15 +12,18 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close menu on route change
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
   return (
     <>
-      <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
+      <header id="navbar" className={scrolled ? 'scrolled' : ''}>
+        <div className="nav-announce">
+          <span>Jabber now delivers live AI translation in 50+ languages.</span>
+          <Link to="/about">Read more →</Link>
+        </div>
         <div className="container nav-container">
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Zabber" className="nav-logo-img" />
+            <img src="/logo.png" alt="Jabber" className="nav-logo-img" />
           </Link>
           <ul className="nav-menu">
             <li><Link to="/features">Features</Link></li>
@@ -28,8 +31,8 @@ export default function Nav() {
             <li><Link to="/pricing">Pricing</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/login" className="btn btn-ghost btn-sm">Log In</Link></li>
-            <li><Link to="/signup" className="btn btn-primary btn-sm">Get Early Access</Link></li>
+            <li><Link to="/login">Sign in</Link></li>
+            <li><Link to="/signup" className="btn btn-primary btn-sm">Get started</Link></li>
           </ul>
           <button
             className={`hamburger${menuOpen ? ' active' : ''}`}
@@ -39,7 +42,7 @@ export default function Nav() {
             <span /><span /><span />
           </button>
         </div>
-      </nav>
+      </header>
 
       <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
         <Link to="/features" onClick={() => setMenuOpen(false)}>Features</Link>
@@ -48,8 +51,8 @@ export default function Nav() {
         <Link to="/pricing" onClick={() => setMenuOpen(false)}>Pricing</Link>
         <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
         <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
-        <Link to="/login" onClick={() => setMenuOpen(false)}>Log In</Link>
-        <Link to="/signup" className="btn btn-primary" onClick={() => setMenuOpen(false)}>Get Early Access</Link>
+        <Link to="/login" onClick={() => setMenuOpen(false)}>Sign in</Link>
+        <Link to="/signup" className="btn btn-primary" onClick={() => setMenuOpen(false)}>Get started</Link>
       </div>
     </>
   )

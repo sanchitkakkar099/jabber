@@ -14,7 +14,7 @@ const features = [
   { color:'fi-orange', title:'Viewer Language Control', desc:'Each viewer picks their preferred language via browser or app. They receive synchronised captions and audio — personalised, in real-time. Language can be changed mid-session with zero interruption.' },
   { color:'fi-blue', title:'Organiser Dashboard', desc:'Real-time event analytics, viewer counts per language, latency monitoring, and translation quality scores. Manage live events, configure languages, and view billing — all in one place.' },
   { color:'fi-violet', title:'Enterprise Security', desc:'End-to-end encrypted audio streams. SOC 2 Type II compliant infrastructure. Optional PII redaction in transcripts. GDPR-ready data handling with configurable data residency options.' },
-  { color:'fi-green', title:'Developer API', desc:'Fully documented REST and WebSocket APIs. Webhook support for stream events. SDKs for Web, iOS, and Android. Embed Zabber directly into your own event platform or app in minutes.' },
+  { color:'fi-green', title:'Developer API', desc:'Fully documented REST and WebSocket APIs. Webhook support for stream events. SDKs for Web, iOS, and Android. Embed Jabber directly into your own event platform or app in minutes.' },
 ]
 
 export default function Features() {
@@ -35,13 +35,13 @@ export default function Features() {
     <>
       <SEO
         title="Features — Real-Time Transcription, Translation & Voice Synthesis"
-        description="Zabber's full feature set: AI speech transcription (<500ms), parallel translation into 10+ languages, neural voice synthesis, edge WebSocket delivery, auto scale to zero, and a full developer API."
+        description="Jabber's full feature set: AI speech transcription (<500ms), parallel translation into 10+ languages, neural voice synthesis, edge WebSocket delivery, auto scale to zero, and a full developer API."
         canonical="/features"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: 'Zabber Features',
-          description: 'Complete list of Zabber real-time translation platform features',
+          name: 'Jabber Features',
+          description: 'Complete list of Jabber real-time translation platform features',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Real-Time Transcription', description: 'AI speech-to-text with automatic language detection and <500ms delay' },
             { '@type': 'ListItem', position: 2, name: 'Parallel Translation', description: 'Simultaneous translation into 10+ languages with zero sequential delay' },
@@ -96,7 +96,7 @@ export default function Features() {
             <div className="tech-left reveal">
               <div className="section-tag-wrap" style={{ justifyContent:'flex-start' }}><span className="section-tag">Infrastructure</span></div>
               <h2 className="section-title" style={{ textAlign:'left', maxWidth:420, marginBottom:16 }}>Enterprise infrastructure, built for real-time scale</h2>
-              <p className="tech-intro">Serverless by design — Zabber runs on purpose-built enterprise infrastructure optimised for ultra-low-latency audio processing, real-time translation, and global edge delivery.</p>
+              <p className="tech-intro">Serverless by design — Jabber runs on purpose-built enterprise infrastructure optimised for ultra-low-latency audio processing, real-time translation, and global edge delivery.</p>
               <ul className="tech-list">
                 {[['Live Ingest Layer','High-throughput stream ingestion at any scale'],['AI Transcription','Real-time speech-to-text with automatic language detection'],['Neural Translation','Parallel multi-language translation in milliseconds'],['Voice Synthesis','Natural-sounding audio in every supported language'],['Edge Delivery Network','Global WebSocket delivery to millions of simultaneous viewers']].map(([b,d]) => (
                   <li key={b}><span className="tl-badge">{b}</span><span className="tl-desc">{d}</span></li>
