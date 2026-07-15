@@ -43,7 +43,7 @@ function exportTicketCSV(tickets) {
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n')
   const a = document.createElement('a')
   a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv' }))
-  a.download = 'jabber-tickets.csv'
+  a.download = 'yadia-tickets.csv'
   a.click()
 }
 

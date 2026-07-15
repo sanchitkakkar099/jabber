@@ -27,7 +27,7 @@ export default function Contact() {
     <>
       <SEO
         title="Contact — Get Support, Enterprise Pricing & Partnerships"
-        description="Get in touch with the Jabber team for support, enterprise pricing, API partnerships, or press enquiries. We reply within one business day."
+        description="Get in touch with the Yadia team for support, enterprise pricing, API partnerships, or press enquiries. We reply within one business day."
         canonical="/contact"
       />
       <section className="page-hero">
@@ -43,10 +43,10 @@ export default function Contact() {
           <div className="contact-inner">
             <div className="contact-info-col reveal">
               <h3>We'd love to hear from you</h3>
-              <p>Whether you're planning your first multilingual event or evaluating Jabber for enterprise deployment, we're happy to answer questions, offer a demo, or help you get set up.</p>
+              <p>Whether you're planning your first multilingual event or evaluating Yadia for enterprise deployment, we're happy to answer questions, offer a demo, or help you get set up.</p>
               <div className="contact-detail">
                 <div className="cd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-                <span>hello@jabber.ai</span>
+                <span>hello@yadia.ai</span>
               </div>
               <div className="contact-detail">
                 <div className="cd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>

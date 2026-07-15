@@ -10,26 +10,26 @@ const HOME_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    { '@type': 'Question', name: 'How long does it take to set up?', acceptedAnswer: { '@type': 'Answer', text: 'Point your OBS or RTMP encoder at your Jabber stream key and you are live in under 10 minutes. No plugins, no dedicated hardware, no interpreters to schedule.' } },
-    { '@type': 'Question', name: 'What languages does Jabber support?', acceptedAnswer: { '@type': 'Answer', text: 'Jabber runs in 50+ languages including English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean and more, with new languages added continuously.' } },
+    { '@type': 'Question', name: 'How long does it take to set up?', acceptedAnswer: { '@type': 'Answer', text: 'Point your OBS or RTMP encoder at your Yadia stream key and you are live in under 10 minutes. No plugins, no dedicated hardware, no interpreters to schedule.' } },
+    { '@type': 'Question', name: 'What languages does Yadia support?', acceptedAnswer: { '@type': 'Answer', text: 'Yadia runs in 50+ languages including English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean and more, with new languages added continuously.' } },
     { '@type': 'Question', name: 'What is the translation latency?', acceptedAnswer: { '@type': 'Answer', text: 'Under 2 seconds end-to-end — from speech input to translated captions and audio reaching your viewers. Transcription alone is under 500ms.' } },
-    { '@type': 'Question', name: 'Does it work with OBS?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Jabber stream key.' } },
+    { '@type': 'Question', name: 'Does it work with OBS?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Yadia works with any RTMP-compatible encoder — OBS Studio, vMix, Wirecast, or hardware encoders. Just point your RTMP output at your Yadia stream key.' } },
   ],
 }
 
 const TESTIMONIALS = [
   { quote: 'We ran our global summit in nine languages with zero interpreter booths. Attendees just picked their language and everything was captioned and voiced in real time.', name: 'Maya Okonkwo', role: 'Head of Events at SummitLive' },
-  { quote: 'Jabber lets our broadcast reach markets we could never staff for. Latency is genuinely under two seconds — our audience doesn’t even notice it’s machine translation.', name: 'Daniel Vasquez', role: 'Production Lead at Orbit Media' },
-  { quote: 'Setup took an afternoon. We pointed OBS at Jabber and our town halls are now understood by every employee, everywhere, in their own language.', name: 'Anette Lindqvist', role: 'Comms Director at Vexa' },
+  { quote: 'Yadia lets our broadcast reach markets we could never staff for. Latency is genuinely under two seconds — our audience doesn’t even notice it’s machine translation.', name: 'Daniel Vasquez', role: 'Production Lead at Orbit Media' },
+  { quote: 'Setup took an afternoon. We pointed OBS at Yadia and our town halls are now understood by every employee, everywhere, in their own language.', name: 'Anette Lindqvist', role: 'Comms Director at Vexa' },
 ]
 
 const FAQS = [
-  { q: 'How long does it take to set up?', a: 'Point your OBS or RTMP encoder at your Jabber stream key and you are live in under 10 minutes. No plugins, no dedicated hardware, and no interpreters to schedule.' },
-  { q: 'What languages does Jabber support?', a: '50+ languages at launch including English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish and Swedish — with more added continuously.' },
+  { q: 'How long does it take to set up?', a: 'Point your OBS or RTMP encoder at your Yadia stream key and you are live in under 10 minutes. No plugins, no dedicated hardware, and no interpreters to schedule.' },
+  { q: 'What languages does Yadia support?', a: '50+ languages at launch including English, Spanish, French, German, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, Italian, Russian, Dutch, Turkish and Swedish — with more added continuously.' },
   { q: 'How low is the latency?', a: 'Under 2 seconds end-to-end — from speech input to translated captions and audio reaching your viewers. AI transcription alone is under 500ms.' },
   { q: 'How are translations personalised per viewer?', a: 'Each viewer chooses their own language in the browser or app and instantly receives synchronised captions and native-sounding audio for that language.' },
   { q: 'What analytics are available?', a: 'You get live viewer counts by language, engagement and drop-off, full transcripts in every language, and exportable session reports.' },
-  { q: 'Does it work with my existing stream?', a: 'Yes. Jabber accepts any RTMP source — OBS Studio, vMix, Wirecast, or hardware encoders — and fans out translation without changing your production setup.' },
+  { q: 'Does it work with my existing stream?', a: 'Yes. Yadia accepts any RTMP source — OBS Studio, vMix, Wirecast, or hardware encoders — and fans out translation without changing your production setup.' },
 ]
 
 const LOGOS = ['SummitLive', 'Orbit', 'Vexa', 'Lumen', 'NovaConf']
@@ -59,7 +59,7 @@ export default function Home() {
     <main className="hh">
       <SEO
         canonical="/"
-        description="Jabber gives every viewer a translator. Real-time AI transcription, translation and voice for live events — in 50+ languages, under 2-second latency. No interpreters, no hardware."
+        description="Yadia gives every viewer a translator. Real-time AI transcription, translation and voice for live events — in 50+ languages, under 2-second latency. No interpreters, no hardware."
         schema={HOME_SCHEMA}
       />
 
@@ -92,7 +92,7 @@ export default function Home() {
             <div className="hh-stat-label">end-to-end translation latency</div>
           </div>
           <div className="hh-quote-block reveal">
-            <p>“Our audience finally hears every session in their own language, instantly. Jabber replaced an entire booth of interpreters for our international conference.”</p>
+            <p>“Our audience finally hears every session in their own language, instantly. Yadia replaced an entire booth of interpreters for our international conference.”</p>
             <div className="hh-author">
               <span className="hh-avatar" />
               <div>
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="hh-demo-panel">
           <div className="hh-demo-inner reveal">
             <span className="hh-eyebrow">Live demo</span>
-            <h2 className="hh-h2">See Jabber in action</h2>
+            <h2 className="hh-h2">See Yadia in action</h2>
             <p className="hh-lede">Watch one stream become every language, in real time.</p>
             <Link to="/how-it-works" className="btn btn-primary"><PillIcon /> Start demo</Link>
           </div>
@@ -120,7 +120,7 @@ export default function Home() {
       <section className="hh-wrap hh-section">
         <div className="hh-sechead reveal">
           <h2 className="hh-h2">Translation across your entire broadcast</h2>
-          <p className="hh-lede">Every live event has a language barrier. Jabber removes it — from the moment someone starts speaking to the moment a viewer hears it in their own tongue.</p>
+          <p className="hh-lede">Every live event has a language barrier. Yadia removes it — from the moment someone starts speaking to the moment a viewer hears it in their own tongue.</p>
         </div>
 
         {/* Q&A / transcription */}
@@ -188,9 +188,9 @@ export default function Home() {
       <section className="hh-wrap hh-steps">
         <div className="hh-sechead reveal"><h2 className="hh-h2">Go live in minutes</h2></div>
         {[
-          { n: '1.', t: 'Point your OBS or RTMP encoder at your Jabber stream key', v: 'Stream key · rtmp://live.jabber.io' },
-          { n: '2.', t: 'Jabber spins up the pipeline — transcribe, translate, synthesise', v: 'Pipeline: Ingest → AI Core → Edge' },
-          { n: '3.', t: 'Viewers open a link and pick their language', v: 'jabber.live/e/global-summit' },
+          { n: '1.', t: 'Point your OBS or RTMP encoder at your Yadia stream key', v: 'Stream key · rtmp://live.yadia.ai' },
+          { n: '2.', t: 'Yadia spins up the pipeline — transcribe, translate, synthesise', v: 'Pipeline: Ingest → AI Core → Edge' },
+          { n: '3.', t: 'Viewers open a link and pick their language', v: 'yadia.ai/e/global-summit' },
         ].map(s => (
           <div className="hh-step" key={s.n}>
             <div className="reveal">
@@ -209,7 +209,7 @@ export default function Home() {
       {/* STATEMENT */}
       <section className="hh-wrap hh-statement reveal">
         <h2 className="hh-h2">Scale every event globally without hiring interpreters</h2>
-        <p>Give every viewer a seat in their own language. Jabber is always on — and when a human touch is needed, you’ll know.</p>
+        <p>Give every viewer a seat in their own language. Yadia is always on — and when a human touch is needed, you’ll know.</p>
       </section>
 
       {/* CREATE / TRY */}

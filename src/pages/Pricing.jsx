@@ -22,16 +22,16 @@ export default function Pricing() {
     <>
       <SEO
         title="Pricing — Free Starter, Pro & Enterprise Plans"
-        description="Jabber pricing: free Starter plan (no credit card), Pro at $299/month, and Enterprise with custom pricing. Pay only when you're live — $0 idle cost."
+        description="Yadia pricing: free Starter plan (no credit card), Pro at $299/month, and Enterprise with custom pricing. Pay only when you're live — $0 idle cost."
         canonical="/pricing"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: [
-            { '@type': 'Question', name: 'Does Jabber have a free plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' } },
+            { '@type': 'Question', name: 'Does Yadia have a free plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every new account gets $100 worth of free credits — enough to run 1 event for 1 hour with up to 100 viewers in 2 languages. No credit card required.' } },
             { '@type': 'Question', name: 'How much does the Pro plan cost?', acceptedAnswer: { '@type': 'Answer', text: 'The Pro plan costs $299 per month and includes up to 5,000 concurrent viewers, 10+ languages per event, unlimited streaming hours, custom branding, and full API access.' } },
-            { '@type': 'Question', name: 'How does Jabber billing work?', acceptedAnswer: { '@type': 'Answer', text: 'Jabber charges per minute of active streaming. There is $0 idle cost — you only pay when your event is live. No reserved capacity, no wasted spend.' } },
-            { '@type': 'Question', name: 'Is there an Enterprise plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Jabber Enterprise offers unlimited concurrent viewers, unlimited languages, a dedicated SLA, custom voice models, on-premise deployment options, and 24/7 priority support. Contact Jabber for custom pricing.' } }
+            { '@type': 'Question', name: 'How does Yadia billing work?', acceptedAnswer: { '@type': 'Answer', text: 'Yadia charges per minute of active streaming. There is $0 idle cost — you only pay when your event is live. No reserved capacity, no wasted spend.' } },
+            { '@type': 'Question', name: 'Is there an Enterprise plan?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Yadia Enterprise offers unlimited concurrent viewers, unlimited languages, a dedicated SLA, custom voice models, on-premise deployment options, and 24/7 priority support. Contact Yadia for custom pricing.' } }
           ]
         }}
       />
