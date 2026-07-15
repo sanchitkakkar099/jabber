@@ -34,7 +34,7 @@ export default function Settings() {
             <h3 className="dash-card-title">Stream</h3>
             <div className="dash-form">
               <div className="dash-field dash-field-full"><label>Ingest URL</label>
-                <div className="dash-copyrow"><input className="dash-input" readOnly value="rtmp://ingest.jabber.live/live" /><button className="dash-copy-btn"><Icon name="copy" /></button></div>
+                <div className="dash-copyrow"><input className="dash-input" readOnly value="rtmp://ingest.yadia.ai/live" /><button className="dash-copy-btn"><Icon name="copy" /></button></div>
               </div>
               <div className="dash-field dash-field-full"><label>Stream key</label>
                 <div className="dash-copyrow"><input className="dash-input" readOnly value="jb_sk_••••••••••••••••7d2e" /><button className="dash-copy-btn"><Icon name="copy" /></button></div>

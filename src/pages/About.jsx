@@ -8,17 +8,17 @@ export default function About() {
     <>
       <SEO
         title="About — Language Shouldn't Be a Barrier to Connection"
-        description="Jabber was built to make every live event accessible in any language. Learn about our mission, team values, and why we believe real-time AI translation changes global communication."
+        description="Yadia was built to make every live event accessible in any language. Learn about our mission, team values, and why we believe real-time AI translation changes global communication."
         canonical="/about"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'AboutPage',
-          name: 'About Jabber',
-          description: 'Jabber is building infrastructure to make every live event accessible to everyone, everywhere, in their own language — instantly.',
+          name: 'About Yadia',
+          description: 'Yadia is building infrastructure to make every live event accessible to everyone, everywhere, in their own language — instantly.',
           url: 'https://jabber-production.up.railway.app/about',
           mainEntity: {
             '@type': 'Organization',
-            name: 'Jabber',
+            name: 'Yadia',
             description: 'Real-time AI translation SaaS for live events',
             url: 'https://jabber-production.up.railway.app',
             foundingDate: '2025',
@@ -28,7 +28,7 @@ export default function About() {
       />
       <section className="page-hero">
         <div className="container page-hero-inner">
-          <div className="section-tag-wrap"><span className="section-tag">About Jabber</span></div>
+          <div className="section-tag-wrap"><span className="section-tag">About Yadia</span></div>
           <h1>Language shouldn't be a barrier to connection</h1>
           <p>We're building the infrastructure to make every live event accessible to everyone, everywhere, in their own language — instantly.</p>
         </div>
@@ -40,7 +40,7 @@ export default function About() {
             <div className="mission-text reveal">
               <h2>Our mission</h2>
               <p>Every year, billions of people miss out on live events — conferences, ceremonies, broadcasts, town halls — simply because they don't speak the primary language. Traditional interpretation is expensive, logistically complex, and doesn't scale to the internet.</p>
-              <p>We built Jabber to change that. Using the latest AI for transcription, translation, and voice synthesis, we deliver real-time multilingual access to any live stream — at a fraction of the cost of traditional solutions, with none of the infrastructure overhead.</p>
+              <p>We built Yadia to change that. Using the latest AI for transcription, translation, and voice synthesis, we deliver real-time multilingual access to any live stream — at a fraction of the cost of traditional solutions, with none of the infrastructure overhead.</p>
               <p>Our goal is simple: make language a non-issue for live events, so organisers can focus on the content and viewers can focus on the experience.</p>
               <Link to="/signup" className="btn btn-primary" style={{marginTop:8}}>Join early access</Link>
             </div>
@@ -67,9 +67,9 @@ export default function About() {
             {[
               { icon:'⚡', title:'Speed is accessibility', desc:'A translation that arrives 5 seconds late might as well not exist. We obsess over latency because every millisecond matters when you\'re following a live conversation.' },
               { icon:'🌍', title:'Global by default', desc:'We design for the world, not a single market. Every feature we build is tested across languages, regions, and cultural contexts before it ships.' },
-              { icon:'🔓', title:'Accessible pricing', desc:'Language access shouldn\'t be a luxury. We price Jabber to be within reach for non-profits, educational institutions, and community organisations — not just enterprises.' },
+              { icon:'🔓', title:'Accessible pricing', desc:'Language access shouldn\'t be a luxury. We price Yadia to be within reach for non-profits, educational institutions, and community organisations — not just enterprises.' },
               { icon:'🔒', title:'Privacy by design', desc:'Live events often involve sensitive content. We build privacy protections in from the start — encrypted streams, optional PII redaction, and configurable data retention.' },
-              { icon:'🛠️', title:'Builders first', desc:'We build for the event organisers and developers who use Jabber every day. Our API is a first-class product, not an afterthought. Documentation is part of the feature.' },
+              { icon:'🛠️', title:'Builders first', desc:'We build for the event organisers and developers who use Yadia every day. Our API is a first-class product, not an afterthought. Documentation is part of the feature.' },
               { icon:'📈', title:'Honest about AI', desc:'AI translation isn\'t perfect. We show quality scores, flag uncertainty, and continuously improve our models. We won\'t oversell what the technology can do today.' },
             ].map(v => (
               <div key={v.title} className="value-card reveal">

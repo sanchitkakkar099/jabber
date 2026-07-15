@@ -37,15 +37,15 @@ export default function Blog() {
     <>
       <SEO
         title="Blog — Insights on Live Translation, AI & Global Events"
-        description="Guides, explainers, and industry insights from the Jabber team — covering real-time AI translation, live event production, and multilingual audience engagement."
+        description="Guides, explainers, and industry insights from the Yadia team — covering real-time AI translation, live event production, and multilingual audience engagement."
         canonical="/blog"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'Blog',
-          name: 'Jabber Blog',
-          description: 'Insights on live translation, AI, and global events from the Jabber team',
+          name: 'Yadia Blog',
+          description: 'Insights on live translation, AI, and global events from the Yadia team',
           url: 'https://jabber-production.up.railway.app/blog',
-          publisher: { '@type': 'Organization', name: 'Jabber', url: 'https://jabber-production.up.railway.app' }
+          publisher: { '@type': 'Organization', name: 'Yadia', url: 'https://jabber-production.up.railway.app' }
         }}
       />
 
@@ -53,7 +53,7 @@ export default function Blog() {
         <div className="container page-hero-inner">
           <div className="section-tag-wrap"><span className="section-tag">Blog</span></div>
           <h1>Insights & Guides</h1>
-          <p>Real-time translation, live event production, and the future of multilingual audiences — from the team building Jabber.</p>
+          <p>Real-time translation, live event production, and the future of multilingual audiences — from the team building Yadia.</p>
         </div>
       </section>
 
