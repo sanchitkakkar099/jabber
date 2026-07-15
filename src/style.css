@@ -1423,17 +1423,25 @@ ul { list-style: none; }
 .pricing-price-note {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    background: rgba(99,102,241,0.08);
-    color: var(--indigo-600);
-    font-size: 0.78rem;
+    gap: 7px;
+    background: rgba(21,93,252,0.06);
+    color: var(--indigo-700);
+    font-size: 0.76rem;
     font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    letter-spacing: 0.01em;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(21,93,252,0.16);
+    margin-bottom: 14px;
+    letter-spacing: 0;
 }
-.pricing-price-note::before { content: '🎁'; font-size: 0.75rem; }
+.pricing-price-note::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--indigo-600);
+    flex-shrink: 0;
+}
 .pricing-desc { font-size: 0.875rem; color: var(--slate-500); margin-bottom: 20px; line-height: 1.6; }
 .pricing-divider { border: none; border-top: 1px solid var(--slate-100); margin-bottom: 20px; }
 .pricing-features { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
@@ -2637,7 +2645,6 @@ ul { list-style: none; }
 .adm-tkpi {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-left-width: 3px;
   border-radius: 10px;
   padding: 14px 18px;
   display: flex;

@@ -139,8 +139,8 @@ export default function Pricing() {
           <h2>Start for free today</h2>
           <p>No credit card required. Go live in minutes.</p>
           <div className="page-hero-cta" style={{marginTop:0}}>
-            <Link to="/signup" className="btn btn-white btn-lg">Create free account</Link>
-            <Link to="/contact" className="btn btn-lg" style={{color:'rgba(255,255,255,0.8)',background:'rgba(255,255,255,0.1)',border:'1px solid rgba(255,255,255,0.2)',borderRadius:8}}>Talk to sales →</Link>
+            <Link to="/signup" className="btn btn-primary btn-lg">Create free account</Link>
+            <Link to="/contact" className="btn btn-ghost btn-lg" style={{border:'1px solid var(--slate-300)'}}>Talk to sales →</Link>
           </div>
         </div>
       </section>
