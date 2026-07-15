@@ -140,7 +140,7 @@ export default function Pricing() {
           <p>No credit card required. Go live in minutes.</p>
           <div className="page-hero-cta" style={{marginTop:0}}>
             <Link to="/signup" className="btn btn-primary btn-lg">Create free account</Link>
-            <Link to="/contact" className="btn btn-ghost btn-lg" style={{border:'1px solid var(--slate-300)'}}>Talk to sales →</Link>
+            <Link to="/contact" className="btn btn-lg pricing-cta-secondary">Talk to sales →</Link>
           </div>
         </div>
       </section>

@@ -3571,3 +3571,16 @@ ul { list-style: none; }
         padding-right: 20px;
     }
 }
+
+/* Pricing CTA secondary — clear white button (visible on the light CTA panel) */
+.pricing-cta-secondary {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--slate-300);
+}
+.pricing-cta-secondary:hover {
+    background: var(--slate-50);
+    border-color: var(--slate-400);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
