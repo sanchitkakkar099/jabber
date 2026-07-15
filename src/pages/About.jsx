@@ -2,6 +2,19 @@ import { Link } from 'react-router-dom'
 import useScrollReveal from '../hooks/useScrollReveal'
 import SEO from '../components/SEO'
 
+function Ico({ n }) {
+  const p = { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  const paths = {
+    bolt: <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />,
+    globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z" /></>,
+    tag: <><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z" /><circle cx="7.5" cy="7.5" r="1.2" /></>,
+    lock: <><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></>,
+    code: <path d="M8 6l-5 6 5 6M16 6l5 6-5 6" />,
+    gauge: <><path d="M4 15a8 8 0 0 1 16 0" /><path d="M12 15l3.5-3.5" /><circle cx="12" cy="15" r="1.1" /></>,
+  }
+  return <svg {...p}>{paths[n]}</svg>
+}
+
 export default function About() {
   useScrollReveal()
   return (
@@ -65,15 +78,15 @@ export default function About() {
           <p className="section-desc">These principles guide every decision we make — from product design to infrastructure choices.</p>
           <div className="values-grid">
             {[
-              { icon:'⚡', title:'Speed is accessibility', desc:'A translation that arrives 5 seconds late might as well not exist. We obsess over latency because every millisecond matters when you\'re following a live conversation.' },
-              { icon:'🌍', title:'Global by default', desc:'We design for the world, not a single market. Every feature we build is tested across languages, regions, and cultural contexts before it ships.' },
-              { icon:'🔓', title:'Accessible pricing', desc:'Language access shouldn\'t be a luxury. We price Yadia to be within reach for non-profits, educational institutions, and community organisations — not just enterprises.' },
-              { icon:'🔒', title:'Privacy by design', desc:'Live events often involve sensitive content. We build privacy protections in from the start — encrypted streams, optional PII redaction, and configurable data retention.' },
-              { icon:'🛠️', title:'Builders first', desc:'We build for the event organisers and developers who use Yadia every day. Our API is a first-class product, not an afterthought. Documentation is part of the feature.' },
-              { icon:'📈', title:'Honest about AI', desc:'AI translation isn\'t perfect. We show quality scores, flag uncertainty, and continuously improve our models. We won\'t oversell what the technology can do today.' },
+              { icon:'bolt', title:'Speed is accessibility', desc:'A translation that arrives 5 seconds late might as well not exist. We obsess over latency because every millisecond matters when you\'re following a live conversation.' },
+              { icon:'globe', title:'Global by default', desc:'We design for the world, not a single market. Every feature we build is tested across languages, regions, and cultural contexts before it ships.' },
+              { icon:'tag', title:'Accessible pricing', desc:'Language access shouldn\'t be a luxury. We price Yadia to be within reach for non-profits, educational institutions, and community organisations — not just enterprises.' },
+              { icon:'lock', title:'Privacy by design', desc:'Live events often involve sensitive content. We build privacy protections in from the start — encrypted streams, optional PII redaction, and configurable data retention.' },
+              { icon:'code', title:'Builders first', desc:'We build for the event organisers and developers who use Yadia every day. Our API is a first-class product, not an afterthought. Documentation is part of the feature.' },
+              { icon:'gauge', title:'Honest about AI', desc:'AI translation isn\'t perfect. We show quality scores, flag uncertainty, and continuously improve our models. We won\'t oversell what the technology can do today.' },
             ].map(v => (
               <div key={v.title} className="value-card reveal">
-                <div className="value-icon">{v.icon}</div>
+                <div className="value-icon"><Ico n={v.icon} /></div>
                 <h3>{v.title}</h3>
                 <p>{v.desc}</p>
               </div>
@@ -112,8 +125,8 @@ export default function About() {
           <h2>Join us in breaking language barriers</h2>
           <p>We're a small team solving a big problem. If that excites you, we'd love to talk.</p>
           <div className="page-hero-cta" style={{marginTop:0}}>
-            <Link to="/signup" className="btn btn-white btn-lg">Get early access</Link>
-            <Link to="/contact" className="btn btn-lg" style={{color:'rgba(255,255,255,0.8)',background:'rgba(255,255,255,0.1)',border:'1px solid rgba(255,255,255,0.2)',borderRadius:8}}>Contact us →</Link>
+            <Link to="/signup" className="btn btn-primary btn-lg">Get early access</Link>
+            <Link to="/contact" className="btn btn-lg pricing-cta-secondary">Contact us →</Link>
           </div>
         </div>
       </section>
