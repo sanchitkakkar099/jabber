@@ -1733,7 +1733,17 @@ ul { list-style: none; }
 .values-section { padding: 52px 0; background: var(--indigo-50); border-top: 1px solid var(--indigo-100); border-bottom: 1px solid var(--indigo-100); }
 .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .value-card { background: var(--white); border: 1px solid var(--indigo-100); border-radius: var(--radius); padding: 28px 24px; }
-.value-icon { font-size: 2rem; margin-bottom: 14px; line-height: 1; }
+.value-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(21,93,252,0.07);
+    color: var(--indigo-600);
+    margin-bottom: 18px;
+}
 .value-card h3 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 8px; }
 .value-card p { font-size: 0.875rem; color: var(--slate-600); line-height: 1.65; }
 
