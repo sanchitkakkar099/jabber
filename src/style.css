@@ -2907,13 +2907,26 @@ ul { list-style: none; }
 .pricing-cta-outline:hover { background: rgba(12,14,18,0.04); border-color: var(--slate-400); }
 
 /* ── Section eyebrow — neutral, understated ─────────────────────────────────── */
-.section-tag, .int-tag, .uc-tag, .tech-tag, .blog-cat-pill, .pricing-tier, .hh-eyebrow {
+.section-tag, .int-tag, .uc-tag, .tech-tag, .blog-cat-pill, .hh-eyebrow {
     color: var(--slate-500);
     background: var(--slate-100);
     border: 1px solid var(--slate-200);
     text-transform: none;
     letter-spacing: 0;
     font-weight: 500;
+}
+
+/* Pricing tier label — clean uppercase text, no pill/box */
+.pricing-tier {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--indigo-600);
+    margin-bottom: 10px;
 }
 
 /* ── Inner pages → white / neutral ──────────────────────────────────────────── */
