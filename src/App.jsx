@@ -25,6 +25,9 @@ import DashTranscripts from './pages/dashboard/Transcripts'
 import DashTeam from './pages/dashboard/Team'
 import DashBilling from './pages/dashboard/Billing'
 import DashSettings from './pages/dashboard/Settings'
+import Privacy from './pages/legal/Privacy'
+import Cookies from './pages/legal/Cookies'
+import ResponsibleDisclosure from './pages/legal/ResponsibleDisclosure'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -65,6 +68,9 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cookies" element={<Cookies />} />
+          <Route path="/responsible-disclosure" element={<ResponsibleDisclosure />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
