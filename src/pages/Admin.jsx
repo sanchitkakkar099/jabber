@@ -71,7 +71,7 @@ function LoginScreen({ onAuth }) {
   return (
     <div className="adm-login-bg">
       <div className={`adm-login-card${shake ? ' shake' : ''}`}>
-        <img src="/logo.png" alt="Jabber" style={{ height:64, marginBottom:24, display:'block', margin:'0 auto 24px' }} />
+        <img src="/logo.png" alt="Yadia" style={{ height:64, marginBottom:24, display:'block', margin:'0 auto 24px' }} />
         <h1 style={{ fontSize:'1.4rem', fontWeight:800, color:'#0f172a', marginBottom:6, textAlign:'center' }}>Admin Access</h1>
         <p style={{ fontSize:'0.85rem', color:'#64748b', textAlign:'center', marginBottom:28 }}>Enter your admin password to continue</p>
         <form onSubmit={attempt}>
@@ -90,7 +90,7 @@ function LoginScreen({ onAuth }) {
           </button>
         </form>
         <p style={{ textAlign:'center', marginTop:20, fontSize:'0.78rem', color:'#94a3b8' }}>
-          <Link to="/" style={{ color:'#6366f1' }}>← Back to Jabber</Link>
+          <Link to="/" style={{ color:'#6366f1' }}>← Back to Yadia</Link>
         </p>
       </div>
     </div>
@@ -116,7 +116,7 @@ function Sidebar({ active, setActive, onSignOut, counts }) {
   return (
     <aside className="adm-sidebar">
       <div className="adm-sidebar-logo">
-        <img src="/logo-mark.png" alt="Jabber" style={{ height:30, mixBlendMode:'multiply' }} />
+        <img src="/logo-mark.png" alt="Yadia" style={{ height:30, mixBlendMode:'multiply' }} />
         <span className="adm-sidebar-badge">Admin</span>
       </div>
       <div style={{ padding:'6px 16px 12px', borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
@@ -201,7 +201,7 @@ function Overview({ leads, signups, tickets }) {
       <div className="adm-section-header">
         <div>
           <h1 className="adm-page-title">Overview</h1>
-          <p className="adm-page-sub">Welcome back — here's what's happening with Jabber.</p>
+          <p className="adm-page-sub">Welcome back — here's what's happening with Yadia.</p>
         </div>
         <span className="adm-date">{new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</span>
       </div>
@@ -312,7 +312,7 @@ function LeadsSection({ leads, onStatusChange, onRefresh }) {
           <h1 className="adm-page-title">Leads</h1>
           <p className="adm-page-sub">{leads.length} total · {leads.filter(l=>l.status==='new').length} new</p>
         </div>
-        <button className="adm-btn-outline" onClick={() => exportCSV(leads, 'jabber-leads.csv')}>
+        <button className="adm-btn-outline" onClick={() => exportCSV(leads, 'yadia-leads.csv')}>
           ↓ Export CSV
         </button>
       </div>
@@ -393,7 +393,7 @@ function SignupsSection({ signups, onStatusChange, onRefresh }) {
           <h1 className="adm-page-title">Signups</h1>
           <p className="adm-page-sub">{signups.length} accounts created · all on free credits</p>
         </div>
-        <button className="adm-btn-outline" onClick={() => exportCSV(signups, 'jabber-signups.csv')}>
+        <button className="adm-btn-outline" onClick={() => exportCSV(signups, 'yadia-signups.csv')}>
           ↓ Export CSV
         </button>
       </div>
